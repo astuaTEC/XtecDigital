@@ -1,20 +1,28 @@
 <div class="container-fluid grupo">
+    <form #loginForm="ngForm" novalidate>
     <div class="row nuevaCarpeta">
-        <div class="col-12">
+        <div class="col-1 align-self-center" (click)="activarNC()">
             <img src="https://img.icons8.com/color/48/000000/add-folder.png"/>
         </div>
+        <div class="col-2 align-self-center" *ngIf="nuevaCarpetaActivado">
+            <input type="text" class="form-control nuevaCarpetaInput" name="nueva" id="nombreNuevaCarpeta"  placeholder="Nombre de la carpeta" [(ngModel)]="nuevaCarpeta.nombre">
+        </div>
+        <div class="col-1 align-self-center"  *ngIf="nuevaCarpetaActivado">
+            <button type="button" class="btn btn-success" (click)="agregarNuevaCarpeta()">agregar</button>
+        </div>
     </div>
+</form>
     <div class="row">
         <div class="col-12">
             <div class="list-group">
-                <div class="row carpeta" *ngFor="let periodo of [1,2,3,4,11,12,13,14]">
+                <div class="row carpeta" *ngFor="let carpeta of listaCarpetas" (click)="gotoArchivos(carpeta.nombre)">
                     <div class="col-1 align-self-center">
                         <img src="https://img.icons8.com/color/48/000000/opened-folder.png"/>
                     </div>
                     <div class="col-6 align-self-center">
-                        Quices
+                        {{carpeta.nombre}}
                     </div>
-                    <div class="col-5 align-self-center textoFinal">
+                    <div class="col-5 align-self-center textoFinal" (click)="eliminarCarpeta(carpeta)">
                         <img src="https://img.icons8.com/color/48/000000/trash--v2.png"/>
                     </div>
                 </div>
