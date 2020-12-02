@@ -1,0 +1,28 @@
+.archivos{
+    padding-top: 60px;
+    background: #2f4f4f; 
+}
+
+.archivo{
+    background: #2f4f4f;
+    padding-top: 20px;
+    border: 1px solid black;
+    padding-bottom: 20px;
+    color: #ffffff;
+    font-size: 18px;
+}
+.archivo:hover {
+    background: #b8860b;
+}
+
+.nuevoArchivo{
+    padding-top: 20px;  
+    padding-bottom: 20px;
+    
+}
+
+.textoFinal{
+    text-align: right;
+}
+
+

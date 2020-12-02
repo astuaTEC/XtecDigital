@@ -8,6 +8,12 @@ import { HomeProfesorComponent } from './Vistas/Profesor/home-profesor/home-prof
 import { InicioComponent } from './inicio/inicio.component';
 import { GrupoProfesorComponent } from './Vistas/Profesor/grupo-profesor/grupo-profesor.component';
 import { DocumentosProfesorComponent } from './Vistas/Profesor/documentos-profesor/documentos-profesor.component';
+import { FormsModule } from '@angular/forms';
+import { ArchivosProfesorComponent } from './Vistas/Profesor/archivos-profesor/archivos-profesor.component';
+import { VistaArchivoProfesorComponent } from './Vistas/Profesor/vista-archivo-profesor/vista-archivo-profesor.component';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
+
+
 
 @NgModule({
   declarations: [
@@ -16,11 +22,16 @@ import { DocumentosProfesorComponent } from './Vistas/Profesor/documentos-profes
     HomeProfesorComponent,
     InicioComponent,
     GrupoProfesorComponent,
-    DocumentosProfesorComponent
+    DocumentosProfesorComponent,
+    ArchivosProfesorComponent,
+    VistaArchivoProfesorComponent,
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    NgxDocViewerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
