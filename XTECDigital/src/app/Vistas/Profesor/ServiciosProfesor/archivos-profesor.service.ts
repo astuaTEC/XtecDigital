@@ -6,18 +6,10 @@ import { Archivo } from '../ModelosProfesor/archivo';
 })
 export class ArchivosProfesorService {
 
-  //Lista de todos los archivos cargados en una carpeta
-  listaArchivos: Archivo[] = [];
 
-  //archivo a desplegar
-  archivo: File;
+  //documento en base64
+  b64: any;
 
-  setListaArchivos(listaArchivos){
-    this.listaArchivos = listaArchivos;
-  }
-
-  getListaArchivos(){
-    return this.listaArchivos;
-  }
   constructor() { }
+
 }

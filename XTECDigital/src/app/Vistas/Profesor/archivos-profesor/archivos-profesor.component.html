@@ -1,24 +1,44 @@
 <div class="container-fluid archivos">
     <div class="row nuevoArchivo">
+        <div class="col-7 align-self-center" (click)="gotoDocumentos()">
+            <img src="https://img.icons8.com/officel/40/000000/circled-left-2.png"/>
+        </div>
         <div class="col-1 align-self-center" (click)="activarSeleccionarArchivo()">
             <img src="https://img.icons8.com/color/64/000000/add-property.png"/>        </div>
         <div class="col-4 align-self-center" *ngIf="seleccionarArchivo">
-            <div class="form-group">
-                <input type="file" id="file" (change)="handleFileInput($event.target.files)">
+            <div class="form-group inputFont">
+                <input type="file" id="file" (change)="agregarNuevoArchivo($event.target.files)">
             </div>
         </div>
     </div>
 
     <div class="row">
         <div class="col-12">
+            <div class="row cabecera">
+                <div class="col-5">
+                    Nombre
+                </div>
+                <div class="col-4">
+                    Fecha de modificación
+                </div>
+                <div class="col-3">
+                    Tamaño
+                </div>
+            </div>
             <div class="list-group">
-                <div class="row archivo" *ngFor="let archivo of [1,2,3,4,5,6,7,8,9,10]" (click)="gotoVisor()">
+                <div class="row archivo" *ngFor="let archivo of listaArchivos" (click)="gotoVisor(archivo.archivoBase64)">
                     <div class="col-1 align-self-center">
                         <img src="https://img.icons8.com/dusk/64/000000/pdf.png"/>                    </div>
-                    <div class="col-6 align-self-center">
-                        Nombre del archivo
+                    <div class="col-4 align-self-center">
+                        {{archivo.nombre}}
                     </div>
-                    <div class="col-5 align-self-center textoFinal">
+                    <div class="col-4 align-self-center">
+                        {{archivo.fecha}}
+                    </div>
+                    <div class="col-2 align-self-center">
+                        {{archivo.tamano}} KB
+                    </div>
+                    <div class="col-1 align-self-center textoFinal" (click)="eliminarArchivo(archivo)">
                         <img src="https://img.icons8.com/color/48/000000/trash--v2.png"/>
                     </div>
                 </div>

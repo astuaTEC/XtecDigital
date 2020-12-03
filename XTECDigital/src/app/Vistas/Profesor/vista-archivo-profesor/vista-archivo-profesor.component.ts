@@ -1,50 +1,81 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { ArchivosProfesorService } from 'src/app/Vistas/Profesor/ServiciosProfesor/archivos-profesor.service';
-import { Router, ActivatedRoute, ParamMap} from '@angular/router';
-
+import { Router, ActivatedRoute, ParamMap, } from '@angular/router';
+import WebViewer from '@pdftron/webviewer';
 
 @Component({
   selector: 'app-vista-archivo-profesor',
   templateUrl: './vista-archivo-profesor.component.html',
   styleUrls: ['./vista-archivo-profesor.component.css']
 })
-export class VistaArchivoProfesorComponent implements OnInit {
+export class VistaArchivoProfesorComponent implements AfterViewInit {
+  @ViewChild('viewer') viewerRef: ElementRef;
 
-  documento: any = null;
+  //El documento que se debe mostrar en pantalla (en Base64)
+  documento: any;
+
+  //El nuevo documento si el usuario usa el botón de guardar
+  nuevoDocumento: any;
 
   constructor(private route: ActivatedRoute, private router: Router, private archivosService: ArchivosProfesorService) { }
 
-  ngOnInit(): void {
-    const base64 = this.parsearBase64(this.archivosService.archivo);
-    this.documento = this.dostuff(base64);
-    console.log(this.documento);
+  ngAfterViewInit(): void {
+    this.documento = this.archivosService.b64;
+    WebViewer({
+      path: 'assets/lib',
+      initialDoc: this.documento
+    }, this.viewerRef.nativeElement).then(instance => {
+        instance.setTheme('dark');
+        const { docViewer, annotManager, CoreControls } = instance;
+        // Add header button that will get file data on click
+        instance.setHeaderItems(header => {
+          header.push({
+              type: 'actionButton',
+              img: 'https://img.icons8.com/ios/100/000000/save-as.png',
+              onClick: async () => {
+                const doc = docViewer.getDocument();
+                const xfdfString = await annotManager.exportAnnotations();
+                const saveOptions = CoreControls.SaveOptions;
+                const options = {
+                  xfdfString,
+                  flags: saveOptions.LINEARIZED,
+                  downloadType: 'pdf'
+                };
+                const data = await doc.getFileData(options);
+                const arr = new Uint8Array(data);
+                const blob = new Blob([arr], { type: 'application/pdf' });
+                //parsear de Blob a File
+                const nuevoFile = this.blobToFile(blob, 'nuevoArchivo');
+                //Construir el nuevo archivo en Base64
+                this.base64(nuevoFile);
+              }
+          });
+        });
+      });
   }
 
-  dostuff(b64Data){
-    const byteCharacters = atob(b64Data);
-    const byteNumbers = new Array(byteCharacters.length);
-    for (let i = 0; i < byteCharacters.length; i++) {
-      byteNumbers[i] = byteCharacters.charCodeAt(i);
-    }
-    const byteArray = new Uint8Array(byteNumbers);
-    //const blob = new Blob([byteArray], {type: 'application/pdf'});
-    //console.log(blob)
-    return byteArray
-  }
 
-  parsearBase64(file) {
-    var reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      console.log(reader.result);
-      return reader.result;
-  
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-      return error;
-    };
-  }
+  public blobToFile = (theBlob: Blob, fileName:string): File => {
+    var b: any = theBlob;
+    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+    //Cast to a File() type
+    return <File>theBlob;
+}
+
+
+base64(file:File) {
+  var reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    console.log(reader.result);
+    this.nuevoDocumento = reader.result;
+  };
+  reader.onerror = (error) => {
+    console.log('Error: ', error);
+  };
+}
  
 
 

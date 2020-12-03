@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Carpeta } from '../ModelosProfesor/carpeta';
-import { NombreCarpetaInput } from '../ModelosProfesor/nombre-carpeta-input';
 import { Router, ActivatedRoute} from '@angular/router';
 
 @Component({
@@ -14,7 +13,7 @@ export class DocumentosProfesorComponent implements OnInit {
   nuevaCarpetaActivado: boolean = false;
 
   //Nombre de la nueva carepeta -> Con ngModel
-  nuevaCarpeta: NombreCarpetaInput = new NombreCarpetaInput('');
+  nuevaCarpeta: string = '';
 
   //Lista de las carpetas que deben provenir del servidor
   listaCarpetas: Carpeta[] = [
@@ -52,12 +51,12 @@ export class DocumentosProfesorComponent implements OnInit {
   }
 
   agregarNuevaCarpeta(){
-    if(this.nuevaCarpeta.nombre != ''){
+    if(this.nuevaCarpeta != ''){
       this.listaCarpetas.push(
-        new Carpeta(this.nuevaCarpeta.nombre, false)
+        new Carpeta(this.nuevaCarpeta, false)
       );
       this.activarNC();
-      this.nuevaCarpeta.nombre = '';
+      this.nuevaCarpeta = '';
     }
   }
 

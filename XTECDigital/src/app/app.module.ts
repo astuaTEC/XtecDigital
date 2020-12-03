@@ -11,7 +11,8 @@ import { DocumentosProfesorComponent } from './Vistas/Profesor/documentos-profes
 import { FormsModule } from '@angular/forms';
 import { ArchivosProfesorComponent } from './Vistas/Profesor/archivos-profesor/archivos-profesor.component';
 import { VistaArchivoProfesorComponent } from './Vistas/Profesor/vista-archivo-profesor/vista-archivo-profesor.component';
-import { NgxDocViewerModule } from 'ngx-doc-viewer';
+import { RubrosProfesorComponent } from './Vistas/Profesor/rubros-profesor/rubros-profesor.component';
+import { EvaluacionesProfesorComponent } from './Vistas/Profesor/evaluaciones-profesor/evaluaciones-profesor.component';
 
 
 
@@ -25,13 +26,14 @@ import { NgxDocViewerModule } from 'ngx-doc-viewer';
     DocumentosProfesorComponent,
     ArchivosProfesorComponent,
     VistaArchivoProfesorComponent,
+    RubrosProfesorComponent,
+    EvaluacionesProfesorComponent,
 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
-    NgxDocViewerModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
