@@ -52,6 +52,8 @@ namespace MongoDBApi
                 }));
 
             services.AddSingleton<EstudianteRepo>();
+            services.AddSingleton<ProfesorRepo>();
+            services.AddSingleton<AdministradorRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

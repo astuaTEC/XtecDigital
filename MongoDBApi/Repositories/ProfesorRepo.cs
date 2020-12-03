@@ -1,25 +1,19 @@
 ﻿using MongoDB.Driver;
 using MongoDBApi.Models;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace MongoDBApi.Repositories
 {
-    public class EstudianteRepo
+    public class ProfesorRepo
     {
         private readonly IMongoDatabase _database;
-        private IMongoCollection<Estudiante> _estudiantes;
-        public EstudianteRepo(IMongoClient client)
+        private IMongoCollection<Profesor> _profesores;
+        public ProfesorRepo(IMongoClient client)
         {
             _database = client.GetDatabase("XtecDigitalDB");
-            _estudiantes = _database.GetCollection<Estudiante>("Estudiante");
-        }
-
-        public List<Estudiante> getEstudiantes()
-        {
-            return _estudiantes.Find(x => true).ToList();
+            _profesores = _database.GetCollection<Profesor>("Profesor");
         }
 
         public static string MD5Hash(string text)
@@ -42,16 +36,16 @@ namespace MongoDBApi.Repositories
 
             return strBuilder.ToString();
         }
-
         public bool verificarLogin(Login login)
         {
             var passwordIngresada = MD5Hash(login.password);
-            
-            var resultado = _estudiantes.Find(x => x.Carnet == login.Usuario && x.Password == passwordIngresada).FirstOrDefault();
-            
+
+            var resultado = _profesores.Find(x => x.Cedula == login.Usuario && x.Password == passwordIngresada).FirstOrDefault();
+
             if (resultado == null)
                 return false;
             return true;
         }
+
     }
 }
