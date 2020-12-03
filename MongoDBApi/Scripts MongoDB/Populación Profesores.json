@@ -1,0 +1,38 @@
+[
+    {
+        "primerNombre": "Luis",
+        "segundoNombre": "Diego",
+        "primerApellido": "Noguera",
+        "segundoApellido": "Mena",
+        "cedula": "701450456",
+        "email": "ldnoguera@gmail.com",
+        "password": "793741d54b00253006453742ad4ed534"
+    },
+    {
+        "primerNombre": "Marco",
+        "segundoNombre": "",
+        "primerApellido": "Rivera",
+        "segundoApellido": "Meneses",
+        "cedula": "308740651",
+        "email": "mrivera@gmail.com",
+        "password": "793741d54b00253006453742ad4ed534"
+    },
+    {
+        "primerNombre": "Marco",
+        "segundoNombre": "",
+        "primerApellido": "Hernández",
+        "segundoApellido": "Vásquez",
+        "cedula": "103480774",
+        "email": "marco.hernandez@gmail.com",
+        "password": "793741d54b00253006453742ad4ed534"
+    },
+    {
+        "primerNombre": "Jose",
+        "segundoNombre": "Miguel",
+        "primerApellido": "Barboza",
+        "segundoApellido": "Retana",
+        "cedula": "106540871",
+        "email": "jmbarboza@xtecdigital.com",
+        "password": "793741d54b00253006453742ad4ed534"
+    }
+]

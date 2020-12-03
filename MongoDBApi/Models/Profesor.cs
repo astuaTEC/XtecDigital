@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MongoDBApi.Models
 {
-    public class Estudiante
+    public class Profesor
     {
         [BsonId]
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
@@ -24,11 +24,8 @@ namespace MongoDBApi.Models
         [BsonElement("segundoApellido")]
         public string SegundoApellido { get; set; }
 
-        [BsonElement("carnet")]
-        public string Carnet { get; set; }
-
-        [BsonElement("telefono")]
-        public string Telefono { get; set; }
+        [BsonElement("cedula")]
+        public string Cedula { get; set; }
 
         [BsonElement("email")]
         public string Email { get; set; }

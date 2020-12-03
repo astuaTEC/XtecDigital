@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MongoDBApi.Models;
 using MongoDBApi.Repositories;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,17 @@ namespace MongoDBApi.Controllers
             if (resultado == null)
                 return BadRequest("Algo salió mal");
             return Ok(resultado);
+        }
+
+        [HttpPost]
+        [Route("api/estudiante/login")]
+        public IActionResult Login([FromBody] Login login)
+        {
+            var resultado = _repo.verificarLogin(login);
+
+            if (resultado == false)
+                return BadRequest("Carnet o contaseña incorrectos");
+            return Ok("Ha iniciado sesión como: " + login.Usuario);
         }
     }
 }
