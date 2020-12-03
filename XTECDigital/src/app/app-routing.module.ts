@@ -8,6 +8,8 @@ import { GrupoProfesorComponent } from './Vistas/Profesor/grupo-profesor/grupo-p
 import { DocumentosProfesorComponent } from './Vistas/Profesor/documentos-profesor/documentos-profesor.component';
 import { ArchivosProfesorComponent } from './Vistas/Profesor/archivos-profesor/archivos-profesor.component';
 import { VistaArchivoProfesorComponent } from './Vistas/Profesor/vista-archivo-profesor/vista-archivo-profesor.component';
+import { RubrosProfesorComponent } from './Vistas/Profesor/rubros-profesor/rubros-profesor.component';
+import { EvaluacionesProfesorComponent } from './Vistas/Profesor/evaluaciones-profesor/evaluaciones-profesor.component';
 
 const routes: Routes = [
   //RUTA INICIAL
@@ -38,7 +40,9 @@ const routes: Routes = [
     children: [
       {path: 'Documentos', component: DocumentosProfesorComponent},
       {path: 'Documentos/:nombreCarpeta', component: ArchivosProfesorComponent},
-      {path: 'Documentos/Archivos/Vista', component: VistaArchivoProfesorComponent}
+      {path: 'Documentos/Archivos/Vista', component: VistaArchivoProfesorComponent},
+      {path: 'Rubros', component: RubrosProfesorComponent},
+      {path: 'Evaluaciones', component: EvaluacionesProfesorComponent}
      ]}
 ];
 

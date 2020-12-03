@@ -1,0 +1,95 @@
+<div class="container-fluid evaluaciones">
+    <div class="list-group">
+        <div class="container-fluid" *ngFor="let contenedor of listaContenedores">
+            <div class="row rubro">
+                <div class="col-4 align-self-center">
+                    {{contenedor.nombre}}
+                </div>
+                <div class="col-2 align-self-center">
+                    {{contenedor.porcentaje}} %
+                </div>
+                <div class="col-1 align-self-center" (click)="activarAgregarEvaluacion(contenedor)">
+                    <img src="https://img.icons8.com/color/50/000000/add--v1.png"/>
+                </div>
+                <div class="col-2 align-self-center" *ngIf="contenedor.agregarActivado">
+                    <input type="text" class="form-control" [id]="contenedor.nombre" placeholder="Evaluación" [(ngModel)]="contenedor.nombreNuevaEvaluacion">
+                </div>
+                <div class="col-2 align-self-center" *ngIf="contenedor.agregarActivado">
+                    <button type="button" class="btn btn-success" (click)="agregarNuevaEvaluacion(contenedor)">agregar</button>
+                </div>
+                <div class="col-1" (click)="activarMostrarEvaluaciones(contenedor)">
+                    <img src="https://img.icons8.com/color/48/000000/menu--v1.png"/>
+                </div>
+            </div>
+            <div class="container-fluid" *ngIf="contenedor.mostrar">
+                <form #evaluacionesForm="ngForm" novalidate>
+                    <div class="container-fluid evaluacionContenedor" *ngFor="let evaluacion of contenedor.evaluaciones">
+                        <div class="row cabeceraEvalacion">
+                            <div class="col-11 align-self-center">
+                                {{evaluacion.nombre}}
+                            </div>
+                            <div class="col-1 align-self-center" (click)="eliminarEvaluacion(evaluacion)">
+                                <img src="https://img.icons8.com/color/48/000000/trash--v2.png"/>
+                            </div>
+                        </div>
+                        <div class="row cabeceraPorcentaje">
+                            <div class="col-6 align-self-center text-center porcentajeLabel">
+                                <h4>{{evaluacion.porcentaje}} %</h4>
+                            </div>
+                            <div class="col-6 align-self-center text-center">
+                                <input class="form-control" type="range" [id]="evaluacion.nombre" [name]="evaluacion.nombre" min="0" [max]="contenedor.porcentaje" [(ngModel)]="evaluacion.porcentaje">
+                            </div>
+                        </div>
+                        <div class="container-fluid cuerpoEvaluacion">
+                            <div class="row fechaHoraCabecera">
+                                <div class="col-6 text-center">
+                                    Fecha de entrega máxima
+                                </div>
+                                <div class="col-6 text-center">
+                                    Hora de entrega máxima
+                                </div>
+                            </div>
+                            <div class="row fechaHora">
+                                <div class="col-6">
+                                    <input class="form-control" type="date" [id]="evaluacion.nombre + '3'" [name]="evaluacion.nombre + '3'" [(ngModel)]="evaluacion.fechaEntrega">
+                                </div>
+                                <div class="col-6">
+                                    <input class="form-control" type="time" [id]="evaluacion.nombre + '4'" [name]="evaluacion.nombre + '4'" [(ngModel)]="evaluacion.horaEntrega">
+                                </div>
+                            </div>
+                            <div class="row especificacionCabecera">
+                                <div class="col-6 text-start text-center">
+                                    Especificación
+                                </div>
+                                <div class="col-6 text-start text-center">
+                                    Archivo cargado
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 input text-center">
+                                    <input type="file" [id]="evaluacion.nombre + '2'" (change)="agregarNuevoArchivo($event.target.files, evaluacion)">
+                                </div>
+                                <div class="col-6 text-start text-center nombreEspecificacion">
+                                    {{evaluacion.nombreEspecificacion}}
+                                </div>
+                            </div>
+                            <form >
+                                <div class="row participacionControles">
+                                    <div class="col-6 text-center">
+                                        <input type="radio" [id]="evaluacion.nombre + '5'" [name]="evaluacion.nombre + '5'" value="individual">
+                                        <label for="individual"> Individual</label>
+                                    </div>
+                                    <div class="col-6 text-center">
+                                        <input type="radio" [id]="evaluacion.nombre + '6'" [name]="evaluacion.nombre + '6'" value="grupal">
+                                        <label for="grupal"> En grupos</label>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
