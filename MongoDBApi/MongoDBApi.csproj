@@ -9,5 +9,9 @@
     <PackageReference Include="MongoDB.Driver" Version="2.11.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts MongoDB\" />
+  </ItemGroup>
+
 
 </Project>
