@@ -30,6 +30,17 @@ namespace MongoDBApi.Controllers
             return Ok(resultado);
         }
 
+        [HttpGet]
+        [Route("api/estudiantes/carnets")]
+        public IActionResult GetCarnets()
+        {
+            var resultado = _repo.getCarnets();
+
+            if (resultado == null)
+                return BadRequest("Algo salió mal");
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("api/estudiante/login")]
         public IActionResult Login([FromBody] Login login)
