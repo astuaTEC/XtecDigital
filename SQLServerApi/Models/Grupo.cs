@@ -9,9 +9,9 @@ namespace SQLServerApi.Models
     {
         public Grupo()
         {
-            Carpeta = new HashSet<Carpetum>();
+            Carpeta = new HashSet<Carpeta>();
             EstudianteGrupos = new HashSet<EstudianteGrupo>();
-            Noticia = new HashSet<Noticium>();
+            Noticia = new HashSet<Noticia>();
             ProfesorGrupos = new HashSet<ProfesorGrupo>();
             Rubros = new HashSet<Rubro>();
         }
@@ -23,9 +23,9 @@ namespace SQLServerApi.Models
 
         public virtual Curso CodigoCursoNavigation { get; set; }
         public virtual Semestre Semestre { get; set; }
-        public virtual ICollection<Carpetum> Carpeta { get; set; }
+        public virtual ICollection<Carpeta> Carpeta { get; set; }
         public virtual ICollection<EstudianteGrupo> EstudianteGrupos { get; set; }
-        public virtual ICollection<Noticium> Noticia { get; set; }
+        public virtual ICollection<Noticia> Noticia { get; set; }
         public virtual ICollection<ProfesorGrupo> ProfesorGrupos { get; set; }
         public virtual ICollection<Rubro> Rubros { get; set; }
     }

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SQLServerApi.Models
 {
-    public partial class Noticium
+    public partial class Noticia
     {
         public int Id { get; set; }
         public int NumeroGrupo { get; set; }
