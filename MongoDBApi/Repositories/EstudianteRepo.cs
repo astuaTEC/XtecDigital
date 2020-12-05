@@ -22,6 +22,12 @@ namespace MongoDBApi.Repositories
             return _estudiantes.Find(x => true).ToList();
         }
 
+        public List<Estudiante> getCarnets()
+        {
+            return _estudiantes.Find(x => true).Project<Estudiante>("{carnet: 1}").ToList();
+        }
+
+
         public static string MD5Hash(string text)
         {
             var md5 = new MD5CryptoServiceProvider();

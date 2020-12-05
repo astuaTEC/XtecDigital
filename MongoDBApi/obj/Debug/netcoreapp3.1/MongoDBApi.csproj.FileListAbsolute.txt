@@ -32,3 +32,6 @@ C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Debug\netcoreapp3.1\Mo
 C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Debug\netcoreapp3.1\MongoDBApi.dll
 C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Debug\netcoreapp3.1\MongoDBApi.pdb
 C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Debug\netcoreapp3.1\MongoDBApi.genruntimeconfig.cache
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\bin\Debug\netcoreapp3.1\Scripts MongoDB\Populación Administradores.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\bin\Debug\netcoreapp3.1\Scripts MongoDB\Populación Estudiantes.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\bin\Debug\netcoreapp3.1\Scripts MongoDB\Populación Profesores.json

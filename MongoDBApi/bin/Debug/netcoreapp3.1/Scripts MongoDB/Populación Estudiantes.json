@@ -1,0 +1,42 @@
+[
+    {
+        "primerNombre": "Saymon",
+        "segundoNombre": "",
+        "primerApellido": "Astúa",
+        "segundoApellido": "Madrigal",
+        "carnet": "2018143188",
+        "telefono": "+506 85681546",
+        "email": "sam.astua7@gmail.com",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99"
+    },
+    {
+        "primerNombre": "Oscar",
+        "segundoNombre": "Fernando",
+        "primerApellido": "Araya",
+        "segundoApellido": "Garbanzo",
+        "carnet": "2018002998",
+        "telefono": "+506 60255252",
+        "email": "osaronaragar15@gmail.com",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99"
+    },
+    {
+        "primerNombre": "Kevin",
+        "segundoNombre": "Francisco",
+        "primerApellido": "Acevedo",
+        "segundoApellido": "Rodríguez",
+        "carnet": "2018148661",
+        "telefono": "+506 83488906",
+        "email": "Keviinar51@gmail.com",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99"
+    },
+    {
+        "primerNombre": "Stephanie",
+        "segundoNombre": "Abigail",
+        "primerApellido": "Abarca",
+        "segundoApellido": "Brenes",
+        "carnet": "2018117463",
+        "telefono": "+506 84890419",
+        "email": "sabigailab@gmail.com",
+        "password": "5f4dcc3b5aa765d61d8327deb882cf99"
+    }
+]

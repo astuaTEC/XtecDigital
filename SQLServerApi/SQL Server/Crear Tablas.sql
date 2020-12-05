@@ -134,16 +134,29 @@ CREATE TABLE PROFESOR_GRUPO(
 );
 
 
-CREATE TABLE ESTUDIANTE_EVALUACION(
-	CarnetEstudiante			VARCHAR(10)			NOT NULL,
+CREATE TABLE SUBGRUPO(
+	Id							INT IDENTITY(1,1)	NOT NULL,
 	NombreEvaluacion			VARCHAR(50)			NOT NULL,
 	NombreRubro					VARCHAR(50)			NOT NULL,
 	NumeroGrupo					INT					NOT NULL,
 	CodigoCurso					VARCHAR(10)			NOT NULL,
 	Periodo						VARCHAR(1)			NOT NULL,
 	Anio						VARCHAR(4)			NOT NULL,
-	PRIMARY KEY (CarnetEstudiante, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio)
+	PRIMARY KEY (Id, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio)
 );
+
+CREATE TABLE ESTUDIANTE_SUBGRUPO(
+	IdSubGrupo					INT					NOT NULL,
+	NombreEvaluacion			VARCHAR(50)			NOT NULL,
+	NombreRubro					VARCHAR(50)			NOT NULL,
+	NumeroGrupo					INT					NOT NULL,
+	CodigoCurso					VARCHAR(10)			NOT NULL,
+	Periodo						VARCHAR(1)			NOT NULL,
+	Anio						VARCHAR(4)			NOT NULL,
+	CarnetEstudiante			VARCHAR(10)			NOT NULL,
+	PRIMARY KEY (IdSubGrupo, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio, CarnetEstudiante)
+);
+
 
 -- SE AGREGAN LAS LLAVES FORÁNEAS
 
@@ -172,10 +185,15 @@ ALTER TABLE ARCHIVO
 ADD FOREIGN KEY (NombreCarpeta, NumeroGrupo, CodigoCurso,Periodo, Anio) 
 REFERENCES CARPETA(Nombre, NumeroGrupo, CodigoCurso, Periodo, Anio);
 
---ESTUDIANTE_EVALUACION
-ALTER TABLE ESTUDIANTE_EVALUACION
+--SUBGRUPO
+ALTER TABLE SUBGRUPO
 ADD FOREIGN KEY (NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso,Periodo, Anio) 
 REFERENCES EVALUACION(Nombre, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio);
+
+--ESTUDIANTE_SUBGRUPO
+ALTER TABLE ESTUDIANTE_SUBGRUPO
+ADD FOREIGN KEY (IdSubGrupo, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso,Periodo, Anio) 
+REFERENCES SUBGRUPO(Id, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio);
 
 --ESTUDIANTE_GRUPO
 ALTER TABLE ESTUDIANTE_GRUPO

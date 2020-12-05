@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
+using SQLServerApi.Reposotories;
 
 namespace SQLServerApi
 {
@@ -51,6 +52,10 @@ namespace SQLServerApi
                            .AllowAnyMethod()
                            .AllowAnyHeader();
                 }));
+
+            // TODO: Agregar las Inyecciones de Dependencias
+            services.AddScoped<CursoRepo>();
+            services.AddScoped<ProfesorRepo>();
 
             services.AddControllers();
         }
