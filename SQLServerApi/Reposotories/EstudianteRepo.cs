@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLServerApi.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,10 +16,10 @@ namespace SQLServerApi.Reposotories
             _context = context;
         }
 
-        public List<ProfesorGrupoView> getGrupos(string cedulaProfesor, string anio, string periodo)
+        /*public List<ProfesorGrupoView> getGrupos(string cedulaProfesor, string anio, string periodo)
         {
             return _context.Set<ProfesorGrupoView>().FromSqlRaw($"EXEC spGetCursosProfesor " +
                             $"@Profesor = {cedulaProfesor}, @Anio = {anio}, @Periodo = {periodo}").ToList();
-        }
+        }*/
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SQLServerApi.Models;
 using SQLServerApi.Reposotories;
 using System;
 using System.Collections.Generic;
@@ -28,5 +29,25 @@ namespace SQLServerApi.Controllers
                 return BadRequest("Ha ocurrido un error");
             return Ok(resultado);
         }
+
+
+        [HttpPost]
+        [Route("api/grupo/rubro/new")]
+        public IActionResult Create([FromBody] Rubro rubro)
+        {
+            _repo.Create(rubro);
+            _repo.SaveChanges();
+            return Ok("Rubro creado correctamente");
+        }
+
+        [HttpPut]
+        [Route("api/grupo/rubro/edit")]
+        public IActionResult Update([FromBody] List<Rubro> rubros)
+        {
+            _repo.Update(rubros);
+            _repo.SaveChanges();
+            return Ok("Rubro actualizado correctamente");
+        }
+
     }
 }

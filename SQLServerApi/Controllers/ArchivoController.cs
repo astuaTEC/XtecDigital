@@ -54,7 +54,7 @@ namespace SQLServerApi.Controllers
         [Route("api/grupo/carpeta/updateArchivo")]
         public IActionResult Update([FromBody] ArchivoReadDTO archivo)
         {
-            _repo.Create(archivo);
+            _repo.Update(archivo);
             _repo.SaveChanges();
             return Ok("Archivo actualizado correctamente");
         }

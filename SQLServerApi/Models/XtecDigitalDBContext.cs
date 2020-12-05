@@ -484,6 +484,8 @@ namespace SQLServerApi.Models
             modelBuilder.Entity<CarpetaView>().HasNoKey().ToView(null);
             modelBuilder.Entity<ArchivoView>().HasNoKey().ToView(null);
             modelBuilder.Entity<DataView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<EvaluacionView>().HasNoKey().ToView(null);
+
 
             OnModelCreatingPartial(modelBuilder);
         }

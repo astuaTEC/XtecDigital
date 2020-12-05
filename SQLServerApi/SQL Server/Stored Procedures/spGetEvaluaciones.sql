@@ -18,4 +18,4 @@ WHERE @Curso = CodigoCurso AND
 	  @Periodo = Periodo;
 GO
 
-EXEC spGetEvaluaciones @Curso = 'MA-0101',@Rubro = 'Quices', @Grupo = 2, @Anio = '2021', @Periodo = '2';
+EXEC spGetEvaluaciones @Curso = 'MA-2104',@Rubro = 'Quices', @Grupo = 1, @Anio = '2021', @Periodo = '1';

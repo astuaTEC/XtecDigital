@@ -59,6 +59,7 @@ namespace SQLServerApi
             services.AddScoped<RubroRepo>();
             services.AddScoped<CarpetaRepo>();
             services.AddScoped<ArchivoRepo>();
+            services.AddScoped<EvaluacionRepo>();
 
             services.AddControllers();
         }
