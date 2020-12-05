@@ -60,7 +60,6 @@ CREATE TABLE EVALUACION(
 	CodigoCurso			VARCHAR(10)		NOT NULL,
 	Periodo				VARCHAR(1)		NOT NULL,
 	Anio				VARCHAR(4)		NOT NULL,
-	Creador				VARCHAR(20)		NOT NULL,
 	IndividualGrupal	VARCHAR(10)		NOT NULL,
 	FechaHoraMax		DATETIME		NOT NULL,
 	Archivo				VARBINARY(MAX),
@@ -104,7 +103,6 @@ CREATE TABLE ENTREGABLE(
 	ArchivoEntregable			VARBINARY(MAX)      NOT NULL,
 	Publico						BIT,
 	Evaluado					BIT,
-
 	NombreEvaluacion			VARCHAR(50)			NOT NULL,
 	NombreRubro					VARCHAR(50)			NOT NULL,
 	NumeroGrupo					INT					NOT NULL,
