@@ -20,4 +20,4 @@ WHERE @Curso = CodigoCurso AND
 	  @Periodo = Periodo;
 GO
 
-EXEC spGetDataArchivo @Curso = 'MA-0101', @Carpeta = 'Quices', @Nombre = 'archivo.pdf', @Grupo = 2, @Anio = '2021', @Periodo = '2';
+EXEC spGetDataArchivo @Curso = 'MA-0101', @Carpeta = 'Quices', @Nombre = 'Modelo Relacional P2', @Grupo = 1, @Anio = '2021', @Periodo = '1';

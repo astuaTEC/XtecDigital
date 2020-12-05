@@ -9,6 +9,6 @@ namespace SQLServerApi.Models.Views
     {
         public string Nombre { get; set; }
         public string Tamanio { get; set; }
-        public TimeSpan Fecha { get; set; }
+        public DateTime Fecha { get; set; }
     }
 }

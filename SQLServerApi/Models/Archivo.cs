@@ -15,7 +15,7 @@ namespace SQLServerApi.Models
         public string Anio { get; set; }
         public byte[] Archivo1 { get; set; }
         public string Tamanio { get; set; }
-        public TimeSpan? Fecha { get; set; }
+        public DateTime Fecha { get; set; }
 
         public virtual Carpeta Carpeta { get; set; }
     }

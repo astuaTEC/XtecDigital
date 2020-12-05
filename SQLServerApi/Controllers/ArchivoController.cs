@@ -31,7 +31,7 @@ namespace SQLServerApi.Controllers
         }
 
         [HttpGet]
-        [Route("api/grupo/carpeta/numero")]
+        [Route("api/grupo/carpeta/archivo/data")]
         public IActionResult GetArchivo([FromQuery] string curso, [FromQuery] string carpeta, [FromQuery] string nombre,
             [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo)
         {

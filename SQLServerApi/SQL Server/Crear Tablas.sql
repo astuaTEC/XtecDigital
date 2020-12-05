@@ -76,7 +76,7 @@ CREATE TABLE ARCHIVO(
 	Anio				VARCHAR(4)		NOT NULL,
 	Archivo				VARBINARY(MAX),
 	Tamanio				VARCHAR(10),
-	Fecha				TIME,
+	Fecha				DATETIME,
 	PRIMARY KEY (Nombre, NombreCarpeta, NumeroGrupo, CodigoCurso, Periodo, Anio)
 );
 
