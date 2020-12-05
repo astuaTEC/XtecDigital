@@ -19,7 +19,6 @@ namespace SQLServerApi.Models
         public string CodigoCurso { get; set; }
         public string Periodo { get; set; }
         public string Anio { get; set; }
-        public string Creador { get; set; }
         public string IndividualGrupal { get; set; }
         public DateTime FechaHoraMax { get; set; }
         public byte[] Archivo { get; set; }

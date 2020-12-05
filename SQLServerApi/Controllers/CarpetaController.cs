@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SQLServerApi.Models;
 using SQLServerApi.Reposotories;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,24 @@ namespace SQLServerApi.Controllers
             if (resultado == null)
                 return BadRequest("Ha ocurrido un error");
             return Ok(resultado);
+        }
+
+        [HttpPost]
+        [Route("api/grupo/carpeta/new")]
+        public IActionResult Create([FromBody] Carpeta carpeta)
+        {
+            _repo.Create(carpeta);
+            _repo.SaveChanges();
+            return Ok("Carpeta creada correctamente");
+        }
+
+        [HttpDelete]
+        [Route("api/grupo/carpeta/delete")]
+        public IActionResult Delete([FromQuery] string curso, [FromQuery] int grupo,
+            [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string carpeta)
+        {
+            _repo.SaveChanges();
+            return Ok("Carpeta creada correctamente");
         }
     }
 }

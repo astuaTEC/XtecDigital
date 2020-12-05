@@ -60,6 +60,7 @@ namespace SQLServerApi.Reposotories
             return _context.Cursos.Where(x => x.Habilitado == true).ToList();
         }
 
+
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

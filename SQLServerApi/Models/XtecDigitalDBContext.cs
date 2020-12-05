@@ -277,11 +277,6 @@ namespace SQLServerApi.Models
                     .HasMaxLength(4)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Creador)
-                    .IsRequired()
-                    .HasMaxLength(20)
-                    .IsUnicode(false);
-
                 entity.Property(e => e.FechaHoraMax).HasColumnType("datetime");
 
                 entity.Property(e => e.IndividualGrupal)
@@ -487,7 +482,8 @@ namespace SQLServerApi.Models
             modelBuilder.Entity<ProfesorGrupoView>().HasNoKey().ToView(null);
             modelBuilder.Entity<RubroView>().HasNoKey().ToView(null);
             modelBuilder.Entity<CarpetaView>().HasNoKey().ToView(null);
-
+            modelBuilder.Entity<ArchivoView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<DataView>().HasNoKey().ToView(null);
 
             OnModelCreatingPartial(modelBuilder);
         }
