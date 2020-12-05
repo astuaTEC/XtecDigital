@@ -28,7 +28,7 @@ namespace SQLServerApi.Reposotories
         {
             if (archivoDTO == null)
                 throw new ArgumentNullException(nameof(archivoDTO));
-            
+
             var archivo = new Archivo
             {
                 Nombre = archivoDTO.Nombre,
@@ -83,10 +83,9 @@ namespace SQLServerApi.Reposotories
             string anio, string periodo)
         {
             var data = _context.Set<DataView>().FromSqlRaw($"EXEC spGetDataArchivo " +
-                          $"@Curso = {codigoCurso}, @Carpeta = {carpeta}, @Nombre = {nombreArchivo}, @Grupo = {grupo}, @Anio = {anio}, " +
-                          $"@Periodo = {periodo}").FirstOrDefault();
+                          $"@Curso = {codigoCurso}, @Carpeta = {carpeta}, @Nombre = {nombreArchivo}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
 
-            return Convert.ToBase64String(data.Archivo);
+            return Convert.ToBase64String(data[0].Archivo);
         }
 
         public bool SaveChanges()
