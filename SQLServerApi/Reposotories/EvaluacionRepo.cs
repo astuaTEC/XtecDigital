@@ -1,5 +1,7 @@
-﻿using SQLServerApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SQLServerApi.Models;
 using SQLServerApi.Models.DTO;
+using SQLServerApi.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,26 +27,48 @@ namespace SQLServerApi.Reposotories
 
         public void Create(EvaluacionReadDTO evaluacionDTO)
         {
-            /*if (evaluacionDTO == null)
+            if (evaluacionDTO == null)
                 throw new ArgumentNullException(nameof(evaluacionDTO));
 
-            var evaluacion = new Archivo
+            var evaluacion = new Evaluacion
             {
                 Nombre = evaluacionDTO.Nombre,
-                NombreCarpeta = evaluacionDTO.NombreCarpeta,
+                NombreRubro = evaluacionDTO.NombreRubro,
                 NumeroGrupo = evaluacionDTO.NumeroGrupo,
                 CodigoCurso = evaluacionDTO.CodigoCurso,
                 Periodo = evaluacionDTO.Periodo,
                 Anio = evaluacionDTO.Anio,
-                Tamanio = evaluacionDTO.Tamanio,
-                Fecha = evaluacionDTO.Fecha
+                IndividualGrupal = evaluacionDTO.IndividualGrupal,
+                FechaHoraMax = evaluacionDTO.FechaHoraMax,
+                Porcentaje = evaluacionDTO.Porcentaje
             };
 
             // si viene un recibo en base64 hay que parsearlo a byte array
-            if (archivoDTO.Archivo != null)
-                archivo.Archivo1 = Convert.FromBase64String(archivoDTO.Archivo);
+            if (evaluacionDTO.Archivo != null)
+                evaluacion.Archivo = Convert.FromBase64String(evaluacionDTO.Archivo);
 
-            _context.Archivos.Add(archivo);*/
+            _context.Evaluacions.Add(evaluacion);
+        }
+
+        public void agregarSubGrupos(List<Subgrupo> subgrupos)
+        {
+            if (subgrupos.Count == 0)
+                throw new ArgumentNullException(nameof(subgrupos));
+            
+            foreach(var subgrupo in subgrupos)
+            {
+                _context.Subgrupos.Add(subgrupo);
+            }
+        }
+
+        public List<EvaluacionView> getEvaluacionesPorRubro(string codigoCurso, string rubro, int grupo, string anio, string periodo)
+        {
+            return _context.Set<EvaluacionView>().FromSqlRaw($"EXEC spGetEvaluaciones " +
+                           $"@Curso = {codigoCurso}, @Rubro = {rubro}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
+        }
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
         }
 
     }
