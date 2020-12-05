@@ -9,21 +9,21 @@ using System.Threading.Tasks;
 namespace SQLServerApi.Controllers
 {
     [ApiController]
-    public class ProfesorController : ControllerBase
+    public class RubroController : ControllerBase
     {
-        private readonly ProfesorRepo _repo;
+        private readonly RubroRepo _repo;
 
-        public ProfesorController(ProfesorRepo repo)
+        public RubroController(RubroRepo repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
-        [Route("api/profesor/grupos")]
-        public IActionResult GetCursosProfesor([FromQuery] string cedula,
+        [Route("api/grupo/rubros")]
+        public IActionResult GetRubrosPorGrupo([FromQuery] string curso, [FromQuery] int grupo,
             [FromQuery] string anio, [FromQuery] string periodo)
         {
-            var resultado = _repo.getGrupos(cedula, anio, periodo);
+            var resultado = _repo.getRubros(curso, grupo, anio, periodo);
             if (resultado == null)
                 return BadRequest("Ha ocurrido un error");
             return Ok(resultado);

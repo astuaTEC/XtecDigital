@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace SQLServerApi.Models
 {
-    public partial class Carpetum
+    public partial class Carpeta
     {
-        public Carpetum()
+        public Carpeta()
         {
             Archivos = new HashSet<Archivo>();
         }

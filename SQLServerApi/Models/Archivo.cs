@@ -17,6 +17,6 @@ namespace SQLServerApi.Models
         public string Tamanio { get; set; }
         public TimeSpan? Fecha { get; set; }
 
-        public virtual Carpetum Carpetum { get; set; }
+        public virtual Carpeta Carpeta { get; set; }
     }
 }

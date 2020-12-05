@@ -19,14 +19,14 @@ namespace SQLServerApi.Models
         }
 
         public virtual DbSet<Archivo> Archivos { get; set; }
-        public virtual DbSet<Carpetum> Carpeta { get; set; }
+        public virtual DbSet<Carpeta> Carpeta { get; set; }
         public virtual DbSet<Curso> Cursos { get; set; }
         public virtual DbSet<Entregable> Entregables { get; set; }
         public virtual DbSet<EstudianteGrupo> EstudianteGrupos { get; set; }
         public virtual DbSet<EstudianteSubgrupo> EstudianteSubgrupos { get; set; }
         public virtual DbSet<Evaluacion> Evaluacions { get; set; }
         public virtual DbSet<Grupo> Grupos { get; set; }
-        public virtual DbSet<Noticium> Noticia { get; set; }
+        public virtual DbSet<Noticia> Noticia { get; set; }
         public virtual DbSet<ProfesorGrupo> ProfesorGrupos { get; set; }
         public virtual DbSet<Rubro> Rubros { get; set; }
         public virtual DbSet<Semestre> Semestres { get; set; }
@@ -67,14 +67,14 @@ namespace SQLServerApi.Models
                     .HasMaxLength(10)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.Carpetum)
+                entity.HasOne(d => d.Carpeta)
                     .WithMany(p => p.Archivos)
                     .HasForeignKey(d => new { d.NombreCarpeta, d.NumeroGrupo, d.CodigoCurso, d.Periodo, d.Anio })
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK__ARCHIVO__14270015");
             });
 
-            modelBuilder.Entity<Carpetum>(entity =>
+            modelBuilder.Entity<Carpeta>(entity =>
             {
                 entity.HasKey(e => new { e.Nombre, e.NumeroGrupo, e.CodigoCurso, e.Periodo, e.Anio })
                     .HasName("PK__CARPETA__87467D8646EAA813");
@@ -328,7 +328,7 @@ namespace SQLServerApi.Models
                     .HasConstraintName("FK__GRUPO__10566F31");
             });
 
-            modelBuilder.Entity<Noticium>(entity =>
+            modelBuilder.Entity<Noticia>(entity =>
             {
                 entity.HasKey(e => new { e.Id, e.NumeroGrupo, e.CodigoCurso, e.Periodo, e.Anio })
                     .HasName("PK__NOTICIA__C0B17E4F855BFA00");
@@ -485,6 +485,9 @@ namespace SQLServerApi.Models
             });
 
             modelBuilder.Entity<ProfesorGrupoView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<RubroView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<CarpetaView>().HasNoKey().ToView(null);
+
 
             OnModelCreatingPartial(modelBuilder);
         }

@@ -56,6 +56,8 @@ namespace SQLServerApi
             // TODO: Agregar las Inyecciones de Dependencias
             services.AddScoped<CursoRepo>();
             services.AddScoped<ProfesorRepo>();
+            services.AddScoped<RubroRepo>();
+            services.AddScoped<CarpetaRepo>();
 
             services.AddControllers();
         }
