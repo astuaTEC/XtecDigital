@@ -22,10 +22,21 @@ namespace SQLServerApi.Controllers
 
         [HttpGet]
         [Route("api/grupo/rubro/evaluaciones")]
-        public IActionResult getEvaluacionesPorRubro([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] int grupo,
+        public IActionResult GetEvaluacionesPorRubro([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] int grupo,
             [FromQuery] string anio, [FromQuery] string periodo)
         {
             var resultado = _repo.getEvaluacionesPorRubro(curso, rubro, grupo, anio, periodo);
+            if (resultado == null)
+                return BadRequest("Ha ocurrido un error");
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("api/grupo/rubro/evaluacion/archivo")]
+        public IActionResult GetArchivoEvaluacion([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
+            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo)
+        {
+            var resultado = _repo.getArchivoEvaluacion(curso, rubro, nombre, grupo, anio, periodo);
             if (resultado == null)
                 return BadRequest("Ha ocurrido un error");
             return Ok(resultado);
@@ -38,6 +49,15 @@ namespace SQLServerApi.Controllers
             _repo.Create(evaluacion);
             _repo.SaveChanges();
             return Ok("Evaluación asignada correctamente");
+        }
+
+        [HttpPost]
+        [Route("api/grupo/evaluacion/entregable/new")]
+        public IActionResult CreateEntregable([FromBody] EntregableReadDTO entregable)
+        {
+            _repo.CreateEntregable(entregable);
+            _repo.SaveChanges();
+            return Ok("Entregable subido correctamente");
         }
 
         [HttpPost]
