@@ -18,5 +18,7 @@ namespace SQLServerApi.Models.DTO
         public string CodigoCurso { get; set; }
         public string Periodo { get; set; }
         public string Anio { get; set; }
+        public bool? Publico { get; set; }
+        public bool? Evaluado { get; set; }
     }
 }
