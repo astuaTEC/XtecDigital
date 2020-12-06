@@ -62,9 +62,7 @@ namespace SQLServerApi.Reposotories
                 NumeroGrupo = entregableDTO.NumeroGrupo,
                 CodigoCurso = entregableDTO.CodigoCurso,
                 Periodo = entregableDTO.Periodo,
-                Anio = entregableDTO.Anio,
-                Observaciones = entregableDTO.Observaciones,
-                Nota = entregableDTO.Nota
+                Anio = entregableDTO.Anio
             };
 
             // si viene un entregable en base64 hay que parsearlo a byte array
@@ -101,6 +99,25 @@ namespace SQLServerApi.Reposotories
 
             return Convert.ToBase64String(data[0].Archivo);
         }
+
+        public List<EntregableView> getEntregablesEvaluacion(string codigoCurso, string rubro, string nombreEvaluacion, int grupo,
+            string anio, string periodo)
+        {
+            return _context.Set<EntregableView>().FromSqlRaw($"EXEC spGetEntregables " +
+                          $"@Curso = {codigoCurso}, @Rubro = {rubro}, @NombreEvaluacion = {nombreEvaluacion}, " +
+                          $"@Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
+        }
+
+        public string getArchivoEntregable(string codigoCurso, string rubro, string nombreEvaluacion, int grupo,
+           string anio, string periodo, string carnet, string id)
+        {
+            var data = _context.Set<DataView>().FromSqlRaw($"EXEC spGetDataEntregable " +
+                          $"@Curso = {codigoCurso}, @Rubro = {rubro}, @Evaluacion = {nombreEvaluacion}, " +
+                          $"@Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}, @Carnet = {carnet}, @Id = {id}").ToList();
+
+            return Convert.ToBase64String(data[0].Archivo);
+        }
+
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

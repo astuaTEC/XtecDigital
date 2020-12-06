@@ -22,19 +22,27 @@ BEGIN
 			@ArchivoEntregable VARBINARY(MAX),
 			@ArchivoRetroAlimentacion VARBINARY(MAX),
 			@Publico BIT,
-			@Evaluado BIT;
+			@Evaluado BIT,
+			@Id INT;
 
 	DECLARE @Tabla TABLE(carnet VARCHAR(10));
 
 	SET @Carnet = (SELECT CarnetEstudiante from inserted);
-	INSERT INTO @Tabla  SELECT CarnetEstudiante
-						FROM SUBGRUPO AS s, inserted as i
+
+	SET @Id  = (SELECT IdSubGrupo
+				FROM ESTUDIANTE_SUBGRUPO
+				WHERE @Carnet = CarnetEstudiante);
+
+	INSERT INTO @Tabla  SELECT s.CarnetEstudiante
+						FROM ESTUDIANTE_SUBGRUPO AS s, inserted as i
 						WHERE s.CodigoCurso = i.CodigoCurso AND
 							  s.NombreEvaluacion = i.NombreEvaluacion AND
 						      s.NumeroGrupo = i.NumeroGrupo AND
 							  s.NombreRubro = i.NombreRubro AND
 							  s.Anio = i.Anio AND
-							  s.Periodo = i.Periodo;
+							  s.Periodo = i.Periodo AND
+							  @Id is not NULL AND
+							  @Id = s.IdSubGrupo;
 	
 
 	IF(@Carnet IN (SELECT carnet from @Tabla))
@@ -55,15 +63,16 @@ BEGIN
 
 			WHILE @Count > 0
 			 BEGIN
-				DECLARE @Carnet1 VARCHAR(10) = (SELECT TOP(1) carnet from @Tabla)
-				
-				INSERT INTO ENTREGABLE (CarnetEstudiante, Nota, Observaciones, ArchivoRetroAlimentacion, 
-			                       ArchivoEntregable, Publico, Evaluado, NombreEvaluacion, NombreRubro,
-								   NumeroGrupo, CodigoCurso, Periodo, Anio)
-				VALUES (@Carnet1, @Nota, @Observaciones, @ArchivoRetroAlimentacion,
-				        @ArchivoEntregable, @Publico, @Evaluado, @NombreEvaluacion, @NombreRubro,
-						@NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
-
+				DECLARE @Carnet1 VARCHAR(10) = (SELECT TOP(1) carnet from @Tabla order by carnet)
+				IF @Carnet != @Carnet1
+					BEGIN
+						INSERT INTO ENTREGABLE (CarnetEstudiante, Nota, Observaciones, ArchivoRetroAlimentacion, 
+										   ArchivoEntregable, Publico, Evaluado, NombreEvaluacion, NombreRubro,
+										   NumeroGrupo, CodigoCurso, Periodo, Anio)
+						VALUES (@Carnet1, @Nota, @Observaciones, @ArchivoRetroAlimentacion,
+								@ArchivoEntregable, @Publico, @Evaluado, @NombreEvaluacion, @NombreRubro,
+								@NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
+					END
 				DELETE @Tabla where carnet = @Carnet1
 				SET @Count = (SELECT COUNT(*) from @Tabla);
 			END
