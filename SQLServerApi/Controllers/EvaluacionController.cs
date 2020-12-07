@@ -90,5 +90,24 @@ namespace SQLServerApi.Controllers
             _repo.SaveChanges();
             return Ok("SubGrupos asignados correctamente");
         }
+
+        [HttpPost]
+        [Route("api/grupo/evaluacion/entregable/calificar")]
+        public IActionResult CalificarEntregable([FromBody] EntregableReadDTO entregable)
+        {
+            _repo.CalificarEntregable(entregable);
+            //_repo.SaveChanges();
+            return Ok("Entregable calificado correctamente");
+        }
+
+        [HttpPost]
+        [Route("api/grupo/evaluacion/publicarNotas")]
+        public IActionResult PublicarNotas([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
+            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string profesor)
+        {
+            _repo.publicarNotas(curso, rubro, nombre, grupo, anio, periodo, profesor);
+
+            return Ok("Notas publicadas correctamente");
+        }
     }
 }

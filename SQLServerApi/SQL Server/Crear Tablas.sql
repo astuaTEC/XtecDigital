@@ -155,6 +155,16 @@ CREATE TABLE ESTUDIANTE_SUBGRUPO(
 	PRIMARY KEY (IdSubGrupo, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio, CarnetEstudiante)
 );
 
+CREATE TABLE EvaluacionLog(
+	Profesor			        VARCHAR(100)	    NOT NULL,
+	NombreEvaluacion			VARCHAR(50)			NOT NULL,
+	NombreRubro					VARCHAR(50)			NOT NULL,
+	NumeroGrupo					INT					NOT NULL,
+	CodigoCurso					VARCHAR(10)			NOT NULL,
+	Periodo						VARCHAR(1)			NOT NULL,
+	Anio						VARCHAR(4)			NOT NULL,
+	PRIMARY KEY(Profesor, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio)
+);
 
 -- SE AGREGAN LAS LLAVES FORÁNEAS
 
