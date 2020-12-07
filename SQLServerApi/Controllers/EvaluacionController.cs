@@ -54,6 +54,17 @@ namespace SQLServerApi.Controllers
         }
 
         [HttpGet]
+        [Route("api/grupo/rubro/evaluacion/entregable/archivoRA")]
+        public IActionResult GetArchivoRetroalimentacion([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
+            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string carnet, [FromQuery] string id)
+        {
+            var resultado = _repo.getArchivoRetroalimentacion(curso, rubro, nombre, grupo, anio, periodo, carnet, id);
+            if (resultado == null)
+                return BadRequest("Ha ocurrido un error");
+            return Ok(resultado);
+        }
+
+        [HttpGet]
         [Route("api/grupo/rubro/evaluacion/entregables")]
         public IActionResult GetEntregablesEvaluacion([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
             [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo)
@@ -96,7 +107,6 @@ namespace SQLServerApi.Controllers
         public IActionResult CalificarEntregable([FromBody] EntregableReadDTO entregable)
         {
             _repo.CalificarEntregable(entregable);
-            //_repo.SaveChanges();
             return Ok("Entregable calificado correctamente");
         }
 

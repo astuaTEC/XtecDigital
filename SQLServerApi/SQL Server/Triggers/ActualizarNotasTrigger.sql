@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-ALTER TRIGGER ActualizarNotasTrigger
+CREATE TRIGGER ActualizarNotasTrigger
 ON ENTREGABLE
 AFTER UPDATE
 AS
@@ -9,6 +9,11 @@ BEGIN
 
 	SET NOCOUNT ON;
 
+	DECLARE @Elementos INT;
+	SET @Elementos = (SELECT COUNT(*) from inserted);
+
+	IF(@Elementos = 1)
+	BEGIN
 	DECLARE @Carnet VARCHAR(10),
 	        @Count INT,
 	        @CodigoCurso VARCHAR(10),
@@ -83,5 +88,6 @@ BEGIN
 					SET @Count = (SELECT COUNT(*) from @Tabla);
 				END
 			END
+		END
 END
 GO

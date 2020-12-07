@@ -486,6 +486,8 @@ namespace SQLServerApi.Models
             modelBuilder.Entity<DataView>().HasNoKey().ToView(null);
             modelBuilder.Entity<EvaluacionView>().HasNoKey().ToView(null);
             modelBuilder.Entity<EntregableView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<NoticiaView>().HasNoKey().ToView(null);
+
 
 
             OnModelCreatingPartial(modelBuilder);

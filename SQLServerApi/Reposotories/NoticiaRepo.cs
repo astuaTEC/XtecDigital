@@ -1,4 +1,6 @@
-﻿using SQLServerApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SQLServerApi.Models;
+using SQLServerApi.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +30,13 @@ namespace SQLServerApi.Reposotories
                 throw new ArgumentNullException(nameof(noticia));
 
             _context.Noticia.Add(noticia);
+        }
+
+
+        public List<NoticiaView> getNoticias(string codigoCurso, int grupo, string anio, string periodo)
+        {
+            return _context.Set<NoticiaView>().FromSqlRaw($"EXEC spGetNoticias " +
+                           $"@Curso = {codigoCurso}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
         }
 
         public bool SaveChanges()

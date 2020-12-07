@@ -154,6 +154,16 @@ namespace SQLServerApi.Reposotories
             return Convert.ToBase64String(data[0].Archivo);
         }
 
+        public string getArchivoRetroalimentacion(string codigoCurso, string rubro, string nombreEvaluacion, int grupo,
+           string anio, string periodo, string carnet, string id)
+        {
+            var data = _context.Set<DataView>().FromSqlRaw($"EXEC spGetArchivoRetroalimentacion " +
+                          $"@Curso = {codigoCurso}, @Rubro = {rubro}, @Evaluacion = {nombreEvaluacion}, " +
+                          $"@Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}, @Carnet = {carnet}, @Id = {id}").ToList();
+
+            return Convert.ToBase64String(data[0].Archivo);
+        }
+
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
