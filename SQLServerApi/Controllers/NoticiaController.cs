@@ -19,6 +19,18 @@ namespace SQLServerApi.Controllers
             _repo = repo;
         }
 
+
+        [HttpGet]
+        [Route("api/grupo/noticias")]
+        public IActionResult GetNoticiasPorGrupo([FromQuery] string curso, [FromQuery] int grupo,
+           [FromQuery] string anio, [FromQuery] string periodo)
+        {
+            var resultado = _repo.getNoticias(curso, grupo, anio, periodo);
+            if (resultado == null)
+                return BadRequest("Ha ocurrido un error");
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("api/grupo/noticia/new")]
         public IActionResult NuevaNoticia([FromBody] Noticia notica)

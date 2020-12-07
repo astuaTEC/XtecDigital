@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-CREATE PROCEDURE spPublicarNotas(
+alter PROCEDURE spPublicarNotas(
 @Curso VARCHAR(9),
 @Rubro VARCHAR(50),
 @NombreEvaluacion VARCHAR(50),
@@ -13,7 +13,7 @@ CREATE PROCEDURE spPublicarNotas(
 AS
 BEGIN
 	SET NOCOUNT ON;
-	UPDATE ENTREGABLE
+	UPDATE ENTREGABLE 
 	SET Publico = 1
 	WHERE @Curso = CodigoCurso AND
 		  @Rubro = NombreRubro AND
