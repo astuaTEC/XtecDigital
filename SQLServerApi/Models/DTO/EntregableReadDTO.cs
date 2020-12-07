@@ -7,6 +7,7 @@ namespace SQLServerApi.Models.DTO
 {
     public class EntregableReadDTO
     {
+        public int Id { get; set; }
         public string CarnetEstudiante { get; set; }
         public int Nota { get; set; }
         public string Observaciones { get; set; }

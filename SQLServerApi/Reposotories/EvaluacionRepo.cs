@@ -49,6 +49,7 @@ namespace SQLServerApi.Reposotories
 
             _context.Evaluacions.Add(evaluacion);
         }
+
         public void CreateEntregable(EntregableReadDTO entregableDTO)
         {
             if (entregableDTO == null)
@@ -72,6 +73,33 @@ namespace SQLServerApi.Reposotories
                 entregable.ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
 
             _context.Entregables.Add(entregable);
+        }
+
+        public void CalificarEntregable(EntregableReadDTO entregableDTO)
+        {
+            if (entregableDTO == null)
+                throw new ArgumentNullException(nameof(entregableDTO));
+
+            var entregable = new Entregable();
+            /*var entregable = _context.Entregables.
+                             FirstOrDefault(x => x.CarnetEstudiante == entregableDTO.CarnetEstudiante && x.Id == entregableDTO.Id);*/
+
+            // si viene un Archivo en base64 hay que parsearlo a byte array
+            if (entregableDTO.ArchivoRetroAlimentacion != null)
+                entregable.ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
+
+            /*entregable.Evaluado = true;
+            entregable.Publico = false;
+            entregable.Nota = entregableDTO.Nota;
+            entregable.Observaciones = entregableDTO.Observaciones;
+
+            //_context.Entregables.Update(entregable);*/
+
+            _context.Database.ExecuteSqlRaw("spCalificarEntregable @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10",
+                entregableDTO.CodigoCurso, entregableDTO.NombreRubro, entregableDTO.NombreEvaluacion, entregableDTO.NumeroGrupo,
+                entregableDTO.Anio, entregableDTO.Periodo, entregableDTO.CarnetEstudiante, entregableDTO.Id,
+                entregable.ArchivoRetroAlimentacion, entregableDTO.Observaciones, entregableDTO.Nota);
+           
         }
 
         public void agregarSubGrupos(List<Subgrupo> subgrupos)
@@ -106,6 +134,14 @@ namespace SQLServerApi.Reposotories
             return _context.Set<EntregableView>().FromSqlRaw($"EXEC spGetEntregables " +
                           $"@Curso = {codigoCurso}, @Rubro = {rubro}, @NombreEvaluacion = {nombreEvaluacion}, " +
                           $"@Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
+        }
+
+        public void publicarNotas(string codigoCurso, string rubro, string nombreEvaluacion, int grupo,
+            string anio, string periodo, string profesor)
+        {
+            _context.Database.ExecuteSqlRaw("spPublicarNotas @p0, @p1, @p2, @p3, @p4, @p5, @p6", codigoCurso, rubro, nombreEvaluacion,
+                grupo, anio, periodo, profesor);
+
         }
 
         public string getArchivoEntregable(string codigoCurso, string rubro, string nombreEvaluacion, int grupo,
