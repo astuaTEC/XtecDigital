@@ -32,6 +32,22 @@ namespace SQLServerApi.Reposotories
             _context.Noticia.Add(noticia);
         }
 
+        public void Update(Noticia noticia)
+        {
+            if (noticia == null)
+                throw new ArgumentNullException(nameof(noticia));
+
+            _context.Noticia.Update(noticia);
+        }
+
+        public void Delete(string codigoCurso, int grupo, string anio, string periodo, int id)
+        {
+            var noticia = _context.Noticia.FirstOrDefault(x => x.Id == id &&
+                           x.CodigoCurso == codigoCurso && x.NumeroGrupo == grupo &&
+                           x.Anio == anio && x.Periodo == periodo);
+
+            _context.Noticia.Remove(noticia);
+        }
 
         public List<NoticiaView> getNoticias(string codigoCurso, int grupo, string anio, string periodo)
         {

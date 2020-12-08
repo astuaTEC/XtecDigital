@@ -40,9 +40,8 @@ namespace SQLServerApi.Reposotories
                           x.Anio == anio && x.Periodo == periodo);
 
           _context.Carpeta.Remove(carpeta);
-
-
         }
+
         public List<CarpetaView> GetCarpetas(string codigoCurso, int grupo, string anio, string periodo)
         {
             return _context.Set<CarpetaView>().FromSqlRaw($"EXEC spGetCarpetas " +
