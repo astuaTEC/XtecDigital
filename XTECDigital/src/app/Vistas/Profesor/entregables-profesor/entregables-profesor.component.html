@@ -1,0 +1,94 @@
+<div class="container-fluid entregables">
+    <div class="row cabecera1">
+        <div class="col-2 align-self-center text-start">
+            {{nombreEvaluacion}}
+        </div>
+        <div class="col-4 align-self-center text-start">
+            {{porcentajeEvaluacion}} %
+        </div>
+        <div class="col-4 align-self-center text-start">
+            Sin publicar
+        </div>
+        <div class="col-1 align-self-center text-start">
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/commercial.png"/>
+        </div>
+        <div class="col-1 align-self-center text-start" >
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/close-window.png" (click)="cerrar()"/>
+        </div>
+    </div>
+    <div class="cuerpoEntregable" *ngFor="let entregable of [1,1,1,1]">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-12 align-self-center text-center">
+                    <table class="table table-dark table-sm">
+                        <thead>
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Primer Apellido</th>
+                            <th>Segundo Apellido</th>
+                            <th>Carné</th>
+                            <th>Grupo</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let estudiante of [1,2,3,4]">
+                            <td>Kevin</td>
+                            <td>Acevedo</td>
+                            <td>Rodriguez</td>
+                            <td>2018148661</td>
+                            <td>6</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 align-self-center text-center">
+                    <strong>Ver entregable</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 align-self-center text-center">
+                    <input type="image" src="https://img.icons8.com/fluent/48/000000/desktop-download.png"/>              
+                </div>
+            </div>
+            <div class="row observaciones">
+                <div class="col-12 align-self-center text-center">
+                    <strong>Agregar observaciones</strong>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-6 align-self-center text-center">
+                    <div class="form-group">
+                        <textarea class="form-control input" id="comentarios" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row retroalimentación">
+                <div class="col-12 align-self-center text-center">
+                    <strong>Archivo de retroalimentación</strong>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 align-self-center text-center">
+                    <input type="file" class="input" id="file" accept="application/pdf" (change)="agregarNuevoArchivo($event.target.files)">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 align-self-center text-center calificacion">
+                    <strong>Agregar una calificación</strong>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5 align-self-center text-center">
+                </div>
+                <div class="col-2 align-self-center text-center">
+                    <input type="number" class="input" id="calificacion" name="calificacion" min="0" max="100">
+                </div>
+                <div class="col-5 align-self-center text-center">
+                    <input type="image" src="https://img.icons8.com/fluent/48/000000/save-all.png"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

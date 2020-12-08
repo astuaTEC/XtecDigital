@@ -1,3 +1,5 @@
+import { Estudiante } from './estudiante';
+
 export class Evaluacion {
     public constructor(
         public nombre: string,
@@ -6,6 +8,7 @@ export class Evaluacion {
         public horaEntrega: string,
         public especificacion: any,
         public participacion: string,
-        public nombreEspecificacion: string
+        public nombreEspecificacion: string,
+        public grupos: Estudiante[]
     ){}
 }

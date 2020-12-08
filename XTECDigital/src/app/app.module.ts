@@ -13,7 +13,12 @@ import { ArchivosProfesorComponent } from './Vistas/Profesor/archivos-profesor/a
 import { VistaArchivoProfesorComponent } from './Vistas/Profesor/vista-archivo-profesor/vista-archivo-profesor.component';
 import { RubrosProfesorComponent } from './Vistas/Profesor/rubros-profesor/rubros-profesor.component';
 import { EvaluacionesProfesorComponent } from './Vistas/Profesor/evaluaciones-profesor/evaluaciones-profesor.component';
-
+import { AgregarEvaluacionProfesorComponent } from './Vistas/Profesor/agregar-evaluacion-profesor/agregar-evaluacion-profesor.component';
+import { EntregablesProfesorComponent } from './Vistas/Profesor/entregables-profesor/entregables-profesor.component';
+import { CrearNoticiaProfesorComponent } from './Vistas/Profesor/crear-noticia-profesor/crear-noticia-profesor.component';
+import { NoticiasProfesorComponent } from './Vistas/Profesor/noticias-profesor/noticias-profesor.component';
+import { VerEvaluacionesComponent } from './Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component';
+import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-screen.component';
 
 
 @NgModule({
@@ -28,6 +33,13 @@ import { EvaluacionesProfesorComponent } from './Vistas/Profesor/evaluaciones-pr
     VistaArchivoProfesorComponent,
     RubrosProfesorComponent,
     EvaluacionesProfesorComponent,
+    AgregarEvaluacionProfesorComponent,
+    EntregablesProfesorComponent,
+    CrearNoticiaProfesorComponent,
+    NoticiasProfesorComponent,
+    VerEvaluacionesComponent,
+    SplashScreenComponent
+  
 
   ],
   imports: [
