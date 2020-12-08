@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SQLServerApi.Models.DTO;
 using SQLServerApi.Reposotories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SQLServerApi.Controllers
 {
@@ -57,6 +52,16 @@ namespace SQLServerApi.Controllers
             _repo.Update(archivo);
             _repo.SaveChanges();
             return Ok("Archivo actualizado correctamente");
+        }
+
+        [HttpDelete]
+        [Route("api/grupo/carpeta/archivo/delete")]
+        public IActionResult Delete([FromQuery] string curso, [FromQuery] int grupo,
+            [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string carpeta, [FromQuery] string nombre)
+        {
+            _repo.Delete(curso, grupo, anio, periodo, carpeta, nombre);
+            _repo.SaveChanges();
+            return Ok("Archivo eliminado correctamente");
         }
     }
 }

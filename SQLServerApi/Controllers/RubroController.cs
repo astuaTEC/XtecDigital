@@ -49,5 +49,15 @@ namespace SQLServerApi.Controllers
             return Ok("Rubro actualizado correctamente");
         }
 
+        [HttpDelete]
+        [Route("api/grupo/rubro/delete")]
+        public IActionResult Delete([FromQuery] string curso, [FromQuery] int grupo,
+            [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string nombre)
+        {
+            _repo.Delete(curso, grupo, anio, periodo, nombre);
+            
+            return Ok("Rubro eliminado correctamente");
+        }
+
     }
 }

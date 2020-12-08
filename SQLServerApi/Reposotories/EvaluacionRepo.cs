@@ -55,7 +55,8 @@ namespace SQLServerApi.Reposotories
             if (entregableDTO == null)
                 throw new ArgumentNullException(nameof(entregableDTO));
 
-            var entregable = new Entregable
+            byte[] ArchivoEntregable;
+            /*var entregable = new Entregable
             {
                 CarnetEstudiante = entregableDTO.CarnetEstudiante,
                 NombreEvaluacion = entregableDTO.NombreEvaluacion,
@@ -72,7 +73,16 @@ namespace SQLServerApi.Reposotories
             if (entregableDTO.ArchivoRetroAlimentacion != null)
                 entregable.ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
 
-            _context.Entregables.Add(entregable);
+            _context.Entregables.Add(entregable);*/
+
+            if (entregableDTO.ArchivoEntregable != null) 
+            {
+                ArchivoEntregable = Convert.FromBase64String(entregableDTO.ArchivoEntregable);
+                _context.Database.ExecuteSqlRaw("spSubirEntregable @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7",
+                entregableDTO.CodigoCurso, entregableDTO.NombreRubro, entregableDTO.NombreEvaluacion, entregableDTO.NumeroGrupo,
+                entregableDTO.Anio, entregableDTO.Periodo, entregableDTO.CarnetEstudiante, ArchivoEntregable);
+            }
+            
         }
 
         public void CalificarEntregable(EntregableReadDTO entregableDTO)

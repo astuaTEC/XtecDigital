@@ -7,5 +7,6 @@ namespace SQLServerApi.Models.Views
 {
     public class EstudianteGrupoView
     {
+        public string CarnetEstudiante { get; set; }
     }
 }

@@ -72,6 +72,15 @@ namespace SQLServerApi.Reposotories
             _context.Archivos.Update(archivo);
         }
 
+        public void Delete(string codigoCurso, int grupo, string anio, string periodo, string nombreCarpeta, string nombre)
+        {
+            var archivo = _context.Archivos.FirstOrDefault(x => x.Nombre == nombre &&
+                           x.CodigoCurso == codigoCurso && x.NumeroGrupo == grupo &&
+                           x.Anio == anio && x.Periodo == periodo &&
+                           x.NombreCarpeta == nombreCarpeta);
+
+            _context.Archivos.Remove(archivo);
+        }
 
         public List<ArchivoView> getArchivos(string codigoCurso, string carpeta, int grupo, string anio, string periodo)
         {

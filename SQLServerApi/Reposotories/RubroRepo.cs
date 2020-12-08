@@ -45,6 +45,12 @@ namespace SQLServerApi.Reposotories
 
         }
 
+        public void Delete(string codigoCurso, int grupo, string anio, string periodo, string nombreRubro)
+        {
+            _context.Database.ExecuteSqlRaw("spEliminarRubro @p0, @p1, @p2, @p3, @p4",
+                codigoCurso, grupo, anio, periodo, nombreRubro);
+        }
+
         public List<RubroView> getRubros(string codigoCurso, int grupo, string anio, string periodo)
         {
             return _context.Set<RubroView>().FromSqlRaw($"EXEC spGetRubros " +

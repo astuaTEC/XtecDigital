@@ -33,11 +33,30 @@ namespace SQLServerApi.Controllers
 
         [HttpPost]
         [Route("api/grupo/noticia/new")]
-        public IActionResult NuevaNoticia([FromBody] Noticia notica)
+        public IActionResult NuevaNoticia([FromBody] Noticia noticia)
         {
-            _repo.Create(notica);
+            _repo.Create(noticia);
             _repo.SaveChanges();
             return Ok("Noticia agregada correctamente");
+        }
+
+        [HttpPut]
+        [Route("api/grupo/noticia/edit")]
+        public IActionResult EditarNoticia([FromBody] Noticia noticia)
+        {
+            _repo.Update(noticia);
+            _repo.SaveChanges();
+            return Ok("Noticia actualizada correctamente");
+        }
+
+        [HttpDelete]
+        [Route("api/grupo/noticia/delete")]
+        public IActionResult Delete([FromQuery] string curso, [FromQuery] int grupo,
+            [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] int id)
+        {
+            _repo.Delete(curso, grupo, anio, periodo, id);
+            _repo.SaveChanges();
+            return Ok("Noticia eliminada correctamente");
         }
     }
 }

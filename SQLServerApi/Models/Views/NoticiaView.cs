@@ -7,6 +7,7 @@ namespace SQLServerApi.Models.Views
 {
     public class NoticiaView
     {
+        public int Id { get; set; }
         public DateTime FechaPublicacion { get; set; }
         public string Titulo { get; set; }
         public string Mensaje { get; set; }

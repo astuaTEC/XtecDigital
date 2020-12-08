@@ -20,8 +20,9 @@ BEGIN
 		  @Grupo = NumeroGrupo AND
 		  @Anio = Anio AND
 		  @Periodo = Periodo AND
-		  @NombreEvaluacion = NombreEvaluacion;
-
+		  @NombreEvaluacion = NombreEvaluacion AND
+		  Evaluado = 1;
+	
 	INSERT INTO EvaluacionLog(Profesor, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio)
 	VALUES(@Profesor, @NombreEvaluacion, @Rubro, @Grupo, @Curso, @Periodo, @Anio)
 	

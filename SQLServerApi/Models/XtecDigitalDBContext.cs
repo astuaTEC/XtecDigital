@@ -487,6 +487,7 @@ namespace SQLServerApi.Models
             modelBuilder.Entity<EvaluacionView>().HasNoKey().ToView(null);
             modelBuilder.Entity<EntregableView>().HasNoKey().ToView(null);
             modelBuilder.Entity<NoticiaView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<EstudianteGrupoView>().HasNoKey().ToView(null);
 
 
 

@@ -42,10 +42,11 @@ namespace SQLServerApi.Controllers
         [HttpDelete]
         [Route("api/grupo/carpeta/delete")]
         public IActionResult Delete([FromQuery] string curso, [FromQuery] int grupo,
-            [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string carpeta)
+            [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string nombre)
         {
+            _repo.Delete(curso, grupo, anio, periodo, nombre);
             _repo.SaveChanges();
-            return Ok("Carpeta creada correctamente");
+            return Ok("Carpeta eliminada correctamente");
         }
     }
 }

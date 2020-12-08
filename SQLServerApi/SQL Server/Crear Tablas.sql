@@ -133,7 +133,7 @@ CREATE TABLE PROFESOR_GRUPO(
 
 
 CREATE TABLE SUBGRUPO(
-	Id							INT IDENTITY(1,1)	NOT NULL,
+	Id							INT                 NOT NULL,
 	NombreEvaluacion			VARCHAR(50)			NOT NULL,
 	NombreRubro					VARCHAR(50)			NOT NULL,
 	NumeroGrupo					INT					NOT NULL,
