@@ -48,7 +48,7 @@ import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-sc
     LogInComponent,
     SemestresComponent,
     AdministradorComponent,
-    CursosComponent
+    CursosComponent,
     AgregarEvaluacionProfesorComponent,
     EntregablesProfesorComponent,
     CrearNoticiaProfesorComponent,
