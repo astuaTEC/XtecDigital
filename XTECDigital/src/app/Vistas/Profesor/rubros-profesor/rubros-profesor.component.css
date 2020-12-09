@@ -2,7 +2,6 @@
     padding-top: 60px;
 }
 .controles{
-    background: #bbe9df;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -14,18 +13,17 @@
 
 
 .cabecera{
-    background: #f8d9a0;
+    background: #ffac12;
     font-size: 24px;
 }
-.cuerpo{
-    background: #0357d4;
-}
 
-.pie{
-    background: #f8d9a0; 
-}
 
 .botonGuardar{
     padding-top: 20px;
     padding-bottom: 40px;
+}
+
+.input{
+    text-align: center;
+    border-radius: 20px;
 }

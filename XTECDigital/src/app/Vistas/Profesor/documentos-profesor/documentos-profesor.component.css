@@ -3,9 +3,8 @@
 }
 
 .carpeta{
-    background: #2f4f4f;
     padding-top: 20px;
-    border: 1px solid black;
+    border: 1px solid rgb(0, 0, 0);
     padding-bottom: 20px;
     color: #ffffff;
     font-size: 18px;
@@ -13,7 +12,7 @@
 
 .grupo{
     padding-top: 60px;
-    background: #2f4f4f; 
+
 }
 .carpeta:hover {
     background: #b8860b;
@@ -23,4 +22,9 @@
     padding-top: 20px;  
     padding-bottom: 20px;
     
+}
+
+.input{
+    text-align: center;
+    border-radius: 20px;
 }

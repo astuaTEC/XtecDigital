@@ -60,8 +60,8 @@ export class DocumentosProfesorComponent implements OnInit {
     }
   }
 
-  gotoArchivos(nombreCarpeta:string){
-    this.router.navigate(['/ProfesorGrupo/Documentos', nombreCarpeta]);
+  gotoArchivos(){
+    this.router.navigate(['/ProfesorGrupo/Documentos', 'NombreCarpeta']);
   }
 
 }

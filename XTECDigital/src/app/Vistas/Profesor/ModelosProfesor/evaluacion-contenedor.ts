@@ -5,8 +5,6 @@ export class EvaluacionContenedor {
         public nombre: string,
         public porcentaje: number,
         public mostrar: boolean,
-        public agregarActivado: boolean,
-        public nombreNuevaEvaluacion: string,
         public evaluaciones: Evaluacion[]
     ){}
 }
