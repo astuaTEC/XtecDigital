@@ -1,0 +1,57 @@
+<button type="button" class="btn button1 btn-primary"  *ngIf="!formVisibility" (click)="agregar()" >
+	<img class="img"  src="assets/add.svg">
+	Crear curso
+</button>
+<div class="wrapper" *ngIf="formVisibility" class="row" >
+	<div>
+		<h2 class="name text-white">Datos del curso</h2>
+		<form 
+              (ngSubmit)="submit()"
+              #f="ngForm">
+		<p class="text-white">
+			Nombre: <input type="text" #nombre  class="inputred"  name="nombre" [(ngModel)]="curso.nombre" ngModel required /></p>
+		<p class="text-white">
+			Codigo: <input type="text" #codigo  class="inputred"  name="codigo" [(ngModel)]="curso.codigo" ngModel  required /></p>
+
+
+		<p class="text-white">
+			Cantidad de creditos: <input type="number" #creditos class="inputred"  name="creditos" [(ngModel)]="curso.creditos" ngModel  required /></p>
+
+		<p class="text-white">
+			Carrera: <input type="text" #carrera  class="inputred"  name="carrera" [(ngModel)]="curso.carrera" ngModel  required /></p>
+
+	<button type="button" class="btn but btn-primary" (click)="formVisibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn but btn-primary"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Crear curso
+	</button>
+
+
+
+</form>
+
+
+</div>
+	</div>
+
+
+<div class="row"  *ngIf="!formVisibility">
+	<mat-accordion *ngFor="let curso of cursos" class="text-center acc">
+  <mat-expansion-panel   (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{curso.nombre}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <p class="text-left"><br>Codigo: {{curso.codigo}}<br>Creditos: {{curso.creditos}}<br>Carrera: {{curso.carrera}}</p>
+    <button type="button" *ngIf="curso.habilitado" (click)="deshabilitar(curso)" class="btn butt btn-primary">Deshabilitar</button>
+    <button type="button"  *ngIf="!curso.habilitado"(click)="habilitar(curso)" class="btn butt btn-primary">Habilitar</button>
+  </mat-expansion-panel>
+</mat-accordion>
+</div>
