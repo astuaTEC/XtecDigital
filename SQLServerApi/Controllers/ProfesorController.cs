@@ -38,5 +38,16 @@ namespace SQLServerApi.Controllers
                 return BadRequest("Ha ocurrido un error");
             return Ok(resultado);
         }
+
+        [HttpGet]
+        [Route("api/profesor/curso/getNotas")]
+        public IActionResult GetNotasCurso([FromQuery] string curso, [FromQuery] int grupo,
+            [FromQuery] string anio, [FromQuery] string periodo)
+        {
+            var resultado = _repo.getNotasGrupo(curso, grupo, anio, periodo);
+            if (resultado == null)
+                return BadRequest("Ha ocurrido un error");
+            return Ok(resultado);
+        }
     }
 }

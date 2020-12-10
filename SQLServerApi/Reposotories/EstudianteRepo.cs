@@ -1,4 +1,6 @@
-﻿using SQLServerApi.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using SQLServerApi.Models;
+using SQLServerApi.Models.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,17 @@ namespace SQLServerApi.Reposotories
             _context = context;
         }
 
-        /*public List<ProfesorGrupoView> getGrupos(string cedulaProfesor, string anio, string periodo)
+        public List<GrupoSemestreView> getGrupos(string carnet)
         {
-            return _context.Set<ProfesorGrupoView>().FromSqlRaw($"EXEC spGetCursosProfesor " +
-                            $"@Profesor = {cedulaProfesor}, @Anio = {anio}, @Periodo = {periodo}").ToList();
-        }*/
+            return _context.Set<GrupoSemestreView>().FromSqlRaw($"EXEC spGetSemestresEstudiante " +
+                            $"@Carnet = {carnet}").ToList();
+        }
+
+        public List<NotaView> getNota(string codigoCurso, int grupo, string anio, string periodo, string carnet)
+        {
+            return _context.Set<NotaView>().FromSqlRaw($"EXEC spNotasEstudianteGrupo " +
+                           $"@Curso = {codigoCurso}, @Grupo = {grupo}, " +
+                           $"@Anio = {anio}, @Periodo = {periodo}, @Carnet = {carnet}").ToList();
+        }
     }
 }

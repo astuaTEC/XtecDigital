@@ -479,7 +479,7 @@ namespace SQLServerApi.Models
                     .HasConstraintName("FK__SUBGRUPO__2BFE89A6");
             });
 
-            modelBuilder.Entity<ProfesorGrupoView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<GrupoSemestreView>().HasNoKey().ToView(null);
             modelBuilder.Entity<RubroView>().HasNoKey().ToView(null);
             modelBuilder.Entity<CarpetaView>().HasNoKey().ToView(null);
             modelBuilder.Entity<ArchivoView>().HasNoKey().ToView(null);
@@ -488,8 +488,8 @@ namespace SQLServerApi.Models
             modelBuilder.Entity<EntregableView>().HasNoKey().ToView(null);
             modelBuilder.Entity<NoticiaView>().HasNoKey().ToView(null);
             modelBuilder.Entity<EstudianteGrupoView>().HasNoKey().ToView(null);
-
-
+            modelBuilder.Entity<EstudianteGrupoView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<NotaView>().HasNoKey().ToView(null);
 
             OnModelCreatingPartial(modelBuilder);
         }

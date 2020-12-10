@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SQLServerApi.Models.Views
 {
-    public class ProfesorGrupoView
+    public class GrupoSemestreView
     {
         public int NumeroGrupo { get; set; }
         public string CodigoCurso { get; set; }
