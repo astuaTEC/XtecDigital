@@ -27,6 +27,20 @@ namespace MongoDBApi.Repositories
             return _estudiantes.Find(x => true).Project<Estudiante>("{carnet: 1}").ToList();
         }
 
+        public Estudiante getInfoEstudiante(string carnet)
+        {
+            return _estudiantes.Find(x => x.Carnet == carnet).
+                Project<Estudiante>("{carnet: 1, primerNombre: 1, segundoNombre: 1, " +
+                "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").FirstOrDefault();
+        }
+
+        public List<Estudiante> getInfoEstudiantes()
+        {
+            return _estudiantes.Find(x => true).
+                Project<Estudiante>("{carnet: 1, primerNombre: 1, segundoNombre: 1, " +
+                "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").ToList();
+        }
+
 
         public static string MD5Hash(string text)
         {

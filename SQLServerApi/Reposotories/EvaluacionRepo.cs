@@ -56,24 +56,7 @@ namespace SQLServerApi.Reposotories
                 throw new ArgumentNullException(nameof(entregableDTO));
 
             byte[] ArchivoEntregable;
-            /*var entregable = new Entregable
-            {
-                CarnetEstudiante = entregableDTO.CarnetEstudiante,
-                NombreEvaluacion = entregableDTO.NombreEvaluacion,
-                NombreRubro = entregableDTO.NombreRubro,
-                NumeroGrupo = entregableDTO.NumeroGrupo,
-                CodigoCurso = entregableDTO.CodigoCurso,
-                Periodo = entregableDTO.Periodo,
-                Anio = entregableDTO.Anio
-            };
 
-            // si viene un entregable en base64 hay que parsearlo a byte array
-            if (entregableDTO.ArchivoEntregable != null)
-                entregable.ArchivoEntregable = Convert.FromBase64String(entregableDTO.ArchivoEntregable);
-            if (entregableDTO.ArchivoRetroAlimentacion != null)
-                entregable.ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
-
-            _context.Entregables.Add(entregable);*/
 
             if (entregableDTO.ArchivoEntregable != null) 
             {
@@ -90,26 +73,15 @@ namespace SQLServerApi.Reposotories
             if (entregableDTO == null)
                 throw new ArgumentNullException(nameof(entregableDTO));
 
-            var entregable = new Entregable();
-            /*var entregable = _context.Entregables.
-                             FirstOrDefault(x => x.CarnetEstudiante == entregableDTO.CarnetEstudiante && x.Id == entregableDTO.Id);*/
+            byte[] ArchivoRetroAlimentacion = null;
 
-            // si viene un Archivo en base64 hay que parsearlo a byte array
-            if (entregableDTO.ArchivoRetroAlimentacion != null)
-                entregable.ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
-
-            /*entregable.Evaluado = true;
-            entregable.Publico = false;
-            entregable.Nota = entregableDTO.Nota;
-            entregable.Observaciones = entregableDTO.Observaciones;
-
-            //_context.Entregables.Update(entregable);*/
-
+            if (entregableDTO.ArchivoEntregable != null)
+                ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
+               
             _context.Database.ExecuteSqlRaw("spCalificarEntregable @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10",
-                entregableDTO.CodigoCurso, entregableDTO.NombreRubro, entregableDTO.NombreEvaluacion, entregableDTO.NumeroGrupo,
-                entregableDTO.Anio, entregableDTO.Periodo, entregableDTO.CarnetEstudiante, entregableDTO.Id,
-                entregable.ArchivoRetroAlimentacion, entregableDTO.Observaciones, entregableDTO.Nota);
-           
+               entregableDTO.CodigoCurso, entregableDTO.NombreRubro, entregableDTO.NombreEvaluacion, entregableDTO.NumeroGrupo,
+               entregableDTO.Anio, entregableDTO.Periodo, entregableDTO.CarnetEstudiante, entregableDTO.Id,
+               ArchivoRetroAlimentacion, entregableDTO.Observaciones, entregableDTO.Nota);
         }
 
         public void agregarSubGrupos(List<Subgrupo> subgrupos)

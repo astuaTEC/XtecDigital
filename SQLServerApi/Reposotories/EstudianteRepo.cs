@@ -30,5 +30,13 @@ namespace SQLServerApi.Reposotories
                            $"@Curso = {codigoCurso}, @Grupo = {grupo}, " +
                            $"@Anio = {anio}, @Periodo = {periodo}, @Carnet = {carnet}").ToList();
         }
+
+        public EntregableEstudianteView getEntregableEvaluacion(string codigoCurso, string rubro, string nombreEvaluacion, int grupo,
+            string anio, string periodo, string carnet)
+        {
+            return _context.Set<EntregableEstudianteView>().FromSqlRaw($"EXEC spGetEntregableEstudiante " +
+                          $"@Curso = {codigoCurso}, @Rubro = {rubro}, @NombreEvaluacion = {nombreEvaluacion}, " +
+                          $"@Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}, @Carnet = {carnet}").ToList()[0];
+        }
     }
 }
