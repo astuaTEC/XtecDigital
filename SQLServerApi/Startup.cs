@@ -54,6 +54,8 @@ namespace SQLServerApi
             services.AddScoped<EvaluacionRepo>();
             services.AddScoped<NoticiaRepo>();
             services.AddScoped<EstudianteRepo>();
+            services.AddScoped<SemestreRepo>();
+
 
             services.AddControllers();
         }

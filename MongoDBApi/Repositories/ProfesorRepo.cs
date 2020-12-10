@@ -1,5 +1,6 @@
 ﻿using MongoDB.Driver;
 using MongoDBApi.Models;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -14,6 +15,18 @@ namespace MongoDBApi.Repositories
         {
             _database = client.GetDatabase("XtecDigitalDB");
             _profesores = _database.GetCollection<Profesor>("Profesor");
+        }
+
+        public List<Profesor> getCedulas()
+        {
+            return _profesores.Find(x => true).Project<Profesor>("{cedula: 1}").ToList();
+        }
+
+        public Profesor getInfoProfesor(string cedula)
+        {
+            return _profesores.Find(x => x.Cedula == cedula).
+                Project<Profesor>("{cedula: 1, primerNombre: 1, segundoNombre: 1, " +
+                "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").FirstOrDefault();
         }
 
         public static string MD5Hash(string text)

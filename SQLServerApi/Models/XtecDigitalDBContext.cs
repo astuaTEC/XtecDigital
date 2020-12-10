@@ -490,6 +490,7 @@ namespace SQLServerApi.Models
             modelBuilder.Entity<EstudianteGrupoView>().HasNoKey().ToView(null);
             modelBuilder.Entity<EstudianteGrupoView>().HasNoKey().ToView(null);
             modelBuilder.Entity<NotaView>().HasNoKey().ToView(null);
+            modelBuilder.Entity<EntregableEstudianteView>().HasNoKey().ToView(null);
 
             OnModelCreatingPartial(modelBuilder);
         }

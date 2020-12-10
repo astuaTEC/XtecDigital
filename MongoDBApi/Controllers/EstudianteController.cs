@@ -41,6 +41,28 @@ namespace MongoDBApi.Controllers
             return Ok(resultado);
         }
 
+        [HttpGet]
+        [Route("api/estudiante/info")]
+        public IActionResult GetInfoEstudiante([FromQuery] string carnet)
+        {
+            var resultado = _repo.getInfoEstudiante(carnet);
+
+            if (resultado == null)
+                return BadRequest("Algo salió mal");
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("api/estudiante/info/all")]
+        public IActionResult GetInfoEstudiantes()
+        {
+            var resultado = _repo.getInfoEstudiantes();
+
+            if (resultado == null)
+                return BadRequest("Algo salió mal");
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("api/estudiante/login")]
         public IActionResult Login([FromBody] Login login)
@@ -49,7 +71,7 @@ namespace MongoDBApi.Controllers
 
             if (resultado == false)
                 return BadRequest("Carnet o contaseña incorrectos");
-            return Ok("Ha iniciado sesión como: " + login.Usuario);
+            return Ok(GetInfoEstudiante(login.Usuario));
         }
     }
 }
