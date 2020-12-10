@@ -18,15 +18,21 @@ namespace SQLServerApi.Reposotories
             _context = context;
         }
 
-        public List<ProfesorGrupoView> getGrupos(string cedulaProfesor)
+        public List<GrupoSemestreView> getGrupos(string cedulaProfesor)
         {
-            return _context.Set<ProfesorGrupoView>().FromSqlRaw($"EXEC spGetSemestresProfesor " +
+            return _context.Set<GrupoSemestreView>().FromSqlRaw($"EXEC spGetSemestresProfesor " +
                             $"@Profesor = {cedulaProfesor}").ToList();
         }
 
         public List<EstudianteGrupoView> getEstudiantesGrupo(string codigoCurso, int grupo, string anio, string periodo)
         {
             return _context.Set<EstudianteGrupoView>().FromSqlRaw($"EXEC spGetEstudiantesCurso " +
+                           $"@Curso = {codigoCurso}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
+        }
+
+        public List<NotaView> getNotasGrupo(string codigoCurso, int grupo, string anio, string periodo)
+        {
+            return _context.Set<NotaView>().FromSqlRaw($"EXEC spNotasGrupo " +
                            $"@Curso = {codigoCurso}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
         }
 
