@@ -71,7 +71,7 @@ namespace MongoDBApi.Controllers
 
             if (resultado == false)
                 return BadRequest("Carnet o contaseña incorrectos");
-            return Ok(GetInfoEstudiante(login.Usuario));
+            return Ok(_repo.getInfoEstudiante(login.Usuario));
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SQLServerApi.Models;
+using SQLServerApi.Models.DTO;
 using SQLServerApi.Reposotories;
+using System.Collections.Generic;
 
 namespace SQLServerApi.Controllers
 {
@@ -23,6 +25,13 @@ namespace SQLServerApi.Controllers
             return Ok("Semestre creado correctamente");
         }
 
-
+        [HttpPost]
+        [Route("api/semestre/newExcel")]
+        public IActionResult CreateFromExcel([FromBody] IEnumerable<SemestreExcel> semestre)
+        {
+            _repo.CreateFromExcel(semestre);
+            _repo.SaveChanges();
+            return Ok("Semestre creado correctamente");
+        }
     }
 }

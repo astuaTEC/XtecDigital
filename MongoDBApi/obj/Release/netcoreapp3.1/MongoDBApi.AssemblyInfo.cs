@@ -11,13 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("f2e3d1af-5b37-4347-a45a-fb1ffdf95379")]
-[assembly: System.Reflection.AssemblyCompanyAttribute("SQLServerApi")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("MongoDBApi")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("SQLServerApi")]
-[assembly: System.Reflection.AssemblyTitleAttribute("SQLServerApi")]
+[assembly: System.Reflection.AssemblyProductAttribute("MongoDBApi")]
+[assembly: System.Reflection.AssemblyTitleAttribute("MongoDBApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Generado por la clase WriteCodeFragment de MSBuild.

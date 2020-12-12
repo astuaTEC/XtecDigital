@@ -16,7 +16,7 @@ namespace MongoDBApi.Controllers
 
         [HttpGet]
         [Route("api/profesor/info")]
-        public IActionResult GetInfoEstudiante([FromQuery] string cedula)
+        public IActionResult GetInfoProfesor([FromQuery] string cedula)
         {
             var resultado = _repo.getInfoProfesor(cedula);
 
@@ -30,6 +30,17 @@ namespace MongoDBApi.Controllers
         public IActionResult GetCarnets()
         {
             var resultado = _repo.getCedulas();
+
+            if (resultado == null)
+                return BadRequest("Algo salió mal");
+            return Ok(resultado);
+        }
+
+        [HttpGet]
+        [Route("api/profesores/info/all")]
+        public IActionResult GetInfoProfesores()
+        {
+            var resultado = _repo.getInfoProfesores();
 
             if (resultado == null)
                 return BadRequest("Algo salió mal");
