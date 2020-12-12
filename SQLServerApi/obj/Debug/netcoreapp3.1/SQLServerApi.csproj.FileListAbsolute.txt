@@ -64,3 +64,4 @@ C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Debug\netcoreapp3.1\
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Debug\netcoreapp3.1\SQLServerApi.dll
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Debug\netcoreapp3.1\SQLServerApi.pdb
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Debug\netcoreapp3.1\SQLServerApi.genruntimeconfig.cache
+C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\bin\Debug\netcoreapp3.1\FastMember.dll

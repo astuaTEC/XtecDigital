@@ -29,6 +29,13 @@ namespace MongoDBApi.Repositories
                 "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").FirstOrDefault();
         }
 
+        public List<Profesor> getInfoProfesores()
+        {
+            return _profesores.Find(x => true).
+                Project<Profesor>("{cedula: 1, primerNombre: 1, segundoNombre: 1, " +
+                "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").ToList();
+        }
+
         public static string MD5Hash(string text)
         {
             var md5 = new MD5CryptoServiceProvider();

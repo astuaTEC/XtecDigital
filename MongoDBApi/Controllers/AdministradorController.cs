@@ -14,6 +14,17 @@ namespace MongoDBApi.Controllers
             _repo = repo;
         }
 
+        [HttpGet]
+        [Route("api/admin/info")]
+        public IActionResult GetInfoAdmin([FromQuery] string cedula)
+        {
+            var resultado = _repo.getInfoAdmin(cedula);
+
+            if (resultado == null)
+                return BadRequest("Algo salió mal");
+            return Ok(resultado);
+        }
+
         [HttpPost]
         [Route("api/admin/login")]
         public IActionResult Login([FromBody] Login login)

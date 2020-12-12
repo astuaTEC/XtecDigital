@@ -73,9 +73,9 @@ namespace SQLServerApi.Reposotories
             if (entregableDTO == null)
                 throw new ArgumentNullException(nameof(entregableDTO));
 
-            byte[] ArchivoRetroAlimentacion = null;
+            byte[] ArchivoRetroAlimentacion = new byte[] { };
 
-            if (entregableDTO.ArchivoEntregable != null)
+            if (entregableDTO.ArchivoRetroAlimentacion != null)
                 ArchivoRetroAlimentacion = Convert.FromBase64String(entregableDTO.ArchivoRetroAlimentacion);
                
             _context.Database.ExecuteSqlRaw("spCalificarEntregable @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10",

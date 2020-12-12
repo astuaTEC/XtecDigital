@@ -6,7 +6,7 @@
   "compilationOptions": {
     "defines": [
       "TRACE",
-      "DEBUG",
+      "RELEASE",
       "NETCOREAPP",
       "NETCOREAPP3_1"
     ],
@@ -14,7 +14,7 @@
     "platform": "",
     "allowUnsafe": false,
     "warningsAsErrors": false,
-    "optimize": false,
+    "optimize": true,
     "keyFile": "",
     "emitEntryPoint": true,
     "xmlDoc": false,
@@ -24,7 +24,6 @@
     ".NETCoreApp,Version=v3.1": {
       "SQLServerApi/1.0.0": {
         "dependencies": {
-          "FastMember": "1.5.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.9",
           "Microsoft.EntityFrameworkCore.SqlServer": "5.0.0",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.0",
@@ -304,17 +303,6 @@
         },
         "compile": {
           "SQLServerApi.dll": {}
-        }
-      },
-      "FastMember/1.5.0": {
-        "runtime": {
-          "lib/netcoreapp2.0/FastMember.dll": {
-            "assemblyVersion": "1.5.0.0",
-            "fileVersion": "1.5.0.0"
-          }
-        },
-        "compile": {
-          "lib/netcoreapp2.0/FastMember.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -2989,13 +2977,6 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
-    },
-    "FastMember/1.5.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Db80coUbys8VgmcrR9mxUR+EInTpweoLM0GFJXIBuj8+PTgqV+ygq+EOM3HME83tob1+RR9XlBcEkpfFyypdHg==",
-      "path": "fastmember/1.5.0",
-      "hashPath": "fastmember.1.5.0.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",

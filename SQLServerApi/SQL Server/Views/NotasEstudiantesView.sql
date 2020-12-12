@@ -31,6 +31,7 @@ SELECT
 	   EN.Periodo = E.Periodo AND
 	   EN.Anio = E.Anio AND
 	   EN.NombreRubro = E.NombreRubro AND
+	   EN.NombreEvaluacion = E.Nombre AND
 	   EN.CarnetEstudiante = ES.CarnetEstudiante
 	INNER JOIN
 	CURSO AS C

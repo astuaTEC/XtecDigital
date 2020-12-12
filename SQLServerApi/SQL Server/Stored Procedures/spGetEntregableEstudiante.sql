@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-CREATE PROCEDURE spGetEntregableEstudiante(
+Alter PROCEDURE spGetEntregableEstudiante(
 @Curso VARCHAR(9),
 @Rubro VARCHAR(50),
 @NombreEvaluacion VARCHAR(50),
@@ -11,7 +11,7 @@ CREATE PROCEDURE spGetEntregableEstudiante(
 @Carnet VARCHAR(10)
 )
 AS
-SELECT Id, e.CarnetEstudiante
+SELECT Id, e.CarnetEstudiante, e.Publico, e.Evaluado, e.Nota, e.Observaciones
 FROM ENTREGABLE AS e
 WHERE e.CodigoCurso = @Curso AND
 	  e.NumeroGrupo = @Grupo AND

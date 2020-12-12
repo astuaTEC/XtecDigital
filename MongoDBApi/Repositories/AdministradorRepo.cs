@@ -16,6 +16,12 @@ namespace MongoDBApi.Repositories
             _administradores = _database.GetCollection<Administrador>("Administrador");
         }
 
+        public Administrador getInfoAdmin(string cedula)
+        {
+            return _administradores.Find(x => x.Cedula == cedula).
+                Project<Administrador>("{cedula: 1, primerNombre: 1, segundoNombre: 1, " +
+                "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").FirstOrDefault();
+        }
         public static string MD5Hash(string text)
         {
             var md5 = new MD5CryptoServiceProvider();

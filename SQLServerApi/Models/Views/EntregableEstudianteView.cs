@@ -9,5 +9,9 @@ namespace SQLServerApi.Models.Views
     {
         public int Id { get; set; }
         public string CarnetEstudiante { get; set; }
+        public int Nota { get; set; }
+        public string Observaciones { get; set; }
+        public bool Publico { get; set; }
+        public bool Evaluado { get; set; }
     }
 }
