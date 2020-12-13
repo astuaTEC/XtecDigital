@@ -14,6 +14,5 @@ namespace SQLServerApi.Models.DTO
         public int NumeroGrupo { get; set; }
         public string CarnetEstudiante { get; set; }
         public string Profesor1 { get; set; }
-        public string Profesor2 { get; set; }
     }
 }

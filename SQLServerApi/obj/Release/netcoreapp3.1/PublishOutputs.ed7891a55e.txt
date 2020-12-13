@@ -4,6 +4,7 @@ C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\SQLServerApi.dll
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\SQLServerApi.runtimeconfig.json
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\SQLServerApi.pdb
+C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\FastMember.dll
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\DELL\Documents\GitHub\XtecDigital\SQLServerApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.Data.SqlClient.dll

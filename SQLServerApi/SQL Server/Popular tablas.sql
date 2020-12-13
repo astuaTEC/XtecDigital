@@ -9,9 +9,7 @@ Version	 : 1.0
 
 -- SEMESTRE
 INSERT INTO SEMESTRE (Periodo, Anio)
-VALUES ('1', '2021'),
-	   ('2', '2021'),
-	   ('V', '2021');
+VALUES ('V', '2020');
 
 -- CURSO
 INSERT INTO CURSO (Codigo, Creditos, Carrera, Nombre, Habilitado)
@@ -19,73 +17,29 @@ VALUES ('MA-0101', 4, 'Matemática', 'Matemática General', 1),
 	   ('MA-0102', 4, 'Matemática', 'Cálculo Diferencial e Integral', 1),
 	   ('MA-0103', 4, 'Matemática', 'Cálculo y Algebra Lineal', 1),
 	   ('MA-2105', 4, 'Matemática', 'Ecuaciones diferenciales', 1),
-	   ('MA-2104', 4, 'Matemática', 'Cálculo superior', 1);
+	   ('MA-2104', 4, 'Matemática', 'Cálculo superior', 1),
+	   ('CE3101', 4, 'Ing. Computadores', 'Bases de Datos', 1),
+	   ('CE3104', 4, 'Ing. Computadores', 'Lenguajes compiladores e interpretes', 1),
+	   ('CE4101', 4, 'Ing. Computadores', 'Especificacion y Diseno de Software', 1);
 
 -- GRUPO 
 INSERT INTO GRUPO(Numero, CodigoCurso, Periodo, Anio)
-VALUES (1, 'MA-0101', '1', '2021'), -- |PRIMER PERIODO| / Mate general
-	   (2, 'MA-0101', '1', '2021'),
-	   (1, 'MA-0102', '1', '2021'), -- Cálculo Diferencial e Integral
-	   (2, 'MA-0102', '1', '2021'),
-	   (1, 'MA-0103', '1', '2021'), -- Cálculo y Algebra Lineal
-	   (2, 'MA-0103', '1', '2021'),
-	   (1, 'MA-2104', '1', '2021'), -- Cálculo superior
-	   (2, 'MA-2104', '1', '2021'),
-	   (1, 'MA-2105', '1', '2021'), -- Ecuaciones diferenciales
-	   (2, 'MA-2105', '1', '2021'),
-	   (1, 'MA-0101', '2', '2021'), -- |SEGUNDO PERIODO| / Mate general
-	   (2, 'MA-0101', '2', '2021'),
-	   (1, 'MA-0102', '2', '2021'), -- Cálculo Diferencial e Integral
-	   (2, 'MA-0102', '2', '2021'),
-	   (1, 'MA-0103', '2', '2021'), -- Cálculo y Algebra Lineal
-	   (2, 'MA-0103', '2', '2021'),
-	   (1, 'MA-2104', '2', '2021'), -- Cálculo superior
-	   (2, 'MA-2104', '2', '2021'),
-	   (1, 'MA-2105', '2', '2021'), -- Ecuaciones diferenciales
-	   (2, 'MA-2105', '2', '2021'),
-	   (1, 'MA-0101', 'V', '2021'), -- |VERANO| / Mate general
-	   (2, 'MA-0101', 'V', '2021'),
-	   (1, 'MA-0102', 'V', '2021'), -- Cálculo Diferencial e Integral
-	   (2, 'MA-0102', 'V', '2021'),
-	   (1, 'MA-0103', 'V', '2021'), -- Cálculo y Algebra Lineal
-	   (2, 'MA-0103', 'V', '2021'),
-	   (1, 'MA-2104', 'V', '2021'), -- Cálculo superior
-	   (2, 'MA-2104', 'V', '2021'),
-	   (1, 'MA-2105', 'V', '2021'), -- Ecuaciones diferenciales
-	   (2, 'MA-2105', 'V', '2021');
+VALUES (1, 'CE3101', 'V', '2020'), -- |VERANO| / Bases de datos
+	   (2, 'CE3101', 'V', '2020'),
+	   (1, 'CE3104', 'V', '2020'), -- Lenguajes compiladores e interpretes
+	   (1, 'MA-0103', 'V', '2020'), -- Cálculo y Algebra Lineal
+	   (2, 'MA-0103', 'V', '2020'),
+	   (1, 'MA-2104', 'V', '2020'), -- Cálculo superior
+	   (2, 'MA-2104', 'V', '2020'),
+	   (1, 'MA-2105', 'V', '2020'), -- Ecuaciones diferenciales
+	   (2, 'MA-2105', 'V', '2020');
 
 -- PROFESOR_GRUPO
 INSERT INTO PROFESOR_GRUPO(CedulaProfesor, NumeroGrupo, CodigoCurso, Periodo, Anio)
-VALUES ('106540871', 1, 'MA-0101', '1', '2021'), -- |PRIMER PERIODO| / Mate General
-	   ('308740651', 2, 'MA-0101', '1', '2021'),
-	   ('103480774', 1, 'MA-0102', '1', '2021'), -- Cálculo Diferencial e Integral
-	   ('701450456', 2, 'MA-0102', '1', '2021'),
-	   ('106540871', 1, 'MA-0103', '1', '2021'), -- Cálculo y Algebra Lineal
-	   ('308740651', 2, 'MA-0103', '1', '2021'),
-	   ('103480774', 1, 'MA-2104', '1', '2021'), -- Cálculo superior
-	   ('701450456', 2, 'MA-2104', '1', '2021'),
-	   ('106540871', 1, 'MA-2105', '1', '2021'), -- Ecuaciones diferenciales
-	   ('308740651', 2, 'MA-2105', '1', '2021'),
-	   ('106540871', 1, 'MA-0101', '2', '2021'), -- |SEGUNDO PERIODO| / Mate General
-	   ('308740651', 2, 'MA-0101', '2', '2021'),
-	   ('103480774', 1, 'MA-0102', '2', '2021'), -- Cálculo Diferencial e Integral
-	   ('701450456', 2, 'MA-0102', '2', '2021'),
-	   ('106540871', 1, 'MA-0103', '2', '2021'), -- Cálculo y Algebra Lineal
-	   ('308740651', 2, 'MA-0103', '2', '2021'),
-	   ('103480774', 1, 'MA-2104', '2', '2021'), -- Cálculo superior
-	   ('701450456', 2, 'MA-2104', '2', '2021'),
-	   ('106540871', 1, 'MA-2105', '2', '2021'), -- Ecuaciones diferenciales
-	   ('308740651', 2, 'MA-2105', '2', '2021'),
-	   ('106540871', 1, 'MA-0101', 'V', '2021'), -- |VERANO| / Mate General
-	   ('308740651', 2, 'MA-0101', 'V', '2021'),
-	   ('103480774', 1, 'MA-0102', 'V', '2021'), -- Cálculo Diferencial e Integral
-	   ('701450456', 2, 'MA-0102', 'V', '2021'),
-	   ('106540871', 1, 'MA-0103', 'V', '2021'), -- Cálculo y Algebra Lineal
-	   ('308740651', 2, 'MA-0103', 'V', '2021'),
-	   ('103480774', 1, 'MA-2104', 'V', '2021'), -- Cálculo superior
-	   ('701450456', 2, 'MA-2104', 'V', '2021'),
-	   ('106540871', 1, 'MA-2105', 'V', '2021'), -- Ecuaciones diferenciales
-	   ('308740651', 2, 'MA-2105', 'V', '2021');
+VALUES ('2222-2222', 1, 'CE3101', 'V', '2021'), -- |VERANO| / Mate General
+	   ('1111-1111', 2, 'CE3101', 'V', '2021'),
+	   ('1111-1111', 1, 'CE3104', 'V', '2021'), -- Cálculo Diferencial e Integral
+	   ('3333-3333', 1, 'CE3104', 'V', '2021');
 
 -- CARPETA
 INSERT INTO CARPETA (Nombre, NumeroGrupo, CodigoCurso, Periodo, Anio, Creador)

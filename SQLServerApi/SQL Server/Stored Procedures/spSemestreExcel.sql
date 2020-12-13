@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-alter PROCEDURE spSemestreExcel
+CREATE PROCEDURE spSemestreExcel
 (
 @TablaE SemestreExcel READONLY
 )
@@ -15,12 +15,11 @@ BEGIN
 			CodigoCurso VARCHAR(10),
 			NumeroGrupo int,
 			CarnetEstudiante VARCHAR(10),
-			Profesor1 VARCHAR(9),
-			Profesor2 VARCHAR(10)
+			Profesor1 VARCHAR(9)
 			);
 	
 	-- se hace una copia temporal de la tabla recibida para poder recorrerla
-	INSERT INTO @Tabla SELECT Id, Anio, Periodo, CodigoCurso, NumeroGrupo, CarnetEstudiante, Profesor1, Profesor2
+	INSERT INTO @Tabla SELECT Id, Anio, Periodo, CodigoCurso, NumeroGrupo, CarnetEstudiante, Profesor1
 	FROM @TablaE;
 	
 	DECLARE @Count INT = (SELECT COUNT(*) from @Tabla);
@@ -34,10 +33,11 @@ BEGIN
 				@NumeroGrupo int = (SELECT TOP(1) NumeroGrupo from @Tabla order by Id),
 				@CarnetEstudiante VARCHAR(10) = (SELECT TOP(1) CarnetEstudiante from @Tabla order by Id),
 				@Profesor1 VARCHAR(9) = (SELECT TOP(1) Profesor1 from @Tabla order by Id),
-				@Profesor2 VARCHAR(10) = (SELECT TOP(1) Profesor2 from @Tabla order by Id),
 				
-				@ContadorSemestre INT,
-				@ContadorGrupo INT;
+				@ContadorSemestre INT, -- contadores
+				@ContadorGrupo INT,
+				@ContadorEstudiante INT,
+				@ContadorProfesor INT;
 		
 		-- se accede a la tabla semestre
 		SET @ContadorSemestre = (SELECT COUNT(*) FROM SEMESTRE
@@ -65,23 +65,35 @@ BEGIN
 			VALUES (@NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
 		END
 
-		-- se revisa que exista profesor 1
-		IF(@Profesor1 is not NULL)
+		SET @ContadorProfesor = (SELECT COUNT(*) FROM PROFESOR_GRUPO
+								WHERE @Periodo = Periodo AND
+									  @Anio = Anio AND
+									  @NumeroGrupo = NumeroGrupo AND
+									  @CodigoCurso = CodigoCurso AND
+									  @Profesor1 = CedulaProfesor);
+
+		-- se revisa que el profesor no exista
+		IF(@ContadorProfesor = 0)
 		BEGIN
 			INSERT INTO PROFESOR_GRUPO(CedulaProfesor, NumeroGrupo, CodigoCurso, Periodo, Anio)
 			VALUES (@Profesor1, @NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
 		END
 		
-		-- se revisa que exista profesor 2
-		IF(@Profesor2 is not NULL)
-		BEGIN
-			INSERT INTO PROFESOR_GRUPO(CedulaProfesor, NumeroGrupo, CodigoCurso, Periodo, Anio)
-			VALUES (@Profesor2, @NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
-		END
 
-		-- se insertan los estudiantes en su grupo respectivo
-		INSERT INTO ESTUDIANTE_GRUPO(CarnetEstudiante, NumeroGrupo, CodigoCurso, Periodo, Anio)
-		VALUES (@CarnetEstudiante, @NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
+		SET @ContadorEstudiante = (SELECT COUNT(*) FROM ESTUDIANTE_GRUPO
+								   WHERE @Periodo = Periodo AND
+										 @Anio = Anio AND
+										 @NumeroGrupo = NumeroGrupo AND
+										 @CodigoCurso = CodigoCurso AND
+										 @CarnetEstudiante = CarnetEstudiante);
+		
+		-- se revisa que el estudiante no exista en ese grupo
+		IF(@ContadorEstudiante = 0)
+		BEGIN
+			-- se insertan los estudiantes en su grupo respectivo
+			INSERT INTO ESTUDIANTE_GRUPO(CarnetEstudiante, NumeroGrupo, CodigoCurso, Periodo, Anio)
+			VALUES (@CarnetEstudiante, @NumeroGrupo, @CodigoCurso, @Periodo, @Anio);
+		END
 
 		DELETE @Tabla where Id = @Id;
 		SET @Count = (SELECT COUNT(*) from @Tabla);

@@ -50,11 +50,12 @@ namespace SQLServerApi.Reposotories
             table.Columns.Add("NumeroGrupo", typeof(int));
             table.Columns.Add("CarnetEstudiante", typeof(string));
             table.Columns.Add("Profesor1", typeof(string));
-            table.Columns.Add("Profesor2", typeof(string));
 
+            int id = 1;
             foreach(var s in semestre)
             {
-                table.Rows.Add(s.Id, s.Anio, s.Periodo, s.CodigoCurso, s.NumeroGrupo, s.CarnetEstudiante, s.Profesor1, s.Profesor2);
+                table.Rows.Add(id, s.Anio, s.Periodo, s.CodigoCurso, s.NumeroGrupo, s.CarnetEstudiante, s.Profesor1);
+                id++;
             }
             var parameter = new SqlParameter("@TablaE", SqlDbType.Structured);
             parameter.Value = table;
