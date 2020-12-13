@@ -26,7 +26,7 @@ namespace SQLServerApi.Reposotories
 
         public List<EstudianteGrupoView> getEstudiantesGrupo(string codigoCurso, int grupo, string anio, string periodo)
         {
-            return _context.Set<EstudianteGrupoView>().FromSqlRaw($"EXEC spGetEstudiantesCurso " +
+            return _context.Set<EstudianteGrupoView>().FromSqlRaw($"EXEC spReporteEstudiantesCurso " +
                            $"@Curso = {codigoCurso}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
         }
 
