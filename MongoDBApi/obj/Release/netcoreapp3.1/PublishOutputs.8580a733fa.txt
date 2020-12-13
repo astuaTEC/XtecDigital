@@ -1,0 +1,23 @@
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDBApi.exe
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Scripts MongoDB\Populación Administradores.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Scripts MongoDB\Populación Estudiantes.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Scripts MongoDB\Populación Profesores.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDBApi.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDBApi.deps.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDBApi.runtimeconfig.json
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDBApi.pdb
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\DnsClient.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDB.Bson.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDB.Driver.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDB.Driver.Core.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\MongoDB.Libmongocrypt.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.Bson.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\SharpCompress.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\native\libzstd.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\native\snappy32.dll
+C:\Users\DELL\Documents\GitHub\XtecDigital\MongoDBApi\obj\Release\netcoreapp3.1\PubTmp\Out\runtimes\win\native\snappy64.dll

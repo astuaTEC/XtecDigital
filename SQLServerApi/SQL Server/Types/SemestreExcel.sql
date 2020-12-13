@@ -9,7 +9,6 @@ CREATE TYPE SemestreExcel AS TABLE(
 	NumeroGrupo int,
 	CarnetEstudiante VARCHAR(10),
 	Profesor1 VARCHAR(9),
-	Profesor2 VARCHAR(10),
 	PRIMARY KEY (Id)
 );
 

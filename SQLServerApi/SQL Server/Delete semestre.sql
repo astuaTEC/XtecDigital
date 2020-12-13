@@ -1,0 +1,24 @@
+USE XtecDigitalDB;
+GO
+
+DELETE PROFESOR_GRUPO
+WHERE Anio = '2021'
+AND  Periodo = '1';
+
+DELETE ESTUDIANTE_GRUPO
+WHERE Anio = '2021'
+AND  Periodo = '1';
+
+DELETE CARPETA
+WHERE Anio = '2021'
+AND  Periodo = '1';
+
+DELETE GRUPO
+WHERE Anio = '2021'
+AND  Periodo = '1';
+
+DELETE SEMESTRE
+WHERE Anio = '2021'
+AND  Periodo = '1';
+
+GO

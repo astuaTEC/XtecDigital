@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-ALTER TRIGGER PublicarNoticiaTrigger
+CREATE TRIGGER PublicarNoticiaTrigger
 ON EvaluacionLog
 AFTER INSERT
 AS
