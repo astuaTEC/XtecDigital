@@ -41,7 +41,7 @@ namespace SQLServerApi.Reposotories
                 Fecha = archivoDTO.Fecha
             };
 
-            // si viene un recibo en base64 hay que parsearlo a byte array
+            // si viene un archivo en base64 hay que parsearlo a byte array
             if (archivoDTO.Archivo != null)
                 archivo.Archivo1 = Convert.FromBase64String(archivoDTO.Archivo);
 
@@ -65,7 +65,7 @@ namespace SQLServerApi.Reposotories
                 Fecha = archivoDTO.Fecha
             };
 
-            // si viene un recibo en base64 hay que parsearlo a byte array
+            // si viene un archivo en base64 hay que parsearlo a byte array
             if (archivoDTO.Archivo != null)
                 archivo.Archivo1 = Convert.FromBase64String(archivoDTO.Archivo);
 
@@ -82,12 +82,33 @@ namespace SQLServerApi.Reposotories
             _context.Archivos.Remove(archivo);
         }
 
+        /// <summary>
+        /// Método para acceder a los archivos de determinada carpeta
+        /// </summary>
+        /// <param name="codigoCurso">El curso asociado</param>
+        /// <param name="carpeta">La carpeta que contiene el archivo</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <returns>La lista con los archivos</returns>
         public List<ArchivoView> getArchivos(string codigoCurso, string carpeta, int grupo, string anio, string periodo)
         {
+            // se ejecuta el stored procedure correspondiente
             return _context.Set<ArchivoView>().FromSqlRaw($"EXEC spGetArchivos " +
                           $"@Curso = {codigoCurso}, @Carpeta = {carpeta}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
         }
 
+        /// <summary>
+        /// Método para acceder a la data almacenada dentro
+        /// de determinado archivo
+        /// </summary>
+        /// <param name="codigoCurso">El curso asociado</param>
+        /// <param name="carpeta">La carpeta asociada</param>
+        /// <param name="nombreArchivo">El nombre del archivo a obtener</param>
+        /// <param name="grupo">El grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <returns>El archivo en base64</returns>
         public string getArchivoData(string codigoCurso, string carpeta, string nombreArchivo, int grupo, 
             string anio, string periodo)
         {
@@ -97,6 +118,7 @@ namespace SQLServerApi.Reposotories
             return Convert.ToBase64String(data[0].Archivo);
         }
 
+        // guarda los cambios en la base de datos
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

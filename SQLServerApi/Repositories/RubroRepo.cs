@@ -45,18 +45,36 @@ namespace SQLServerApi.Reposotories
 
         }
 
+        /// <summary>
+        /// Método para eliminar un rubro específico
+        /// </summary>
+        /// <param name="codigoCurso">El curso asociado</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <param name="nombreRubro">El nombre del rubro asociado</param>
         public void Delete(string codigoCurso, int grupo, string anio, string periodo, string nombreRubro)
         {
+            // se ejecuta el stored procedure
             _context.Database.ExecuteSqlRaw("spEliminarRubro @p0, @p1, @p2, @p3, @p4",
                 codigoCurso, grupo, anio, periodo, nombreRubro);
         }
 
+        /// <summary>
+        /// Método para acceder a los rubros de un grupo específico
+        /// </summary>
+        /// <param name="codigoCurso">El curso asociado</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El perido asociado</param>
+        /// <returns>La lista de rubros</returns>
         public List<RubroView> getRubros(string codigoCurso, int grupo, string anio, string periodo)
         {
             return _context.Set<RubroView>().FromSqlRaw($"EXEC spGetRubros " +
                            $"@Curso = {codigoCurso}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
         }
 
+        // guarda los cambios en la base de datos
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
