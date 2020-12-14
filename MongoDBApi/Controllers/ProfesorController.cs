@@ -9,11 +9,18 @@ namespace MongoDBApi.Controllers
     {
         private readonly ProfesorRepo _repo;
 
+        // se inyecta el repositorio correspondiente
         public ProfesorController(ProfesorRepo repo)
         {
             _repo = repo;
         }
 
+        /// <summary>
+        /// Petición para acceder a la información personal de un profesor
+        /// específico (Excepto la contraseña)
+        /// </summary>
+        /// <param name="cedula">La cédula del profesor a consultar</param>
+        /// <returns>La información correspondiente al profesor</returns>
         [HttpGet]
         [Route("api/profesor/info")]
         public IActionResult GetInfoProfesor([FromQuery] string cedula)
@@ -25,9 +32,14 @@ namespace MongoDBApi.Controllers
             return Ok(resultado);
         }
 
+        /// <summary>
+        /// Petición para acceder a todas las cédulas de
+        /// profesores en la base de datos
+        /// </summary>
+        /// <returns>La lista de cédulas</returns>
         [HttpGet]
         [Route("api/profesores/cedulas")]
-        public IActionResult GetCarnets()
+        public IActionResult GetCedulas()
         {
             var resultado = _repo.getCedulas();
 
@@ -36,6 +48,11 @@ namespace MongoDBApi.Controllers
             return Ok(resultado);
         }
 
+        /// <summary>
+        /// Petición para acceder a la información personal (excepto contraseña)
+        /// de todos los profesores de la base de datos
+        /// </summary>
+        /// <returns>La información de todos los profesores</returns>
         [HttpGet]
         [Route("api/profesores/info/all")]
         public IActionResult GetInfoProfesores()
@@ -47,6 +64,11 @@ namespace MongoDBApi.Controllers
             return Ok(resultado);
         }
 
+        /// <summary>
+        /// Petición para loguearse como profesor
+        /// </summary>
+        /// <param name="login">El login a consultar (usuario y contraseña)</param>
+        /// <returns>Un ok en caso de éxito</returns>
         [HttpPost]
         [Route("api/profesor/login")]
         public IActionResult Login([FromBody] Login login)

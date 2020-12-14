@@ -9,11 +9,18 @@ namespace MongoDBApi.Controllers
     {
         private readonly AdministradorRepo _repo;
 
+        // se inyecta el repositorio correspondiente
         public AdministradorController(AdministradorRepo repo)
         {
             _repo = repo;
         }
 
+        /// <summary>
+        /// Petición para acceder la información personal
+        /// de un determinado administrador
+        /// </summary>
+        /// <param name="cedula">La cédula a consultar</param>
+        /// <returns>La información personal correspondiente</returns>
         [HttpGet]
         [Route("api/admin/info")]
         public IActionResult GetInfoAdmin([FromQuery] string cedula)
@@ -25,6 +32,11 @@ namespace MongoDBApi.Controllers
             return Ok(resultado);
         }
 
+        /// <summary>
+        /// Petición para loguearse como administrador
+        /// </summary>
+        /// <param name="login">El login a consultar (usuario y contraseña)</param>
+        /// <returns>Un ok en caso de éxito</returns>
         [HttpPost]
         [Route("api/admin/login")]
         public IActionResult Login([FromBody] Login login)
