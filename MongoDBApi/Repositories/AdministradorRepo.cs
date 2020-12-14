@@ -10,18 +10,33 @@ namespace MongoDBApi.Repositories
     {
         private readonly IMongoDatabase _database;
         private IMongoCollection<Administrador> _administradores;
+
+        // se inyecta la conexión a la base de datos
         public AdministradorRepo(IMongoClient client)
         {
             _database = client.GetDatabase("XtecDigitalDB");
             _administradores = _database.GetCollection<Administrador>("Administrador");
         }
 
+        /// <summary>
+        /// Método para acceder a la información personal
+        /// de un profesor específico (excepto contraseña)
+        /// </summary>
+        /// <param name="cedula">La cédula del profesor a consultar</param>
+        /// <returns>La información del profesor</returns>
         public Administrador getInfoAdmin(string cedula)
         {
             return _administradores.Find(x => x.Cedula == cedula).
                 Project<Administrador>("{cedula: 1, primerNombre: 1, segundoNombre: 1, " +
                 "primerApellido: 1, segundoApellido: 1, email: 1, telefono: 1}").FirstOrDefault();
         }
+
+        /// <summary>
+        /// Método para encriptar una contraseña
+        /// usando encriptado MD5
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string MD5Hash(string text)
         {
             var md5 = new MD5CryptoServiceProvider();
@@ -43,6 +58,11 @@ namespace MongoDBApi.Repositories
             return strBuilder.ToString();
         }
 
+        /// <summary>
+        /// Método para verificar el login de un profesor
+        /// </summary>
+        /// <param name="login">Login a consultar (usuario y contraseña)</param>
+        /// <returns>Un true en caso de éxito, false en caso contrario</returns>
         public bool verificarLogin(Login login)
         {
             var passwordIngresada = MD5Hash(login.password);

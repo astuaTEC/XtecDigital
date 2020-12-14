@@ -37,6 +37,7 @@ namespace MongoDBApi
             services.AddMvc().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
+            // se inyecta la cadena de conexión
             services.AddSingleton<IMongoClient, MongoClient>(s =>
             {
                 var uri = s.GetRequiredService<IConfiguration>()["XTDSettings"];
@@ -51,6 +52,7 @@ namespace MongoDBApi
                            .AllowAnyHeader();
                 }));
 
+            // TODO: Inyección de dependencias
             services.AddSingleton<EstudianteRepo>();
             services.AddSingleton<ProfesorRepo>();
             services.AddSingleton<AdministradorRepo>();
