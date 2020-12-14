@@ -14,11 +14,20 @@ namespace SQLServerApi.Controllers
     {
         private readonly CarpetaRepo _repo;
 
+        // se inyecta el repositorio correspondiente
         public CarpetaController(CarpetaRepo repo)
         {
             _repo = repo;
         }
 
+        /// <summary>
+        /// Petición para acceder a todas las carpetas de un grupo específico
+        /// </summary>
+        /// <param name="curso">El curso asociado</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <returns>Un ok en caso de éxito</returns>
         [HttpGet]
         [Route("api/grupo/carpetas")]
         public IActionResult GetCarpetasPorGrupo([FromQuery] string curso, [FromQuery] int grupo,
@@ -30,6 +39,11 @@ namespace SQLServerApi.Controllers
             return Ok(resultado);
         }
 
+        /// <summary>
+        /// Petición para crear una carpeta
+        /// </summary>
+        /// <param name="carpeta">La carpeta a crear</param>
+        /// <returns>Un ok en caso de éxito</returns>
         [HttpPost]
         [Route("api/grupo/carpeta/new")]
         public IActionResult Create([FromBody] Carpeta carpeta)
@@ -39,6 +53,15 @@ namespace SQLServerApi.Controllers
             return Ok("Carpeta creada correctamente");
         }
 
+        /// <summary>
+        /// Petición para eliminar una carpeta específica
+        /// </summary>
+        /// <param name="curso">El curso asociado</param>
+        /// <param name="grupo">El grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <param name="nombre">El nombre de la carpeta a eliminar</param>
+        /// <returns>Un ok en caso de éxito</returns>
         [HttpDelete]
         [Route("api/grupo/carpeta/delete")]
         public IActionResult Delete([FromQuery] string curso, [FromQuery] int grupo,

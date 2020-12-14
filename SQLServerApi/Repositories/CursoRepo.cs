@@ -50,17 +50,25 @@ namespace SQLServerApi.Reposotories
             _context.Cursos.UpdateRange(cursos);
         }
 
+        /// <summary>
+        /// Método para acceder a los cursos de la base de datos
+        /// </summary>
+        /// <returns>La lista de cursos</returns>
         public List<Curso> GetAll()
         {
             return _context.Cursos.ToList();
         }
 
+        /// <summary>
+        /// Método para acceder a los cursos habilidatos
+        /// </summary>
+        /// <returns>La lista de cursos habilitados</returns>
         public List<Curso> GetCursosHabilitados()
         {
             return _context.Cursos.Where(x => x.Habilitado == true).ToList();
         }
 
-
+        // guarda los cambios en la base de datos
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

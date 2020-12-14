@@ -49,12 +49,22 @@ namespace SQLServerApi.Reposotories
             _context.Noticia.Remove(noticia);
         }
 
+        /// <summary>
+        /// Método para acceder a todas las noticias correspondientes a un grupo
+        /// </summary>
+        /// <param name="codigoCurso">El curso asociado</param>
+        /// <param name="grupo">El grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <returns>La lista de noticias</returns>
         public List<NoticiaView> getNoticias(string codigoCurso, int grupo, string anio, string periodo)
         {
+            // se ejecuta el stored procedure
             return _context.Set<NoticiaView>().FromSqlRaw($"EXEC spGetNoticias " +
                            $"@Curso = {codigoCurso}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
         }
 
+        // guarda los cambios en la base de datos
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);

@@ -37,12 +37,19 @@ namespace SQLServerApi.Reposotories
 
         }
 
+        /// <summary>
+        /// Método para crear un semestre a partir de un excel
+        /// </summary>
+        /// <param name="semestre">El semestre leido del excel</param>
         public void CreateFromExcel(IEnumerable<SemestreExcel> semestre)
         {
             if (semestre == null)
                 throw new ArgumentNullException(nameof(semestre));
             
+            // se crea una tabla
             var table = new DataTable();
+
+            // se agregan las columnas a la tabla
             table.Columns.Add("Id", typeof(int));
             table.Columns.Add("Anio", typeof(string));
             table.Columns.Add("Periodo", typeof(string));
@@ -52,18 +59,23 @@ namespace SQLServerApi.Reposotories
             table.Columns.Add("Profesor1", typeof(string));
 
             int id = 1;
+            // se recorre la lista y se agregan los elementos a la tabla
             foreach(var s in semestre)
             {
                 table.Rows.Add(id, s.Anio, s.Periodo, s.CodigoCurso, s.NumeroGrupo, s.CarnetEstudiante, s.Profesor1);
                 id++;
             }
+            // se crea un parámetro de SQL
             var parameter = new SqlParameter("@TablaE", SqlDbType.Structured);
             parameter.Value = table;
             parameter.TypeName = "dbo.SemestreExcel";
+
+            // se ejcuta el stored procedure
             _context.Database.ExecuteSqlRaw("exec spSemestreExcel @TablaE",
                  parameter); 
         }
 
+        // guarda los cambios en la base de datos
         public bool SaveChanges()
         {
             return (_context.SaveChanges() >= 0);
