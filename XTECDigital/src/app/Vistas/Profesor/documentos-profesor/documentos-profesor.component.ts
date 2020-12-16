@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Carpeta } from '../ModelosProfesor/carpeta';
 import { Router, ActivatedRoute} from '@angular/router';
+import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
+import { DocumentosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/documentos.service';
 
 @Component({
   selector: 'app-documentos-profesor',
@@ -16,16 +18,13 @@ export class DocumentosProfesorComponent implements OnInit {
   nuevaCarpeta: string = '';
 
   //Lista de las carpetas que deben provenir del servidor
-  listaCarpetas: Carpeta[] = [
-    new Carpeta('Presentaciones', true),
-    new Carpeta('Quices', true),
-    new Carpeta('Exámenes', true),
-    new Carpeta('Proyectos', true)
-  ];
+  listaCarpetas: Carpeta[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private documentos: DocumentosService, private route: ActivatedRoute, private router: Router, private infoGrupo: InfoGrupoService) { }
 
   ngOnInit(): void {
+   
+    this.actualizarCarpetas();
   }
 
   activarNC(){
@@ -38,30 +37,80 @@ export class DocumentosProfesorComponent implements OnInit {
   }
 
   eliminarCarpeta(carpeta: Carpeta){
-    if(!carpeta.protegida){
-      for(let i = 0; i < this.listaCarpetas.length; i++){
-        if(carpeta === this.listaCarpetas[i]){
-          this.listaCarpetas.splice(i, 1);
-        }
-      }
-    }
-    else{
-      
-    }
+    this.documentos.eliminarCarpeta(
+      this.infoGrupo.codigoCurso,
+      this.infoGrupo.numeroGrupo,
+      this.infoGrupo.anio,
+      this.infoGrupo.periodo,
+      carpeta.nombre
+    ).subscribe(
+      data => {
+        console.log(data);
+    
+      },
+      error => {
+        console.log(error);
+        this.actualizarCarpetas()
+      });
+
   }
 
   agregarNuevaCarpeta(){
     if(this.nuevaCarpeta != ''){
-      this.listaCarpetas.push(
-        new Carpeta(this.nuevaCarpeta, false)
-      );
+      this.documentos.crearNuevaCarpeta(
+        this.nuevaCarpeta,
+        this.infoGrupo.numeroGrupo,
+        this.infoGrupo.codigoCurso,
+        this.infoGrupo.periodo,
+        this.infoGrupo.anio,
+        this.infoGrupo.numeroCedula
+      ) .subscribe(
+        data => {
+          console.log(data);
+          this.nuevaCarpeta = ''; 
+      
+        },
+        error => {
+          console.log(error);
+          this.actualizarCarpetas()
+          if(error.status === 400){
+            this.nuevaCarpeta = '';
+          }
+        }); 
+
       this.activarNC();
       this.nuevaCarpeta = '';
     }
   }
 
-  gotoArchivos(){
-    this.router.navigate(['/ProfesorGrupo/Documentos', 'NombreCarpeta']);
+  actualizarCarpetas(){
+    //Se solicitan las carpetas correspondientes a este grupo
+    this.documentos.getCarpetas(
+      this.infoGrupo.codigoCurso,
+      this.infoGrupo.numeroGrupo,
+      this.infoGrupo.anio,
+      this.infoGrupo.periodo
+    )
+    .subscribe(data => {
+      //limpiar la lista actual
+      this.listaCarpetas = [];
+      //se recorre la lista de carpetas y se almacenan en la lista local
+      for(let i = 0 ; i < data.length; i++){
+        //Se valida la protección de la carpeta
+        let protegida: boolean = false;
+        if(data[i].creador === 'System'){
+          protegida = true;
+        }
+        let nuevaCarpeta = new Carpeta(data[i].nombre, protegida);
+        //se agrega a la lista de carpetas
+        this.listaCarpetas.push(nuevaCarpeta);
+      }
+    });
+
+  }
+
+  gotoArchivos(nombreCarpeta: string){
+    this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Documentos', nombreCarpeta]);
   }
 
 }

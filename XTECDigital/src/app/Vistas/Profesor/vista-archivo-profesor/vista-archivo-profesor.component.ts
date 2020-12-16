@@ -1,6 +1,8 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
-import { ArchivosProfesorService } from 'src/app/Vistas/Profesor/ServiciosProfesor/archivos-profesor.service';
 import { Router, ActivatedRoute, ParamMap, } from '@angular/router';
+import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
+import { DocumentosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/documentos.service';
+
 import WebViewer from '@pdftron/webviewer';
 
 @Component({
@@ -17,10 +19,33 @@ export class VistaArchivoProfesorComponent implements AfterViewInit {
   //El nuevo documento si el usuario usa el botón de guardar
   nuevoDocumento: any;
 
-  constructor(private route: ActivatedRoute, private router: Router, private archivosService: ArchivosProfesorService) { }
+  //El nombre de la carpeta que contiene al documento
+  nombreCarpeta: string = '';
+
+  //El nombre del documento PDF
+  nombreArchivo: string = '';
+
+  constructor(private route: ActivatedRoute, private router: Router, private documentos: DocumentosService, private infoGrupo: InfoGrupoService) { }
 
   ngAfterViewInit(): void {
-    this.documento = this.archivosService.b64;
+    //primero se guarda el número de cédula del profesor
+     this.route.params.forEach((urlParams) => {
+      this.nombreCarpeta = urlParams['nombreCarpeta'];
+      this.nombreArchivo = urlParams['nombreArchivo'];
+    });
+    //solicitar el archivo al servidor
+    this.documentos.getArchivo(
+      this.infoGrupo.codigoCurso,
+      this.nombreCarpeta,
+      this.nombreArchivo,
+      this.infoGrupo.numeroGrupo.toString(),
+      this.infoGrupo.anio,
+      this.infoGrupo.periodo
+    ).subscribe( data => {
+      console.log(data);
+      });
+  
+    this.documento = '';
     WebViewer({
       path: 'assets/lib',
       initialDoc: this.documento
