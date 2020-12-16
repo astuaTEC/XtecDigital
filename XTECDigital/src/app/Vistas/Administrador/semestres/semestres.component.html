@@ -1,0 +1,67 @@
+<div class="text-center cont" *ngIf="!formVisibility">
+ <button type="button" class="btn button1 btn-primary text-center"   (click)="formVisibility =true" >
+	Inicializar semestre de forma manual
+</button>
+</div>
+
+<div class="text-center cont text-white" *ngIf="!formVisibility">
+<p> Cargar archivo para inicializar semestre: </p>
+<form 
+              (ngSubmit)="submit()"
+              #f="ngForm">
+<input type="file" #semestre class="inputred" (change)="getFile($event)" name="semestre" required />
+<button type="button" class="btn but btn-primary"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Inicializar semestre
+	</button>
+</form>
+</div>
+<div class="cont2">
+<div class="wrapper" *ngIf="formVisibility"  >
+	<div>
+		<h2 class="name text-white">Información del semestre</h2>
+		<form 
+              (ngSubmit)="submit()"
+              #f="ngForm">
+		<p class="text-white">
+			Año: 
+			<select #anio class="inputred" (change)="cambioanio($event.target.value)" ngModel  name="anio" required>
+					<option *ngFor="let anio of anios" [value]='anio' > {{anio}}</option>
+			</select>
+		</p>
+		<div class="column text-white">
+	Periodo:  
+					<div><input #vis type="radio" id="vis" name="vis" value=true (change)="radio2($event)" required /> Primer Semestre</div>
+					<div><input #vis type="radio" id="vis" (change)="radio($event)" name="vis" value=false required /> Segundo Semestre</div>
+					<div><input #vis type="radio" id="vis" (change)="radio($event)" name="vis" value=false required /> Verano</div>
+			
+</div>
+<div class="column text-white">
+	Cursos:  
+					
+			
+</div>
+		
+
+	<button type="button" class="btn but btn-primary" (click)="formVisibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn but btn-primary"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Inicializar Semestre
+	</button>
+
+
+
+</form>
+
+
+</div>
+	</div>
+</div>

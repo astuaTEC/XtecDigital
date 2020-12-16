@@ -1,0 +1,23 @@
+.cont{
+	margin-top: 50px;
+}
+.column{
+	
+	
+	display: flex;
+	justify-content:left;
+	flex-direction: column;
+	
+	align-items:left;
+
+}
+
+.cont2{
+	
+	display: flex;
+	justify-content:left;
+	width: 95%;
+	margin-top: 10px;
+	margin-left: 10px;
+
+}
