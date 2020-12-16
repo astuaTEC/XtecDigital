@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { HttpClientModule} from '@angular/common/http';
 
 
 
@@ -10,7 +11,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginProfesorComponent } from './Vistas/Profesor/login-profesor/login-profesor.component';
 import { HomeProfesorComponent } from './Vistas/Profesor/home-profesor/home-profesor.component';
-import { InicioComponent } from './inicio/inicio.component';
 import { GrupoProfesorComponent } from './Vistas/Profesor/grupo-profesor/grupo-profesor.component';
 import { DocumentosProfesorComponent } from './Vistas/Profesor/documentos-profesor/documentos-profesor.component';
 import { FormsModule } from '@angular/forms';
@@ -30,7 +30,7 @@ import { CrearNoticiaProfesorComponent } from './Vistas/Profesor/crear-noticia-p
 import { NoticiasProfesorComponent } from './Vistas/Profesor/noticias-profesor/noticias-profesor.component';
 import { VerEvaluacionesComponent } from './Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component';
 import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-screen.component';
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -38,7 +38,6 @@ import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-sc
     AppComponent,
     LoginProfesorComponent,
     HomeProfesorComponent,
-    InicioComponent,
     GrupoProfesorComponent,
     DocumentosProfesorComponent,
     ArchivosProfesorComponent,
@@ -62,6 +61,8 @@ import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-sc
     FormsModule,
     MatTabsModule,
     BrowserAnimationsModule,
+     ToastrModule.forRoot(),
+     HttpClientModule,
     MatExpansionModule
   ],
   providers: [],
