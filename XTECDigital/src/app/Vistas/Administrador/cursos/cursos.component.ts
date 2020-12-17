@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewEncapsulation} from '@angular/core';
 import { Curso } from 'src/app/modelos/curso';
+import { CursosService} from 'src/app/servicios/administrador/cursos.service';
 
 
 @Component({
@@ -14,52 +15,10 @@ cursos: Curso[] ;
 formVisibility = false;
 curso: Curso = new Curso();
 
-  constructor() { }
+  constructor(private _CursosService: CursosService) { }
 
   ngOnInit(): void {
-  	this.cursos = [
-
-  	{
-  		codigo : "CE3404",
-creditos: 4,
-carrera: "Ingenieria en Computadores",
-nombre: "Algoritmos y estructuras de datos II",
-habilitado: true
-
-  	},
-  	{
-  		codigo : "CE3404",
-creditos: 4,
-carrera: "Ingenieria en Computadores",
-nombre: "Bases de datos",
-habilitado: true
-
-  	},
-  	{
-  		codigo : "CE3404",
-creditos: 4,
-carrera: "Ingenieria en Computadores",
-nombre: "Lenguajes, compiladores e interpretes",
-habilitado: true
-
-  	},
-  	{
-  		codigo : "CE3404",
-creditos: 4,
-carrera: "Ingenieria en Computadores",
-nombre: "Introduccion a la programacion",
-habilitado: false
-
-  	},
-  	{
-  		codigo : "CE3404",
-creditos: 4,
-carrera: "Ingenieria en Computadores",
-nombre: "Especificacion y dise;o de software",
-habilitado: false
-
-  	}
-  	];
+  	this._CursosService.getCursos().subscribe(data => this.cursos = data );
 }
 agregar(){
   this.formVisibility = true;
@@ -70,15 +29,37 @@ submit(){
 console.log(this.curso);
 this.formVisibility = false;
 this.cursos.push(this.curso);
+this.curso.habilitado = true;
+this._CursosService.crearCurso(this.curso).subscribe();
 }
 
 deshabilitar(curso){
-console.log(curso);
+
 this.curso = curso;
+this.curso.habilitado = false;
+console.log(this.curso);
+  
+  this._CursosService.actualizaCurso(this.curso).subscribe();
+  for(let i = 0 ; i < this.cursos.length; i++) {
+      if(this.cursos[i].codigo === this.curso.codigo){
+        this.cursos[i] = this.curso;
+      }
+  }
 }
 habilitar(curso){
-console.log(curso);
+
 this.curso = curso;
+this.curso.habilitado = true;
+console.log(this.curso);
+
+
+
+ this._CursosService.actualizaCurso(this.curso).subscribe();
+ for(let i = 0 ; i < this.cursos.length; i++) {
+      if(this.cursos[i].codigo === this.curso.codigo){
+        this.cursos[i] = this.curso;
+      }
+  }
 }
 
 

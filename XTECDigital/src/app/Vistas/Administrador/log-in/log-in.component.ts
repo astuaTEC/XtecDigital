@@ -18,12 +18,12 @@ constructor( private router: Router,private _logInService: AdminService) { }
   }
 
 ingresar(usuario, contrasena): void{
-this.user.cedula = usuario;
+this.user.usuario = usuario;
 this.user.password = contrasena;
 
 this._logInService.setUsuario(usuario);
 console.log(this.user);
-/*
+
 this._logInService.login(this.user).
 subscribe(data => {
 
@@ -34,17 +34,17 @@ error => {
 
         console.log(error);  
         if (error.status === 400){
-          //this.user.Usuario = "";
-          //this.user.ClaveAcceso = "";
+          this.user.usuario = null;
+          this.user.password = "";
           this.invalid = true;
         
-       }else{*/
+       }else{
         	this.invalid = false;
 		this.router.navigate(['/Administrador']);
 
-        /*}
+        }
 
-      });*/
+      });
 
   }
 

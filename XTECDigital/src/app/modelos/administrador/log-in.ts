@@ -1,4 +1,4 @@
 export class LogIn {
-	cedula: number;
+	usuario: number;
 	password: string;
 }

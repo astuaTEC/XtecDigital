@@ -41,17 +41,21 @@
 
 
 <div class="row"  *ngIf="!formVisibility">
-	<mat-accordion *ngFor="let curso of cursos" class="text-center acc">
-  <mat-expansion-panel   (opened)="panelOpenState = true"
-                       (closed)="panelOpenState = false">
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{curso.nombre}}
-      </mat-panel-title>
-    </mat-expansion-panel-header>
-    <p class="text-left"><br>Codigo: {{curso.codigo}}<br>Creditos: {{curso.creditos}}<br>Carrera: {{curso.carrera}}</p>
-    <button type="button" *ngIf="curso.habilitado" (click)="deshabilitar(curso)" class="btn butt btn-primary">Deshabilitar</button>
+	<mat-card *ngFor="let curso of cursos" class="example-card">
+  
+    <mat-card-header>
+      <mat-card-title>
+       <h6 class="text-center">{{curso.codigo}} - {{curso.nombre}}</h6>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+    <p class="text-left">Creditos: {{curso.creditos}}<br>Carrera: {{curso.carrera}}</p>
+</mat-card-content>
+<mat-card-actions>
+	<div class="text-center">
+    <button type="button" *ngIf="curso.habilitado" (click)="deshabilitar(curso)" class="btn butt btn-primary text-center">Deshabilitar</button>
     <button type="button"  *ngIf="!curso.habilitado"(click)="habilitar(curso)" class="btn butt btn-primary">Habilitar</button>
-  </mat-expansion-panel>
-</mat-accordion>
+</div>
+</mat-card-actions>
+ </mat-card>
 </div>

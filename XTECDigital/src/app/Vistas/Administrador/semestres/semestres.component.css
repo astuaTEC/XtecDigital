@@ -1,5 +1,6 @@
 .cont{
 	margin-top: 50px;
+	width: 100%;
 }
 .column{
 	
@@ -11,13 +12,43 @@
 	align-items:left;
 
 }
+.mat-expansion-panel{
+	margin-bottom: 10px;
+}
 
+.img{
+	height: 20px;
+	margin-left: 5px;
+}
+
+.butt{
+	margin-left: 10px;
+}
 .cont2{
 	
 	display: flex;
 	justify-content:left;
 	width: 95%;
-	margin-top: 10px;
+	
 	margin-left: 10px;
 
 }
+.container {
+  height: 400px;
+  width: 100%;
+  overflow-y: scroll;
+  display: flex;
+
+
+}
+.acc {
+ width: 500px;
+ background-color: white;
+ margin-bottom: 10px;
+
+}
+.mat-expansion-panel-header{
+	height: 40px;
+}
+
+

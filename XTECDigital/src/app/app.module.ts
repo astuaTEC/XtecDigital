@@ -3,6 +3,12 @@ import { NgModule } from '@angular/core';
 import {MatTabsModule} from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCardModule} from '@angular/material/card';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
+import { HttpClientModule } from '@angular/common/http';
+
+
 
 
 
@@ -30,6 +36,9 @@ import { CrearNoticiaProfesorComponent } from './Vistas/Profesor/crear-noticia-p
 import { NoticiasProfesorComponent } from './Vistas/Profesor/noticias-profesor/noticias-profesor.component';
 import { VerEvaluacionesComponent } from './Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component';
 import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-screen.component';
+import { FilterPipe } from './filter.pipe';
+
+
 
 
 
@@ -54,7 +63,8 @@ import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-sc
     CrearNoticiaProfesorComponent,
     NoticiasProfesorComponent,
     VerEvaluacionesComponent,
-    SplashScreenComponent
+    SplashScreenComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -62,7 +72,11 @@ import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-sc
     FormsModule,
     MatTabsModule,
     BrowserAnimationsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule,
+    MatDialogModule,
+    MatSelectModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
