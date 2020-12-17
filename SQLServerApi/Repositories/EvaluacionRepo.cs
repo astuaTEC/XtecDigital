@@ -74,6 +74,15 @@ namespace SQLServerApi.Reposotories
             
         }
 
+        public void Delete(string codigoCurso, int grupo, string anio, string periodo, string rubro, string nombreEvaluacion)
+        {
+            var evaluacion = _context.Evaluacions.FirstOrDefault(x => x.Nombre == nombreEvaluacion &&
+                           x.NombreRubro == rubro && x.CodigoCurso == codigoCurso 
+                           && x.NumeroGrupo == grupo && x.Anio == anio && x.Periodo == periodo);
+
+            _context.Evaluacions.Remove(evaluacion);
+        }
+
         /// <summary>
         /// Método para calificar un entregable 
         /// </summary>

@@ -40,6 +40,7 @@ namespace SQLServerApi.Reposotories
                           x.Anio == anio && x.Periodo == periodo);
 
           _context.Carpeta.Remove(carpeta);
+
         }
 
         /// <summary>

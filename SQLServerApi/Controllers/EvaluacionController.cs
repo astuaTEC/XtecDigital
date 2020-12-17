@@ -206,5 +206,24 @@ namespace SQLServerApi.Controllers
 
             return Ok("Notas publicadas correctamente");
         }
+
+        /// <summary>
+        /// Peticion para eliminar una evaluacion específica
+        /// </summary>
+        /// <param name="curso">El curso asociado</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <param name="nombre">El nombre de la evaluación a eliminar</param>
+        /// <returns>Un ok en caso de éxito</returns>
+        [HttpDelete]
+        [Route("api/grupo/evaluacion/delete")]
+        public IActionResult Delete([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
+            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo)
+        {
+            _repo.Delete(curso, grupo, anio, periodo, rubro, nombre);
+            _repo.SaveChanges();
+            return Ok("Carpeta eliminada correctamente");
+        }
     }
 }

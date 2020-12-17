@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-ALTER PROCEDURE spCalificarEntregable(
+CREATE PROCEDURE spCalificarEntregable(
 @Curso VARCHAR(9),
 @Rubro VARCHAR(50),
 @Evaluacion VARCHAR(50),

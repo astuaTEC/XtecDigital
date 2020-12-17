@@ -22,6 +22,6 @@ WHERE e.CodigoCurso = @Curso AND
 	  e.CarnetEstudiante = @Carnet;
 GO
 
-EXEC spGetEntregableEstudiante @Curso = 'MA-2104',@Rubro = 'Quices',
-@NombreEvaluacion = 'Quiz 1', @Grupo = 1, @Anio = '2021', @Periodo = '1',
+EXEC spGetEntregableEstudiante @Curso = 'CE3101',@Rubro = 'Proyectos',
+@NombreEvaluacion = 'Proyecto 1', @Grupo = 1, @Anio = '2020', @Periodo = 'V',
 @Carnet = '2018143188';
