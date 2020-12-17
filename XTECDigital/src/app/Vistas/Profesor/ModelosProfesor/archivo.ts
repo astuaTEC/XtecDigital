@@ -3,7 +3,6 @@ export class Archivo {
         public nombre: string,
         public tamano: number,
         public fecha: string,
-        public archivoBase64: any
     ){
 
     }

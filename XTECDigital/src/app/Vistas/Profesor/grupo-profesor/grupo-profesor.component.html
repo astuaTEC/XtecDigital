@@ -1,44 +1,45 @@
 
 <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="nav-brand titulo">
+        {{nombreGrupo}}
+    </div>
     
-    <a class="navbar-brand" href="ProfesorGrupo/Documentos">Nombre del curso</a>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a class="nav-link" href="ProfesorGrupo/Documentos">
-              Documentos
-        </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoDocumentos()">Documentos</button>
+            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="ProfesorGrupo/Rubros">
-                Rubros
-            </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoRubros()">Rubros</button>
+            </div>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="ProfesorGrupo/Evaluaciones">
-              Evaluaciones
-          </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoEvaluaciones()">Evaluaciones</button>
+            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="ProfesorGrupo/Noticias">
-                Noticias
-            </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoDocumentos()">Noticias</button>
+            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                Notas
-            </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoDocumentos()">Notas</button>
+            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                Estudiantes matriculados
-            </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoDocumentos()">Estudiantes</button>
+            </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="ProfesorHome">
-                Home
-            </a>
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoDocumentos()">Inicio</button>
+            </div>
         </li>
       </ul>
     </div>

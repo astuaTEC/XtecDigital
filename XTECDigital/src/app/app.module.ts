@@ -10,13 +10,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginProfesorComponent } from './Vistas/Profesor/login-profesor/login-profesor.component';
 import { HomeProfesorComponent } from './Vistas/Profesor/home-profesor/home-profesor.component';
-import { InicioComponent } from './inicio/inicio.component';
 import { GrupoProfesorComponent } from './Vistas/Profesor/grupo-profesor/grupo-profesor.component';
 import { DocumentosProfesorComponent } from './Vistas/Profesor/documentos-profesor/documentos-profesor.component';
 import { FormsModule } from '@angular/forms';
@@ -36,9 +33,10 @@ import { CrearNoticiaProfesorComponent } from './Vistas/Profesor/crear-noticia-p
 import { NoticiasProfesorComponent } from './Vistas/Profesor/noticias-profesor/noticias-profesor.component';
 import { VerEvaluacionesComponent } from './Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component';
 import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-screen.component';
+
 import { FilterPipe } from './filter.pipe';
 
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -47,7 +45,6 @@ import { FilterPipe } from './filter.pipe';
     AppComponent,
     LoginProfesorComponent,
     HomeProfesorComponent,
-    InicioComponent,
     GrupoProfesorComponent,
     DocumentosProfesorComponent,
     ArchivosProfesorComponent,
@@ -76,7 +73,9 @@ import { FilterPipe } from './filter.pipe';
     MatCardModule,
     MatDialogModule,
     MatSelectModule,
-    HttpClientModule
+     ToastrModule.forRoot(),
+     HttpClientModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
