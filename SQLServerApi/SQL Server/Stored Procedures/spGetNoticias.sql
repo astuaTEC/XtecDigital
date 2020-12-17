@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-ALTER PROCEDURE spGetNoticias(
+CREATE PROCEDURE spGetNoticias(
 @Curso VARCHAR(9),
 @Grupo INT,
 @Anio VARCHAR(4),

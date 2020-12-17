@@ -113,9 +113,13 @@ namespace SQLServerApi.Reposotories
             string anio, string periodo)
         {
             var data = _context.Set<DataView>().FromSqlRaw($"EXEC spGetDataArchivo " +
-                          $"@Curso = {codigoCurso}, @Carpeta = {carpeta}, @Nombre = {nombreArchivo}, @Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
+                          $"@Curso = {codigoCurso}, @Carpeta = {carpeta}, @Nombre = {nombreArchivo}, " +
+                          $"@Grupo = {grupo}, @Anio = {anio}, @Periodo = {periodo}").ToList();
 
-            return Convert.ToBase64String(data[0].Archivo);
+            if(data.Count > 0 && data[0] != null)
+                return Convert.ToBase64String(data[0].Archivo);
+
+            return null;
         }
 
         // guarda los cambios en la base de datos

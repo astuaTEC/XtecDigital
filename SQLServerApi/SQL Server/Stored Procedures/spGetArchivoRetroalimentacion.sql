@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-CREATE PROCEDURE spGetDataEntregable(
+CREATE PROCEDURE spGetArchivoRetroalimentacion(
 @Curso VARCHAR(9),
 @Rubro VARCHAR(50),
 @Evaluacion VARCHAR(50),
@@ -12,7 +12,7 @@ CREATE PROCEDURE spGetDataEntregable(
 @Id int
 )
 AS
-SELECT ArchivoEntregable AS Archivo
+SELECT ArchivoRetroAlimentacion AS Archivo
 FROM ENTREGABLE
 WHERE @Curso = CodigoCurso AND
 	  @Rubro = NombreRubro AND
@@ -24,5 +24,5 @@ WHERE @Curso = CodigoCurso AND
 	  @Id = Id;
 GO
 
-EXEC spGetDataEntregable @Curso = 'MA-2104',@Rubro = 'Quices', @Evaluacion = 'Quiz 1', @Grupo = 1, 
+EXEC spGetArchivoRetroalimentacion @Curso = 'MA-2104',@Rubro = 'Quices', @Evaluacion = 'Quiz 1', @Grupo = 1, 
 	@Anio = '2021', @Periodo = '1', @Carnet = '2018143188', @Id = '34' ;

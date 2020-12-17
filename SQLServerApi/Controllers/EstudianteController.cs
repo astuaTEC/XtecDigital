@@ -71,5 +71,28 @@ namespace SQLServerApi.Controllers
                 return BadRequest("Ha ocurrido un error");
             return Ok(resultado);
         }
+
+        /// <summary>
+        /// Petición para acceder al subgrupo de una evaluación
+        /// para un estudianteEspecífico
+        /// </summary>
+        /// <param name="curso">El curso Asociado</param>
+        /// <param name="rubro">El rubro asociado</param>
+        /// <param name="evaluacion">La evaluación en cuestión</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <param name="carnet">El carnet del estudiante a consultar</param>
+        /// <returns>La lista de los estudiantes que conforman el subgrupo</returns>
+        [HttpGet]
+        [Route("api/grupo/rubro/evaluacion/miSubgrupo")]
+        public IActionResult GetMiSubgrupo([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string evaluacion,
+            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string carnet)
+        {
+            var resultado = _repo.getEstudiantesSubgrupo(curso, grupo, anio, periodo, carnet, rubro, evaluacion);
+            if (resultado == null)
+                return BadRequest("Ha ocurrido un error");
+            return Ok(resultado);
+        }
     }
 }

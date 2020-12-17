@@ -175,7 +175,7 @@ ADD FOREIGN KEY (CodigoCurso) REFERENCES CURSO(Codigo),
 
 -- RUBRO
 ALTER TABLE RUBRO
-ADD FOREIGN KEY (NumeroGrupo, CodigoCurso,Periodo, Anio) 
+ADD FOREIGN KEY (NumeroGrupo, CodigoCurso, Periodo, Anio) 
 REFERENCES GRUPO(Numero, CodigoCurso, Periodo, Anio);
 
 -- CARPETA
@@ -185,7 +185,7 @@ REFERENCES GRUPO(Numero, CodigoCurso, Periodo, Anio);
 
 --EVALUACION
 ALTER TABLE EVALUACION
-ADD FOREIGN KEY (NombreRubro, NumeroGrupo, CodigoCurso,Periodo, Anio) 
+ADD FOREIGN KEY (NombreRubro, NumeroGrupo, CodigoCurso, Periodo, Anio) 
 REFERENCES RUBRO(Nombre, NumeroGrupo, CodigoCurso, Periodo, Anio);
 
 --ARCHIVO
@@ -205,7 +205,7 @@ REFERENCES SUBGRUPO(Id, NombreEvaluacion, NombreRubro, NumeroGrupo, CodigoCurso,
 
 --ESTUDIANTE_GRUPO
 ALTER TABLE ESTUDIANTE_GRUPO
-ADD FOREIGN KEY (NumeroGrupo, CodigoCurso,Periodo, Anio) 
+ADD FOREIGN KEY (NumeroGrupo, CodigoCurso, Periodo, Anio) 
 REFERENCES GRUPO(Numero, CodigoCurso, Periodo, Anio);
 
 --PROFESOR_GRUPO
