@@ -15,6 +15,11 @@ import { CrearNoticiaProfesorComponent } from './Vistas/Profesor/crear-noticia-p
 import { NoticiasProfesorComponent } from './Vistas/Profesor/noticias-profesor/noticias-profesor.component';
 import { VerEvaluacionesComponent } from './Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component';
 
+import { LogInComponent } from './Vistas/Administrador/log-in/log-in.component';
+import { SemestresComponent } from './Vistas/Administrador/semestres/semestres.component';
+import { AdministradorComponent } from './Vistas/Administrador/administrador.component';
+import { CursosComponent } from './Vistas/Administrador/cursos/cursos.component';
+
 const routes: Routes = [
   //RUTA INICIAL
   {
@@ -42,7 +47,13 @@ const routes: Routes = [
       {path: 'Entregables/:nombreEvaluacion/:porcentajeEvaluacion', component: EntregablesProfesorComponent},
       {path: 'NuevaNoticia', component: CrearNoticiaProfesorComponent},
       {path: 'Noticias', component: NoticiasProfesorComponent},
-     ]}
+     ]},
+     {
+    path: 'AdministradorLogin',
+    component: LogInComponent},
+    {
+    path: 'Administrador',
+    component: AdministradorComponent}
 ];
 
 @NgModule({
