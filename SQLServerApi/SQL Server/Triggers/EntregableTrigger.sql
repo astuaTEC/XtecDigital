@@ -1,7 +1,7 @@
 USE XtecDigitalDB;
 GO
 
-CREATE TRIGGER EntregableTrigger
+Alter TRIGGER EntregableTrigger
 ON ENTREGABLE
 AFTER INSERT
 AS
@@ -30,8 +30,13 @@ BEGIN
 	SET @Carnet = (SELECT CarnetEstudiante from inserted);
 
 	SET @Id  = (SELECT IdSubGrupo
-				FROM ESTUDIANTE_SUBGRUPO
-				WHERE @Carnet = CarnetEstudiante);
+				FROM ESTUDIANTE_SUBGRUPO AS s, inserted as i
+				WHERE @Carnet = s.CarnetEstudiante AND
+					  s.NombreEvaluacion = i.NombreEvaluacion AND
+				      s.NumeroGrupo = i.NumeroGrupo AND
+					  s.NombreRubro = i.NombreRubro AND
+					  s.Anio = i.Anio AND
+					  s.Periodo = i.Periodo);
 
 	INSERT INTO @Tabla  SELECT s.CarnetEstudiante
 						FROM ESTUDIANTE_SUBGRUPO AS s, inserted as i

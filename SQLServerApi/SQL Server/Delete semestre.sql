@@ -2,23 +2,27 @@ USE XtecDigitalDB;
 GO
 
 DELETE PROFESOR_GRUPO
-WHERE Anio = '2021'
-AND  Periodo = '1';
+WHERE Anio = '2022'
+AND  Periodo = '2';
 
 DELETE ESTUDIANTE_GRUPO
-WHERE Anio = '2021'
-AND  Periodo = '1';
+WHERE Anio = '2022'
+AND  Periodo = '2';
 
 DELETE CARPETA
-WHERE Anio = '2021'
-AND  Periodo = '1';
+WHERE Anio = '2022'
+AND  Periodo = '2';
+
+DELETE RUBRO
+WHERE Anio = '2022'
+AND  Periodo = '2';
 
 DELETE GRUPO
-WHERE Anio = '2021'
-AND  Periodo = '1';
+WHERE Anio = '2022'
+AND  Periodo = '2';
 
 DELETE SEMESTRE
-WHERE Anio = '2021'
-AND  Periodo = '1';
+WHERE Anio = '2022'
+AND  Periodo = '2';
 
 GO
