@@ -9,6 +9,6 @@ namespace SQLServerApi.Models.Views
     {
         public int Id { get; set; }
         public string CarnetEstudiante { get; set; }
-        public int IdSubGrupo { get; set; }
+        public int? IdSubGrupo { get; set; }
     }
 }

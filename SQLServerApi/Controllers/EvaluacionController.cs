@@ -223,7 +223,7 @@ namespace SQLServerApi.Controllers
         {
             _repo.Delete(curso, grupo, anio, periodo, rubro, nombre);
             _repo.SaveChanges();
-            return Ok("Carpeta eliminada correctamente");
+            return Ok("Evaluación eliminada correctamente");
         }
     }
 }

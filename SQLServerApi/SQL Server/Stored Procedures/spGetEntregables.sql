@@ -30,4 +30,4 @@ WHERE @Curso = e.CodigoCurso AND
 	  (e.Evaluado = 0 OR e.Evaluado is NULL);
 GO
 
-EXEC spGetEntregables @Curso = 'MA-2104',@Rubro = 'Quices', @NombreEvaluacion = 'Quiz 1', @Grupo = 1, @Anio = '2021', @Periodo = '1';
+EXEC spGetEntregables @Curso = 'CE3101',@Rubro = 'Quices', @NombreEvaluacion = 'Quiz 2', @Grupo = 1, @Anio = '2020', @Periodo = 'V';

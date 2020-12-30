@@ -13,7 +13,7 @@ BEGIN
 			@NumeroGrupo INT,
 			@Anio VARCHAR(4),
 			@Periodo VARCHAR(1),
-			@NombreEvaluacion VARCHAR(1);
+			@NombreEvaluacion VARCHAR(50);
 
 	SET @CodigoCurso = (SELECT CodigoCurso from deleted);
 	SET @NombreRubro = (SELECT NombreRubro from deleted);
@@ -22,7 +22,17 @@ BEGIN
 	SET @Periodo = (SELECT Periodo from deleted);
 	SET @NombreEvaluacion = (SELECT Nombre from deleted);
 
-	--primero se eliminan los estudiates miembros de una evaluacion
+	
+	--primero se eliminan los entregables de la evaluacion
+	DELETE ENTREGABLE
+	WHERE NombreEvaluacion = @NombreEvaluacion AND
+		  NumeroGrupo = @NumeroGrupo AND
+		  CodigoCurso = @CodigoCurso AND
+		  Periodo = @Periodo AND
+		  Anio = @Anio AND
+		  @NombreRubro = NombreRubro;
+
+	--Luego se eliminan los estudiates miembros de una evaluacion
 	DELETE ESTUDIANTE_SUBGRUPO
 	WHERE NombreEvaluacion = @NombreEvaluacion AND
 		  NumeroGrupo = @NumeroGrupo AND
