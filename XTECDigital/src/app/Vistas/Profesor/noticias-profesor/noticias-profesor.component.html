@@ -8,33 +8,33 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-10 align-self-center carta" *ngFor="let e of [1,2,3,4]">
+        <div class="col-10 align-self-center carta" *ngFor="let noticia of listaNoticias">
             <div class="card bg-light ">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-10 align-self-center text-start">
-                            <h3><strong>Titulo de la noticia</strong></h3>
+                            <h3><strong>{{noticia.titulo}}</strong></h3>
                         </div>
                         <div class="col-1 align-self-center text-center">
-                          <input type="image" src="https://img.icons8.com/color/48/000000/settings--v2.png"/>
+                          <input type="image" src="https://img.icons8.com/color/48/000000/settings--v2.png" (click)="editarNoticia(noticia)"/>
                       </div>
                         <div class="col-1 align-self-center text-center">
-                            <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png"/>
+                            <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarNoticia(noticia)"/>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                   <div class="row">
                       <div class="col-12 align-self-center text-center">
-                        <p class="card-text text">Ya está lista la lista de las reviciones del primer parcial</p>
+                        <p class="card-text text">{{noticia.mensaje}}</p>
                       </div>
                   </div>
                   <div class="row fecha">
                     <div class="col-6 align-self-center text-left">
-                        <p class="card-text">Luis Diego Noguera Mena</p>
+                        <p class="card-text">{{noticia.autor}}</p>
                     </div>
                     <div class="col-6 align-self-center text-right">
-                        <p class="card-text">20-12-2020</p>
+                        <p class="card-text">{{noticia.fechaPublicacion}}</p>
                     </div>
                   </div>
                 </div>

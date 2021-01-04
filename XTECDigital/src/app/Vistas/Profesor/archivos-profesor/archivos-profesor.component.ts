@@ -42,48 +42,51 @@ export class ArchivosProfesorComponent implements OnInit {
 agregarNuevoArchivo(files: FileList) {
   //Se carga el archivo desde el elemento HTML
   this.fileToUpload = files.item(0);
-
-  //Construyendo la fecha en que se está subiendo
-  var date = new Date();
-  var fecha = date.getFullYear() +'-'+(date.getMonth()+1) + '-'+date.getDate();
-  var hora = date.getHours() +':' + date.getMinutes() + ':' + date.getSeconds();
-  var fechaHoraString = fecha + ' ' + hora;
-
-  //Crear el documento en Base64
   var reader = new FileReader();
   reader.readAsDataURL(this.fileToUpload);
-  reader.onload = () => {
-    this.plantilla = reader.result;
+  reader.onload = (completionEvent) => {
+    console.log(completionEvent);
+    this.documentos.archivoB64 = reader.result;
+    //Construyendo la fecha en que se está subiendo
+    var date = new Date();
+    var fecha = date.getFullYear() +'-'+(date.getMonth()+1) + '-'+date.getDate();
+    var hora = date.getHours() +':' + date.getMinutes() + ':' + date.getSeconds();
+    var fechaHoraString = fecha + ' ' + hora;
+
+    //Agregando el nuevo archivo mediante el servicio de documentos
+    this.documentos.crearNuevoArchivo(
+      this.fileToUpload.name,
+      this.nombreCarpeta,
+      this.infoGrupo.numeroGrupo,
+      this.infoGrupo.codigoCurso,
+      this.infoGrupo.periodo,
+      this.infoGrupo.anio,
+      Math.round(this.fileToUpload.size / 1024).toString() + ' KB',
+      fechaHoraString
+    ).subscribe(
+      data => {
+        console.log(data);
+    
+      },
+      error => {
+        console.log(error);
+        this.actualizarArchivos()
+        //cerrar el apartado de nuevo archivo
+        this.activarSeleccionarArchivo();
+        if(error.status === 400){
+       
+        }
+      }); 
+   
+
   };
   reader.onerror = (error) => {
     console.log('Error: ', error);
   };
 
-  //Agregando el nuevo archivo mediante el servicio de documentos
-  this.documentos.crearNuevoArchivo(
-    this.fileToUpload.name,
-    this.nombreCarpeta,
-    this.infoGrupo.numeroGrupo,
-    this.infoGrupo.codigoCurso,
-    this.infoGrupo.periodo,
-    this.infoGrupo.anio,
-    this.plantilla,
-    Math.round(this.fileToUpload.size / 1024).toString() + ' KB',
-    fechaHoraString
-  ).subscribe(
-    data => {
-      console.log(data);
-      
-    },
-    error => {
-      console.log(error);
-      this.actualizarArchivos();
-      if(error.status === 400){
-      }
-    }); 
 
-  //cerrar el apartado de nuevo archivo
-  this.activarSeleccionarArchivo();
+
+
 }
 
 activarSeleccionarArchivo(){
@@ -95,24 +98,25 @@ activarSeleccionarArchivo(){
   }
 }
 
+eliminarArchivo(archivo: Archivo){
+  this.documentos.eliminarArchivo(
+    this.infoGrupo.codigoCurso,
+    this.nombreCarpeta,
+    archivo.nombre,
+    this.infoGrupo.numeroGrupo,
+    this.infoGrupo.anio,
+    this.infoGrupo.periodo
+  )
+  .subscribe(
+    data => {
+      console.log(data);
+  
+    },
+    error => {
+      console.log(error);
+      this.actualizarArchivos()
+    });
 
-base64(file:File) {
-  var reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => {
-    this.plantilla = reader.result;
-  };
-  reader.onerror = (error) => {
-    console.log('Error: ', error);
-  };
-}
-
-eliminarArchivo(carpeta: Archivo){
-  for(let i = 0; i < this.listaArchivos.length; i++){
-    if(carpeta === this.listaArchivos[i]){
-      this.listaArchivos.splice(i, 1);
-    }
-  }
 }
 
 actualizarArchivos(){

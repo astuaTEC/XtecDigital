@@ -25,58 +25,107 @@ export class VistaArchivoProfesorComponent implements AfterViewInit {
   //El nombre del documento PDF
   nombreArchivo: string = '';
 
+  //Nombre temporal del archivo
+  //Se usa para pedir el PDF
+  nombreArchivoTemporal: string = '';
+
   constructor(private route: ActivatedRoute, private router: Router, private documentos: DocumentosService, private infoGrupo: InfoGrupoService) { }
 
   ngAfterViewInit(): void {
+
     //primero se guarda el número de cédula del profesor
      this.route.params.forEach((urlParams) => {
       this.nombreCarpeta = urlParams['nombreCarpeta'];
+      //nombre temporal que se usará para pedir el PDF
+      this.nombreArchivoTemporal = '"' + urlParams['nombreArchivo'] + '"';
       this.nombreArchivo = urlParams['nombreArchivo'];
+
     });
     //solicitar el archivo al servidor
     this.documentos.getArchivo(
       this.infoGrupo.codigoCurso,
       this.nombreCarpeta,
-      this.nombreArchivo,
+      this.nombreArchivoTemporal,
       this.infoGrupo.numeroGrupo.toString(),
       this.infoGrupo.anio,
       this.infoGrupo.periodo
-    ).subscribe( data => {
-      console.log(data);
-      });
-  
-    this.documento = '';
-    WebViewer({
-      path: 'assets/lib',
-      initialDoc: this.documento
-    }, this.viewerRef.nativeElement).then(instance => {
-        instance.setTheme('dark');
-        const { docViewer, annotManager, CoreControls } = instance;
-        // Add header button that will get file data on click
-        instance.setHeaderItems(header => {
-          header.push({
-              type: 'actionButton',
-              img: 'https://img.icons8.com/ios/100/000000/save-as.png',
-              onClick: async () => {
-                const doc = docViewer.getDocument();
-                const xfdfString = await annotManager.exportAnnotations();
-                const saveOptions = CoreControls.SaveOptions;
-                const options = {
-                  xfdfString,
-                  flags: saveOptions.LINEARIZED,
-                  downloadType: 'pdf'
-                };
-                const data = await doc.getFileData(options);
-                const arr = new Uint8Array(data);
-                const blob = new Blob([arr], { type: 'application/pdf' });
-                //parsear de Blob a File
-                const nuevoFile = this.blobToFile(blob, 'nuevoArchivo');
-                //Construir el nuevo archivo en Base64
-                this.base64(nuevoFile);
-              }
+    ).subscribe(
+      data => {
+        console.log(data);
+       
+      },
+      error => {
+        console.log(error);
+        this.documento = 'data:application/pdf;base64,' + error["error"]["text"];
+        
+        WebViewer({
+          path: 'assets/lib',
+          initialDoc: this.documento
+        }, this.viewerRef.nativeElement).then(instance => {
+            instance.setTheme('dark');
+            const { docViewer, annotManager, CoreControls } = instance;
+            // Add header button that will get file data on click
+            instance.setHeaderItems(header => {
+              header.push({
+                  type: 'actionButton',
+                  img: 'https://img.icons8.com/ios/100/000000/save-as.png',
+                  onClick: async () => {
+                    const doc = docViewer.getDocument();
+                    const xfdfString = await annotManager.exportAnnotations();
+                    const saveOptions = CoreControls.SaveOptions;
+                    const options = {
+                      xfdfString,
+                      flags: saveOptions.LINEARIZED,
+                      downloadType: 'pdf'
+                    };
+                    const data = await doc.getFileData(options);
+                    const arr = new Uint8Array(data);
+                    const blob = new Blob([arr], { type: 'application/pdf' });
+                    //parsear de Blob a File
+                    const nuevoFile = this.blobToFile(blob, 'nuevoArchivo');
+
+                    //Construyendo la fecha en que se está subiendo
+                    var date = new Date();
+                    var fecha = date.getFullYear() +'-'+(date.getMonth()+1) + '-'+date.getDate();
+                    var hora = date.getHours() +':' + date.getMinutes() + ':' + date.getSeconds();
+                    var fechaHoraString = fecha + ' ' + hora;
+
+
+                    //Construir el nuevo archivo en Base64
+                    var reader = new FileReader();
+                    reader.readAsDataURL(nuevoFile);
+                    reader.onload = (completionEvent) => {
+                      console.log(completionEvent);
+                      this.documentos.archivoB64 = reader.result;
+                      //Solicitando la actualización al servidor
+                      this.documentos.actualizarArchivo(
+                        this.nombreArchivo,
+                        this.nombreCarpeta,
+                        this.infoGrupo.numeroGrupo,
+                        this.infoGrupo.codigoCurso,
+                        this.infoGrupo.periodo,
+                        this.infoGrupo.anio,
+                        Math.round(nuevoFile.size / 1024).toString() + ' KB',
+                        fechaHoraString
+                      ).subscribe(
+                        data => {
+                          console.log(data);
+                        },
+                        error => {
+                        console.log(error);
+                          if(error.status === 400){ 
+                          }
+                        });
+                    };
+                    reader.onerror = (error) => {
+                      console.log('Error: ', error);
+                    };
+                  }
+              });
+            });
           });
-        });
-      });
+      }); 
+
   }
 
 

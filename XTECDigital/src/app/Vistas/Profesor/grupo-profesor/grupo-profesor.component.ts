@@ -37,4 +37,9 @@ export class GrupoProfesorComponent implements OnInit {
     this.router.navigate(['/ProfesorGrupo',this.numeroCedula, this.nombreGrupo, 'Evaluaciones']);
   }
 
+  gotoNoticias(){
+    this.router.navigate(['/ProfesorGrupo',this.numeroCedula, this.nombreGrupo, 'Noticias']);
+
+  }
+
 }

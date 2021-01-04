@@ -3,7 +3,7 @@
         <div class="col-2 align-self-center text-start">
             <h2><strong>{{nombreRubro}}</strong></h2>
         </div>
-        <div class="col-8 align-self-center text-start">
+        <div class="col-8 align-self-center text-center">
             <h2><strong>{{porcentajeRubro}} %</strong></h2>
         </div>
         <div class="col-1 align-self-center text-center">
@@ -14,61 +14,45 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <div class="col-10 align-self-center carta" *ngFor="let e of [1,2,3,4]">
+        <div class="col-10 align-self-center carta" *ngFor="let evaluacion of listaEvaluaciones">
             <div class="card bg-light ">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-10 align-self-center text-start">
-                            <h3><strong>Quiz 1</strong></h3>
+                            <h3><strong>{{evaluacion.nombre}}</strong></h3>
                         </div>
                         <div class="col-1 align-self-center text-center">
-                          <input type="image" src="https://img.icons8.com/fluent/48/000000/check-all.png" (click)="calificarEntregables()"/>
+                          <input type="image" src="https://img.icons8.com/fluent/48/000000/check-all.png" (click)="calificarEntregables(evaluacion)"/>
                       </div>
                         <div class="col-1 align-self-center text-center">
-                            <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png"/>
+                            <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarEvaluacion(evaluacion.nombre)"/>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
                   <div class="row">
                       <div class="col-12 align-self-center text-center">
-                        <h5 class="card-title">Valor</h5>
+                        <h4><strong>valor</strong></h4>
                       </div>
                   </div>
                   <div class="row">
                     <div class="col-12 align-self-center text-center">
-                      <h5 class="card-title">15 %</h5>
+                      <h5 class="card-title">{{evaluacion.porcentaje}} %</h5>
                     </div>
                   </div>
                   <div class="row cFechaHora">
-                    <div class="col-6 align-self-center text-center">
-                      <h5 class="card-title">Fecha de entrega máxima</h5>
-                    </div>
-                    <div class="col-6 align-self-center text-center">
-                        <h5 class="card-title">Hora de entrega máxima</h5>
-                      </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 align-self-center text-center">
-                       20-12-2020
-                    </div>
-                    <div class="col-6 align-self-center text-center">
-                        19:00
-                     </div>
-                  </div>
-                  <div class="row cDocumento">
                     <div class="col-12 align-self-center text-center">
-                        <h5 class="card-title">Documento de especificación</h5>
+                      <h4><strong>Fecha y hora máxima de entrega</strong></h4>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-12 align-self-center text-center">
-                        <input type="image" src="https://img.icons8.com/color/48/000000/pdf-2.png"/>
+                      <h5 class="card-title">{{evaluacion.fechaHoraEntrega}}</h5>
                     </div>
                   </div>
                   <div class="row cParticipacion">
                     <div class="col-12 align-self-center text-center">
-                        <h5 class="card-title">Individual</h5>
+                        <h5 class="card-title">{{evaluacion.participacion}}</h5>
                     </div>
                   </div>
                   

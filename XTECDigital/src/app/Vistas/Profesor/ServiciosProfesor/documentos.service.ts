@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class DocumentosService {
 
+  //Variable que guarda los documentos en base64 para poder enviarlos posteriormente
+  archivoB64: any;
+
   constructor(private http: HttpClient) { }
 
     //Solicita las carpetas relacionadas a un grupo
@@ -59,7 +62,7 @@ export class DocumentosService {
       }
 
     //Crear una nueva carpeta
-    crearNuevoArchivo(nombre: string, nombreCarpeta: string, numeroGrupo: number, codigoCurso: string, periodo: string, anio: string, archivo: string, tamanio: string, fecha: string){
+    crearNuevoArchivo(nombre: string, nombreCarpeta: string, numeroGrupo: number, codigoCurso: string, periodo: string, anio: string, tamanio: string, fecha: string){
       //se modela el objeto JSON que se va a enviar
       let cuerpo = {
         nombre: nombre,
@@ -68,10 +71,11 @@ export class DocumentosService {
         codigoCurso: codigoCurso,
         periodo: periodo,
         anio: anio,
-        archivo: archivo,
+        archivo: this.archivoB64.toString().split(',')[1],
         tamanio: tamanio,
         fecha: fecha
       };
+      console.log(cuerpo.archivo);
       return this.http.post<string>('https://xtecdigitalsql.azurewebsites.net/api/grupo/carpeta/newArchivo', cuerpo);
     }
 
@@ -87,6 +91,37 @@ export class DocumentosService {
           periodo: periodo
         }});
     }
+
+
+    //Solicita eliminar una carpeta relacionada a un grupo
+    eliminarArchivo(codigoCurso: string, nombreCarpeta: string, nombreArchivo: string,  numeroGrupo: number, anio: string, periodo: string){
+    return this.http.delete<string>('https://xtecdigitalsql.azurewebsites.net/api/grupo/carpeta/archivo/delete?', {
+      params: {
+        curso: codigoCurso,
+        carpeta: nombreCarpeta,
+        nombre: nombreArchivo,
+        grupo: numeroGrupo.toString(),
+        anio: anio,
+        periodo: periodo,
+      }});
+  }
+
+    //Crear una nueva carpeta
+    actualizarArchivo(nombreArchivo: string, nombreCarpeta: string, numeroGrupo: number, codigoCurso: string, periodo: string, anio: string, tamanio: string, fecha: string){
+    //se modela el objeto JSON que se va a enviar
+    let cuerpo = {
+      nombre: nombreArchivo,
+      nombreCarpeta: nombreCarpeta,
+      numeroGrupo: numeroGrupo,
+      codigoCurso: codigoCurso,
+      periodo: periodo,
+      anio: anio,
+      archivo: this.archivoB64.toString().split(',')[1],
+      tamanio: tamanio,
+      fecha: fecha
+    };
+    return this.http.put<string>('https://xtecdigitalsql.azurewebsites.net/api/grupo/carpeta/updateArchivo', cuerpo);
+  }
     
 
 }

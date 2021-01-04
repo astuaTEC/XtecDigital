@@ -77,6 +77,14 @@ export class HomeProfesorComponent implements OnInit {
     this.infoGrupo.anio = periodo.anio;
     this.infoGrupo.codigoCurso = grupo.codigoCurso;
     this.infoGrupo.numeroCedula = this.cedulaProfesor;
+
+    //Se actualizan los estudiantes que se han matriculado en el grupo
+    this.infoGrupo.getEstudiantesMatriculados(
+      grupo.codigoCurso,
+      grupo.numeroGrupo,
+      periodo.anio,
+      periodo.periodo
+    );
     this.router.navigate(['/ProfesorGrupo',this.cedulaProfesor, grupo.nombre, 'Documentos']);
   }
 

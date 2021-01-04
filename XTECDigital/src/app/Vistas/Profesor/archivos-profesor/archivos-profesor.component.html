@@ -27,8 +27,8 @@
                 </div>
             </div>
             <div class="list-group">
-                <div class="row archivo" *ngFor="let archivo of listaArchivos" (click)="gotoVisor(archivo)">
-                    <div class="col-1 align-self-center">
+                <div class="row archivo" *ngFor="let archivo of listaArchivos">
+                    <div class="col-1 align-self-center" (click)="gotoVisor(archivo)">
                         <img src="https://img.icons8.com/color/48/000000/pdf-2.png"/>                    
                     </div>
                     <div class="col-4 align-self-center">
