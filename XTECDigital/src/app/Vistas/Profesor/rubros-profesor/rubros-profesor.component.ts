@@ -3,6 +3,8 @@ import { Rubro } from 'src/app/Vistas/Profesor/ModelosProfesor/rubro';
 import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { RubrosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/rubros.service';
 import { ToastrService } from 'ngx-toastr';
+import { Estado } from 'src/app/modelos/estado';
+import Swal from 'sweetalert2'
 
 export interface CuerpoRubro{
   porcentaje: number,
@@ -33,18 +35,23 @@ export class RubrosProfesorComponent implements OnInit {
   //Se supone que al inicio es correcta, viene desde la base de datos
   sumaCorrecta: boolean = true;
 
-  constructor(private toastr: ToastrService, private infoGrupo: InfoGrupoService, private rubrosService: RubrosService) { }
+  //Estado local de la aplicación 
+  estadoLocal: Estado;
+
+  constructor(private toastr: ToastrService, private rubrosService: RubrosService) { }
 
   ngOnInit(): void {
+    //Cargar la información del estado actual
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
     //solicitar la lista de rubro correspondientes al curso
     this.actualizarRubros();
   }
   actualizarRubros(){
     this.rubrosService.getRubros(
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.anio,
+      this.estadoLocal.periodo
     ).subscribe(data => {
       this.listaRubros = [];
       for(let i = 0; i < data.length; i++){
@@ -69,10 +76,10 @@ export class RubrosProfesorComponent implements OnInit {
       //se crea un nuevo rubro mediate el servicio de rubros
       this.rubrosService.crearNuevoRubro(
         this.nuevoRubro,
-        this.infoGrupo.numeroGrupo,
-        this.infoGrupo.codigoCurso,
-        this.infoGrupo.periodo,
-        this.infoGrupo.anio,
+        this.estadoLocal.numeroGrupo,
+        this.estadoLocal.codigoCurso,
+        this.estadoLocal.periodo,
+        this.estadoLocal.anio,
         0
       ).subscribe(
         data => {
@@ -111,27 +118,38 @@ export class RubrosProfesorComponent implements OnInit {
   }
 
   eliminarRubro(rubro: Rubro){
-    //se manda a eliminar el rubro mediante el servicio
-    this.rubrosService.eliminarRubro(
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo,
-      rubro.nombre
-    ).subscribe(
-      data => {
-        console.log(data);
+    Swal.fire({
+      title: 'Eliminar Rubro',
+      text: "¿Seguro que deseas eliminar el rubro " + rubro.nombre + " ?",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Confirmar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        //se manda a eliminar el rubro mediante el servicio
+        this.rubrosService.eliminarRubro(
+        this.estadoLocal.codigoCurso,
+        this.estadoLocal.numeroGrupo,
+        this.estadoLocal.anio,
+        this.estadoLocal.periodo,
+        rubro.nombre)
+      .subscribe(
+        data => {
+          console.log(data);
     
-      },
-      error => {
-        console.log(error);
-        //Una vez eliminado el rubro, se resetean todos los porcentajes
-        this.actualizarRubros();
-        this.advertencia();
-        this.verificarSumaPorcentajes();
-        
-        
+        },
+        error => {
+          console.log(error);
+          //Una vez eliminado el rubro, se resetean todos los porcentajes
+          this.actualizarRubros();
+          this.advertencia();
+          this.verificarSumaPorcentajes();
       });
+      }
+    })
   }
 
   guardarRubros(){
@@ -144,10 +162,10 @@ export class RubrosProfesorComponent implements OnInit {
         nuevosRubros.push({
           porcentaje: this.listaRubros[i].porcentaje,
           nombre: this.listaRubros[i].nombre,
-          numeroGrupo: this.infoGrupo.numeroGrupo,
-          codigoCurso: this.infoGrupo.codigoCurso,
-          periodo: this.infoGrupo.periodo,
-          anio: this.infoGrupo.anio
+          numeroGrupo: this.estadoLocal.numeroGrupo,
+          codigoCurso: this.estadoLocal.codigoCurso,
+          periodo: this.estadoLocal.periodo,
+          anio: this.estadoLocal.anio
         });
       }
       //Se usa la petición correspondiente

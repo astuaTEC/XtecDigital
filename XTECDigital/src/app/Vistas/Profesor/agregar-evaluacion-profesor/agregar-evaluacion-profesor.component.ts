@@ -7,6 +7,7 @@ import { Estudiante } from '../ModelosProfesor/estudiante';
 import { ES } from '../ModelosProfesor/es';
 import { EMS } from '../ModelosProfesor/ems';
 import { ToastrService } from 'ngx-toastr';
+import { Estado } from 'src/app/modelos/estado';
 
 
 @Component({
@@ -40,16 +41,23 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
   //Lista de los estudiantes matriculados en el curso
   listaEstudiantes: Estudiante[] = [];
 
+  //Estado actual de la aplicación
+  estadoLocal: Estado;
 
-  constructor(private toastr: ToastrService, private infoGrupo: InfoGrupoService, private evaluacionesService: EvaluacionesService, private route: ActivatedRoute, private router: Router) { }
+
+  constructor(private toastr: ToastrService, private evaluacionesService: EvaluacionesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    //Se carga la información de local storage
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
+
+    //Se reciben la información que se encuentra en los parámetros del navegador
     this.route.params.forEach((urlParams) => {
       this.nombreRubro = urlParams['nombreRubro'];
       this.porcentajeRubro = urlParams['porcentajeRubro'];
     });
     //Se actualiza la lista de los estudiantes
-    this.listaEstudiantes = this.infoGrupo.estudiantes;
+    this.listaEstudiantes = this.estadoLocal.estudiantes;
   }
 
   agregarNuevoArchivo(files: FileList) {
@@ -73,10 +81,10 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
       let cuerpo = {
         nombre: this.evaluacion.nombre,
         nombreRubro: this.nombreRubro,
-        numeroGrupo: this.infoGrupo.numeroGrupo,
-        codigoCurso: this.infoGrupo.codigoCurso,
-        periodo: this.infoGrupo.periodo,
-        anio: this.infoGrupo.anio,
+        numeroGrupo: this.estadoLocal.numeroGrupo,
+        codigoCurso: this.estadoLocal.codigoCurso,
+        periodo: this.estadoLocal.periodo,
+        anio: this.estadoLocal.anio,
         individualGrupal: this.evaluacion.participacion,
         fechaHoraMax: this.fechaEntrega + ' ' + this.horaEntrega + ':59',
         archivo: this.archivo.toString().split(',')[1],
@@ -126,10 +134,10 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
             estudiante.grupo,
             this.evaluacion.nombre,
             this.nombreRubro,
-            this.infoGrupo.numeroGrupo,
-            this.infoGrupo.codigoCurso,
-            this.infoGrupo.periodo,
-            this.infoGrupo.anio,
+            this.estadoLocal.numeroGrupo,
+            this.estadoLocal.codigoCurso,
+            this.estadoLocal.periodo,
+            this.estadoLocal.anio,
             //Al inicio está vacía
             []
           ));
@@ -183,8 +191,8 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
   }
 
   cerrar(){
-    this.listaEstudiantes = this.infoGrupo.estudiantes;
-    this.router.navigate(['/ProfesorGrupo',this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Evaluaciones', this.nombreRubro, this.porcentajeRubro]);
+    this.listaEstudiantes = this.estadoLocal.estudiantes;
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Evaluaciones', this.nombreRubro, this.porcentajeRubro]);
   }
 
   error() {

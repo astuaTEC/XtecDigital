@@ -9,10 +9,10 @@ exports.__esModule = true;
 exports.VerEvaluacionesComponent = void 0;
 var core_1 = require("@angular/core");
 var evaluacion_1 = require("../ModelosProfesor/evaluacion");
+var sweetalert2_1 = require("sweetalert2");
 var VerEvaluacionesComponent = /** @class */ (function () {
-    function VerEvaluacionesComponent(evaluacionesService, infoGrupo, route, router) {
+    function VerEvaluacionesComponent(evaluacionesService, route, router) {
         this.evaluacionesService = evaluacionesService;
-        this.infoGrupo = infoGrupo;
         this.route = route;
         this.router = router;
         //Nombre del rubro corrrespondiente a las evaluaciones
@@ -24,6 +24,8 @@ var VerEvaluacionesComponent = /** @class */ (function () {
     }
     VerEvaluacionesComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //Se carga la información de la aplicación almacenada en local storage
+        this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
         //primero se guarda el número de cédula del profesor
         this.route.params.forEach(function (urlParams) {
             _this.nombreRubro = urlParams['nombreRubro'];
@@ -33,19 +35,19 @@ var VerEvaluacionesComponent = /** @class */ (function () {
         this.actualizarEvaluaciones();
     };
     VerEvaluacionesComponent.prototype.cerrar = function () {
-        this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Evaluaciones']);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Evaluaciones']);
     };
     VerEvaluacionesComponent.prototype.nuevaEvaluacion = function () {
         //Calcular el porcentaje restante que le queda al rubro
-        this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'NuevaEvaluacion', this.nombreRubro, this.porcentajeRubro]);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaEvaluacion', this.nombreRubro, this.porcentajeRubro]);
     };
     VerEvaluacionesComponent.prototype.calificarEntregables = function (evaluacion) {
-        this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Entregables', evaluacion.nombre, this.nombreRubro]);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Entregables', evaluacion.nombre, this.nombreRubro]);
     };
     VerEvaluacionesComponent.prototype.actualizarEvaluaciones = function () {
         var _this = this;
         //Se solicitan los datos por medio del servicio de evaluaciones
-        this.evaluacionesService.getEvaluaciones(this.infoGrupo.codigoCurso, this.nombreRubro, this.infoGrupo.numeroGrupo, this.infoGrupo.anio, this.infoGrupo.periodo).subscribe(function (data) {
+        this.evaluacionesService.getEvaluaciones(this.estadoLocal.codigoCurso, this.nombreRubro, this.estadoLocal.numeroGrupo, this.estadoLocal.anio, this.estadoLocal.periodo).subscribe(function (data) {
             //Se limpia la lista de evaluaciones
             _this.listaEvaluaciones = [];
             for (var i = 0; i < data.length; i++) {
@@ -59,12 +61,25 @@ var VerEvaluacionesComponent = /** @class */ (function () {
     };
     VerEvaluacionesComponent.prototype.eliminarEvaluacion = function (nombreEvaluacion) {
         var _this = this;
-        //Se solicita eliminar una evaluacion mediante el servicio de evaluaciones
-        this.evaluacionesService.eliminarEvaluacion(this.infoGrupo.codigoCurso, this.nombreRubro, nombreEvaluacion, this.infoGrupo.numeroGrupo, this.infoGrupo.anio, this.infoGrupo.periodo).subscribe(function (data) {
-            console.log(data);
-        }, function (error) {
-            console.log(error);
-            _this.actualizarEvaluaciones();
+        sweetalert2_1["default"].fire({
+            title: 'Eliminar Evaluación',
+            text: "¿ Seguro que deseas cerrar la evaluación " + nombreEvaluacion + " ?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#3085d6',
+            confirmButtonColor: '#d33',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Confirmar'
+        }).then(function (result) {
+            if (result.isConfirmed) {
+                //Se solicita eliminar una evaluacion mediante el servicio de evaluaciones
+                _this.evaluacionesService.eliminarEvaluacion(_this.estadoLocal.codigoCurso, _this.nombreRubro, nombreEvaluacion, _this.estadoLocal.numeroGrupo, _this.estadoLocal.anio, _this.estadoLocal.periodo).subscribe(function (data) {
+                    console.log(data);
+                }, function (error) {
+                    console.log(error);
+                    _this.actualizarEvaluaciones();
+                });
+            }
         });
     };
     VerEvaluacionesComponent = __decorate([

@@ -22,6 +22,8 @@ var entregables_profesor_component_1 = require("./Vistas/Profesor/entregables-pr
 var crear_noticia_profesor_component_1 = require("./Vistas/Profesor/crear-noticia-profesor/crear-noticia-profesor.component");
 var noticias_profesor_component_1 = require("./Vistas/Profesor/noticias-profesor/noticias-profesor.component");
 var ver_evaluaciones_component_1 = require("./Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component");
+var log_in_component_1 = require("./Vistas/Administrador/log-in/log-in.component");
+var administrador_component_1 = require("./Vistas/Administrador/administrador.component");
 var routes = [
     //RUTA INICIAL
     {
@@ -32,11 +34,11 @@ var routes = [
         component: login_profesor_component_1.LoginProfesorComponent
     },
     {
-        path: 'ProfesorHome/:cedulaProfesor',
+        path: 'ProfesorHome/:cedulaProfesor/:nombreProfesor',
         component: home_profesor_component_1.HomeProfesorComponent
     },
     {
-        path: 'ProfesorGrupo/:cedulaProfesor/:nombreGrupo',
+        path: 'ProfesorGrupo/:cedulaProfesor/:nombreProfesor/:nombreGrupo',
         component: grupo_profesor_component_1.GrupoProfesorComponent,
         children: [
             { path: 'Documentos', component: documentos_profesor_component_1.DocumentosProfesorComponent },
@@ -50,6 +52,14 @@ var routes = [
             { path: 'NuevaNoticia/:Opcion', component: crear_noticia_profesor_component_1.CrearNoticiaProfesorComponent },
             { path: 'Noticias', component: noticias_profesor_component_1.NoticiasProfesorComponent },
         ]
+    },
+    {
+        path: 'AdministradorLogin',
+        component: log_in_component_1.LogInComponent
+    },
+    {
+        path: 'Administrador',
+        component: administrador_component_1.AdministradorComponent
     }
 ];
 var AppRoutingModule = /** @class */ (function () {

@@ -3,7 +3,6 @@ import { Router, ActivatedRoute} from '@angular/router';
 import { ProfesorInfoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/profesor-info.service'
 import { UsuarioProfesor } from 'src/app/Vistas/Profesor/ModelosProfesor/usuario-profesor'
 import { ToastrService } from 'ngx-toastr';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 
 
 @Component({
@@ -13,7 +12,7 @@ import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info
 })
 export class LoginProfesorComponent implements OnInit {
 
-  constructor(private infoGrupo: InfoGrupoService, private route: ActivatedRoute, private router: Router, private profesorInfoService: ProfesorInfoService, private toastr: ToastrService) { }
+  constructor(private route: ActivatedRoute, private router: Router, private profesorInfoService: ProfesorInfoService, private toastr: ToastrService) { }
 
   //Información de usuario del profesor
   usuarioProfesor: UsuarioProfesor = new UsuarioProfesor('', '');
@@ -28,10 +27,8 @@ export class LoginProfesorComponent implements OnInit {
       data => {
         console.log(data);
         this.Success();
-        //Se almacena el nombre del profesor para usos posteriores
-        this.infoGrupo.nombreProfesor = data['primerNombre'] + ' '  + data['primerApellido'] + ' ' + data['segundoApellido'];
         //Se configuran los datos del profesor que inicia sesión
-        this.router.navigate(['/ProfesorHome', this.usuarioProfesor.usuario]);
+        this.router.navigate(['/ProfesorHome', this.usuarioProfesor.usuario, data['primerNombre'] + ' '  + data['primerApellido'] + ' ' + data['segundoApellido']]);
         this.usuarioProfesor = new UsuarioProfesor('', '');
       },
       error => {

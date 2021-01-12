@@ -30,11 +30,11 @@ const routes: Routes = [
     component: LoginProfesorComponent
   },
   {
-    path: 'ProfesorHome/:cedulaProfesor',
+    path: 'ProfesorHome/:cedulaProfesor/:nombreProfesor',
     component: HomeProfesorComponent
   },
   {
-    path: 'ProfesorGrupo/:cedulaProfesor/:nombreGrupo',
+    path: 'ProfesorGrupo/:cedulaProfesor/:nombreProfesor/:nombreGrupo',
     component: GrupoProfesorComponent,
     children: [
       {path: 'Documentos', component: DocumentosProfesorComponent},

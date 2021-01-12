@@ -12,9 +12,8 @@ var evaluacion_1 = require("../ModelosProfesor/evaluacion");
 var es_1 = require("../ModelosProfesor/es");
 var ems_1 = require("../ModelosProfesor/ems");
 var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
-    function AgregarEvaluacionProfesorComponent(toastr, infoGrupo, evaluacionesService, route, router) {
+    function AgregarEvaluacionProfesorComponent(toastr, evaluacionesService, route, router) {
         this.toastr = toastr;
-        this.infoGrupo = infoGrupo;
         this.evaluacionesService = evaluacionesService;
         this.route = route;
         this.router = router;
@@ -33,12 +32,15 @@ var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
     }
     AgregarEvaluacionProfesorComponent.prototype.ngOnInit = function () {
         var _this = this;
+        //Se carga la información de local storage
+        this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
+        //Se reciben la información que se encuentra en los parámetros del navegador
         this.route.params.forEach(function (urlParams) {
             _this.nombreRubro = urlParams['nombreRubro'];
             _this.porcentajeRubro = urlParams['porcentajeRubro'];
         });
         //Se actualiza la lista de los estudiantes
-        this.listaEstudiantes = this.infoGrupo.estudiantes;
+        this.listaEstudiantes = this.estadoLocal.estudiantes;
     };
     AgregarEvaluacionProfesorComponent.prototype.agregarNuevoArchivo = function (files) {
         var _this = this;
@@ -60,10 +62,10 @@ var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
             var cuerpo = {
                 nombre: this.evaluacion.nombre,
                 nombreRubro: this.nombreRubro,
-                numeroGrupo: this.infoGrupo.numeroGrupo,
-                codigoCurso: this.infoGrupo.codigoCurso,
-                periodo: this.infoGrupo.periodo,
-                anio: this.infoGrupo.anio,
+                numeroGrupo: this.estadoLocal.numeroGrupo,
+                codigoCurso: this.estadoLocal.codigoCurso,
+                periodo: this.estadoLocal.periodo,
+                anio: this.estadoLocal.anio,
                 individualGrupal: this.evaluacion.participacion,
                 fechaHoraMax: this.fechaEntrega + ' ' + this.horaEntrega + ':59',
                 archivo: this.archivo.toString().split(',')[1],
@@ -108,7 +110,7 @@ var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
             ;
             //Una vez validado la repetición se decide si crear una nueva ES
             if (!repetido) {
-                evaluacionesSubgrupos.push(new es_1.ES(estudiante.grupo, this.evaluacion.nombre, this.nombreRubro, this.infoGrupo.numeroGrupo, this.infoGrupo.codigoCurso, this.infoGrupo.periodo, this.infoGrupo.anio, 
+                evaluacionesSubgrupos.push(new es_1.ES(estudiante.grupo, this.evaluacion.nombre, this.nombreRubro, this.estadoLocal.numeroGrupo, this.estadoLocal.codigoCurso, this.estadoLocal.periodo, this.estadoLocal.anio, 
                 //Al inicio está vacía
                 []));
             }
@@ -148,8 +150,8 @@ var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
         return correcto;
     };
     AgregarEvaluacionProfesorComponent.prototype.cerrar = function () {
-        this.listaEstudiantes = this.infoGrupo.estudiantes;
-        this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Evaluaciones', this.nombreRubro, this.porcentajeRubro]);
+        this.listaEstudiantes = this.estadoLocal.estudiantes;
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Evaluaciones', this.nombreRubro, this.porcentajeRubro]);
     };
     AgregarEvaluacionProfesorComponent.prototype.error = function () {
         this.toastr.error('No se puede agregar la nueva evaluación', 'Agregar Nueva Evaluación', {

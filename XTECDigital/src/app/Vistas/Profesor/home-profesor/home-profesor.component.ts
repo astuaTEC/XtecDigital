@@ -3,7 +3,10 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { ProfesorInfoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/profesor-info.service'
 import { AnioContenedor } from '../ModelosProfesor/anio-contenedor';
 import { Grupo } from '../ModelosProfesor/grupo';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
+import { Estado } from 'src/app/modelos/estado';
+import { HttpClient } from '@angular/common/http';
+import { Estudiante } from '../ModelosProfesor/estudiante';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-home-profesor',
@@ -12,20 +15,26 @@ import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info
 })
 export class HomeProfesorComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private router: Router, private profesorInfoService: ProfesorInfoService, private infoGrupo: InfoGrupoService) { }
+  constructor(private http: HttpClient, private route: ActivatedRoute, private router: Router, private profesorInfoService: ProfesorInfoService) { }
 
   //Cedula del profesor
   cedulaProfesor: string;
 
+  //Nombre del profesor que se ha logeado
+  nombreProfesor: string;
+
   //Lista de los periodos asociados al profesor
   listaPeriodos: AnioContenedor[] = [];
 
+  //Modelo para el estado que se va a guardar en local storage
+  estadoLocal: Estado;
+
   ngOnInit(): void {
-    //primero se guarda el número de cédula del profesor
-    this.route.paramMap.subscribe((params: ParamMap) => {
-      let cedula = params.get('cedulaProfesor');
-      this.cedulaProfesor = cedula;
-  });
+   
+    this.route.params.forEach((urlParams) => {
+      this.cedulaProfesor = urlParams['cedulaProfesor'];
+      this.nombreProfesor = urlParams['nombreProfesor'];
+    });
   //luego se solicitan los cursos
   this.getProfesorGrupos(this.cedulaProfesor);
   }
@@ -66,26 +75,54 @@ export class HomeProfesorComponent implements OnInit {
 
 
   gotoInicioSesion(){
-    this.router.navigate(['/ProfesorLogin']);
+  Swal.fire({
+    title: 'Cerrar Sesión',
+    text: "¿Seguro que deseas cerrar la sesión?",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Confirmar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      //Ahora se limpian los datos de local storage
+      localStorage.clear();
+      this.router.navigate(['/ProfesorLogin']);
+    }
+  })
+    
   }
 
   gotoGrupo(grupo: Grupo, periodo: AnioContenedor){
-    //Se actualiza el servicio que provee la información de los grupos seleccionados
-    this.infoGrupo.nombreGrupo = grupo.nombre;
-    this.infoGrupo.numeroGrupo = grupo.numeroGrupo;
-    this.infoGrupo.periodo = periodo.periodo;
-    this.infoGrupo.anio = periodo.anio;
-    this.infoGrupo.codigoCurso = grupo.codigoCurso;
-    this.infoGrupo.numeroCedula = this.cedulaProfesor;
+    //Configurando el estado con la información del grupo seleccionado
+    let listaEstudiantes = [];
+    this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getReporteEstudiantes?', {
+      params: {
+        curso: grupo.codigoCurso,
+        grupo: grupo.numeroGrupo.toString(),
+        anio: periodo.anio,
+        periodo: periodo.periodo
+      }}).subscribe(data => {
+        console.log(data);
+        //Se meten los nuevos datos
+        for(let i = 0; i < data.length; i++){
+          listaEstudiantes.push(
+            new Estudiante(data[i].primerNombre,
+              data[i].primerApellido,
+              data[i].segundoApellido,
+              data[i].carnet,
+              0)
+          );     
+      this.estadoLocal = new Estado(
+        grupo.codigoCurso, grupo.nombre, grupo.numeroGrupo, periodo.anio, periodo.periodo, this.cedulaProfesor, listaEstudiantes, this.nombreProfesor
+      );
+      
+      //Almacenando el local storage
+      localStorage.setItem('EstadoActual', JSON.stringify(this.estadoLocal));
+      this.router.navigate(['/ProfesorGrupo',this.cedulaProfesor, this.nombreProfesor, grupo.nombre, 'Documentos']);
 
-    //Se actualizan los estudiantes que se han matriculado en el grupo
-    this.infoGrupo.getEstudiantesMatriculados(
-      grupo.codigoCurso,
-      grupo.numeroGrupo,
-      periodo.anio,
-      periodo.periodo
-    );
-    this.router.navigate(['/ProfesorGrupo',this.cedulaProfesor, grupo.nombre, 'Documentos']);
+        }})
   }
 
 }

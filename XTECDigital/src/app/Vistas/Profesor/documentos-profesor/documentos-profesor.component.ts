@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Carpeta } from '../ModelosProfesor/carpeta';
 import { Router, ActivatedRoute} from '@angular/router';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { DocumentosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/documentos.service';
+import { Estado } from 'src/app/modelos/estado';
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-documentos-profesor',
@@ -20,9 +22,15 @@ export class DocumentosProfesorComponent implements OnInit {
   //Lista de las carpetas que deben provenir del servidor
   listaCarpetas: Carpeta[] = [];
 
-  constructor(private documentos: DocumentosService, private route: ActivatedRoute, private router: Router, private infoGrupo: InfoGrupoService) { }
+  //Estado actual de la aplicación
+  estadoLocal: Estado;
+
+  constructor(private documentos: DocumentosService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    //Se debe cargar la información que se encuentra en local storage
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
+    console.log(this.estadoLocal);
    
     this.actualizarCarpetas();
   }
@@ -37,21 +45,35 @@ export class DocumentosProfesorComponent implements OnInit {
   }
 
   eliminarCarpeta(carpeta: Carpeta){
-    this.documentos.eliminarCarpeta(
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo,
-      carpeta.nombre
-    ).subscribe(
-      data => {
-        console.log(data);
-    
-      },
-      error => {
-        console.log(error);
-        this.actualizarCarpetas()
-      });
+    Swal.fire({
+      title: 'Eliminar Carpeta',
+      text: "¿ Seguro que deseas eliminar la carpeta " + carpeta.nombre + " ?",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Confirmar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.documentos.eliminarCarpeta(
+          this.estadoLocal.codigoCurso,
+          this.estadoLocal.numeroGrupo,
+          this.estadoLocal.anio,
+          this.estadoLocal.periodo,
+          carpeta.nombre
+        ).subscribe(
+          data => {
+            console.log(data);
+        
+          },
+          error => {
+            console.log(error);
+            this.actualizarCarpetas()
+          });
+      }
+    })
+
 
   }
 
@@ -59,11 +81,11 @@ export class DocumentosProfesorComponent implements OnInit {
     if(this.nuevaCarpeta != ''){
       this.documentos.crearNuevaCarpeta(
         this.nuevaCarpeta,
-        this.infoGrupo.numeroGrupo,
-        this.infoGrupo.codigoCurso,
-        this.infoGrupo.periodo,
-        this.infoGrupo.anio,
-        this.infoGrupo.numeroCedula
+        this.estadoLocal.numeroGrupo,
+        this.estadoLocal.codigoCurso,
+        this.estadoLocal.periodo,
+        this.estadoLocal.anio,
+        this.estadoLocal.numeroCedula
       ) .subscribe(
         data => {
           console.log(data);
@@ -86,10 +108,10 @@ export class DocumentosProfesorComponent implements OnInit {
   actualizarCarpetas(){
     //Se solicitan las carpetas correspondientes a este grupo
     this.documentos.getCarpetas(
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.anio,
+      this.estadoLocal.periodo
     )
     .subscribe(data => {
       //limpiar la lista actual
@@ -110,7 +132,7 @@ export class DocumentosProfesorComponent implements OnInit {
   }
 
   gotoArchivos(nombreCarpeta: string){
-    this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Documentos', nombreCarpeta]);
+    this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Documentos', nombreCarpeta]);
   }
 
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { Router, ActivatedRoute, ParamMap, } from '@angular/router';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { DocumentosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/documentos.service';
 
 import WebViewer from '@pdftron/webviewer';
+import { Estado } from 'src/app/modelos/estado';
 
 @Component({
   selector: 'app-vista-archivo-profesor',
@@ -29,11 +29,16 @@ export class VistaArchivoProfesorComponent implements AfterViewInit {
   //Se usa para pedir el PDF
   nombreArchivoTemporal: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router, private documentos: DocumentosService, private infoGrupo: InfoGrupoService) { }
+  //Estado actual de la aplicación
+  estadoLocal: Estado;
+
+  constructor(private route: ActivatedRoute, private router: Router, private documentos: DocumentosService) { }
 
   ngAfterViewInit(): void {
+    //Se carga el estado actual de local storage
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
 
-    //primero se guarda el número de cédula del profesor
+    //Se guarda el número de cédula del profesor
      this.route.params.forEach((urlParams) => {
       this.nombreCarpeta = urlParams['nombreCarpeta'];
       //nombre temporal que se usará para pedir el PDF
@@ -43,12 +48,12 @@ export class VistaArchivoProfesorComponent implements AfterViewInit {
     });
     //solicitar el archivo al servidor
     this.documentos.getArchivo(
-      this.infoGrupo.codigoCurso,
+      this.estadoLocal.codigoCurso,
       this.nombreCarpeta,
       this.nombreArchivoTemporal,
-      this.infoGrupo.numeroGrupo.toString(),
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo
+      this.estadoLocal.numeroGrupo.toString(),
+      this.estadoLocal.anio,
+      this.estadoLocal.periodo
     ).subscribe(
       data => {
         console.log(data);
@@ -101,10 +106,10 @@ export class VistaArchivoProfesorComponent implements AfterViewInit {
                       this.documentos.actualizarArchivo(
                         this.nombreArchivo,
                         this.nombreCarpeta,
-                        this.infoGrupo.numeroGrupo,
-                        this.infoGrupo.codigoCurso,
-                        this.infoGrupo.periodo,
-                        this.infoGrupo.anio,
+                        this.estadoLocal.numeroGrupo,
+                        this.estadoLocal.codigoCurso,
+                        this.estadoLocal.periodo,
+                        this.estadoLocal.anio,
                         Math.round(nuevoFile.size / 1024).toString() + ' KB',
                         fechaHoraString
                       ).subscribe(
@@ -122,6 +127,8 @@ export class VistaArchivoProfesorComponent implements AfterViewInit {
                     };
                   }
               });
+
+              
             });
           });
       }); 

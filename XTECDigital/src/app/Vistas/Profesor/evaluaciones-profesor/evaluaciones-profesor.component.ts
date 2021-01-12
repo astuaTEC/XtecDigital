@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute} from '@angular/router';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
+import { Estado } from 'src/app/modelos/estado';
 import { RubrosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/rubros.service';
 import { Rubro } from '../ModelosProfesor/rubro';
 
@@ -18,9 +18,15 @@ export class EvaluacionesProfesorComponent implements OnInit {
   //Lista de rubros del grupo
   listaRubros: Rubro[] = [];
 
-  constructor(private rubrosService: RubrosService, private route: ActivatedRoute, private router: Router, private infoGrupo: InfoGrupoService) { }
+  //Estado actual de la aplicación
+  estadoLocal: Estado;
+
+  constructor(private rubrosService: RubrosService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    //Cargar el estado actual en la variable local
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
+
     //solicitar la lista de rubros
     this.actualizarRubros();
   }
@@ -28,10 +34,10 @@ export class EvaluacionesProfesorComponent implements OnInit {
 
   actualizarRubros(){
     this.rubrosService.getRubros(
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.anio,
+      this.estadoLocal.periodo
     ).subscribe(data => {
       this.listaRubros = [];
       for(let i = 0; i < data.length; i++){
@@ -43,7 +49,7 @@ export class EvaluacionesProfesorComponent implements OnInit {
   }
 
   verEvaluaciones(rubro: Rubro){
-    this.router.navigate(['/ProfesorGrupo',this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Evaluaciones', rubro.nombre, rubro.porcentaje]);
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Evaluaciones', rubro.nombre, rubro.porcentaje]);
   }
 
 

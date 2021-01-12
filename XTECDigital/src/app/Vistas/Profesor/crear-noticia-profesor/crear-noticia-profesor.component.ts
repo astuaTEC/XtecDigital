@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { NoticiasService } from 'src/app/Vistas/Profesor/ServiciosProfesor/noticias.service';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { Noticia } from '../ModelosProfesor/noticia';
+import { Estado } from 'src/app/modelos/estado';
  
 
 @Component({
@@ -15,13 +15,19 @@ export class CrearNoticiaProfesorComponent implements OnInit {
    //El comando a ejecutar
    comando: string = '';
 
-  constructor(private route: ActivatedRoute, private router: Router, private infoGrupo: InfoGrupoService, private noticiasService: NoticiasService) { }
+   //Estado actual de la aplicación
+   estadoLocal: Estado;
+
+  constructor(private route: ActivatedRoute, private router: Router, private noticiasService: NoticiasService) { }
 
   //Modelo que almacena los datos ingresados por el usuario
   noticia: Noticia = new Noticia(0, '', '', '', '');
 
   ngOnInit(): void {
-    //primero se guarda el número de cédula del profesor
+    //Se carga la información del estado actual
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
+
+    //Se guarda el número de cédula del profesor
     this.route.paramMap.subscribe((params: ParamMap) => {
         this.comando = params.get('Opcion');
       });
@@ -33,7 +39,7 @@ export class CrearNoticiaProfesorComponent implements OnInit {
   }
 
   cerrar(){
-    this.router.navigate(['/ProfesorGrupo',this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Noticias']);
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'Noticias']);
   }
 
   nuevaNoticia(){
@@ -44,14 +50,14 @@ export class CrearNoticiaProfesorComponent implements OnInit {
     this.noticia.fechaPublicacion = fecha + ' ' + hora;
 
     //Transfiriendo el nombre del profesor que está agregando la noticia
-    this.noticia.autor = this.infoGrupo.nombreProfesor;
+    this.noticia.autor = this.estadoLocal.nombreProfesor;
     
     //Se realiza la petición mediante el servicio de Noticias
     this.noticiasService.crearNuevaNoticia(
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.periodo,
-      this.infoGrupo.anio,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.periodo,
+      this.estadoLocal.anio,
       this.noticia.fechaPublicacion,
       this.noticia.titulo,
       this.noticia.mensaje,
@@ -78,15 +84,15 @@ export class CrearNoticiaProfesorComponent implements OnInit {
     this.noticia.fechaPublicacion = fecha + ' ' + hora;
 
     //Transfiriendo el nombre del profesor que está agregando la noticia
-    this.noticia.autor = this.infoGrupo.nombreProfesor;
+    this.noticia.autor = this.estadoLocal.nombreProfesor;
     
     //Se realiza la petición mediante el servicio de Noticias
     this.noticiasService.editarNoticia(
       this.noticia.id,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.periodo,
-      this.infoGrupo.anio,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.periodo,
+      this.estadoLocal.anio,
       this.noticia.fechaPublicacion,
       this.noticia.titulo,
       this.noticia.mensaje,
@@ -108,10 +114,10 @@ export class CrearNoticiaProfesorComponent implements OnInit {
   getNoticiaEditar(){
     //Se piden los datos de la noticia que se desea editar
     this.noticiasService.getNoticias(
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.anio,
-      this.infoGrupo.periodo
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.anio,
+      this.estadoLocal.periodo
     ).subscribe(data => {
      for(let i = 0; i < data.length; i++){
        //Se localiza la noticia

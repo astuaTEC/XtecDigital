@@ -31,17 +31,17 @@
                     <div class="col-1 align-self-center" (click)="gotoVisor(archivo)">
                         <img src="https://img.icons8.com/color/48/000000/pdf-2.png"/>                    
                     </div>
-                    <div class="col-4 align-self-center">
+                    <div class="col-4 align-self-center" (click)="gotoVisor(archivo)">
                         {{archivo.nombre}}
                     </div>
-                    <div class="col-4 align-self-center">
+                    <div class="col-4 align-self-center" (click)="gotoVisor(archivo)">
                         {{archivo.fecha}}
                     </div>
-                    <div class="col-2 align-self-center">
+                    <div class="col-2 align-self-center" (click)="gotoVisor(archivo)">
                         {{archivo.tamano}}
                     </div>
                     <div class="col-1 align-self-center textoFinal" >
-                        <input type="image" src="https://img.icons8.com/ultraviolet/40/000000/trash.png" (click)="eliminarArchivo(archivo)"/>      
+                        <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarArchivo(archivo)"/>      
                     </div>
                 </div>
             </div>

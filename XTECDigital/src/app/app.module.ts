@@ -32,7 +32,6 @@ import { EntregablesProfesorComponent } from './Vistas/Profesor/entregables-prof
 import { CrearNoticiaProfesorComponent } from './Vistas/Profesor/crear-noticia-profesor/crear-noticia-profesor.component';
 import { NoticiasProfesorComponent } from './Vistas/Profesor/noticias-profesor/noticias-profesor.component';
 import { VerEvaluacionesComponent } from './Vistas/Profesor/ver-evaluaciones/ver-evaluaciones.component';
-import { SplashScreenComponent } from './Vistas/Profesor/splash-screen/splash-screen.component';
 
 import { FilterPipe } from './filter.pipe';
 
@@ -60,7 +59,6 @@ import { ToastrModule } from 'ngx-toastr';
     CrearNoticiaProfesorComponent,
     NoticiasProfesorComponent,
     VerEvaluacionesComponent,
-    SplashScreenComponent,
     FilterPipe
   ],
   imports: [

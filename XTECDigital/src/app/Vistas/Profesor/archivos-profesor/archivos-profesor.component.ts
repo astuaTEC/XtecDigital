@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { Archivo } from 'src/app/Vistas/Profesor/ModelosProfesor/archivo';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { DocumentosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/documentos.service';
+import { Estado } from 'src/app/modelos/estado';
+import Swal from 'sweetalert2'
 
 
 @Component({
@@ -27,9 +28,15 @@ export class ArchivosProfesorComponent implements OnInit {
   //Lista de archivos que se muestran
   listaArchivos: Archivo[] = [];
 
-  constructor(private documentos: DocumentosService, private infoGrupo: InfoGrupoService, private route: ActivatedRoute, private router: Router) { }
+  //Estado local de la aplicación
+  estadoLocal: Estado;
+
+  constructor(private documentos: DocumentosService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    //Primero se carga la información del estado local en la variable local
+    this.estadoLocal = JSON.parse(localStorage.getItem('EstadoActual'));
+    console.log(this.estadoLocal);
     this.route.paramMap.subscribe((params: ParamMap) => {
       let nombreCarpeta = params.get('nombreCarpeta');
       this.nombreCarpeta = nombreCarpeta;
@@ -57,10 +64,10 @@ agregarNuevoArchivo(files: FileList) {
     this.documentos.crearNuevoArchivo(
       this.fileToUpload.name,
       this.nombreCarpeta,
-      this.infoGrupo.numeroGrupo,
-      this.infoGrupo.codigoCurso,
-      this.infoGrupo.periodo,
-      this.infoGrupo.anio,
+      this.estadoLocal.numeroGrupo,
+      this.estadoLocal.codigoCurso,
+      this.estadoLocal.periodo,
+      this.estadoLocal.anio,
       Math.round(this.fileToUpload.size / 1024).toString() + ' KB',
       fechaHoraString
     ).subscribe(
@@ -99,33 +106,45 @@ activarSeleccionarArchivo(){
 }
 
 eliminarArchivo(archivo: Archivo){
-  this.documentos.eliminarArchivo(
-    this.infoGrupo.codigoCurso,
-    this.nombreCarpeta,
-    archivo.nombre,
-    this.infoGrupo.numeroGrupo,
-    this.infoGrupo.anio,
-    this.infoGrupo.periodo
-  )
-  .subscribe(
-    data => {
-      console.log(data);
-  
-    },
-    error => {
-      console.log(error);
-      this.actualizarArchivos()
-    });
-
+  Swal.fire({
+    title: 'Eliminar Archivo',
+    text: "¿ Seguro que deseas eliminar el archivo " + archivo.nombre + " ?",
+    icon: 'warning',
+    showCancelButton: true,
+    cancelButtonColor: '#3085d6',
+    confirmButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Confirmar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.documentos.eliminarArchivo(
+        this.estadoLocal.codigoCurso,
+        this.nombreCarpeta,
+        archivo.nombre,
+        this.estadoLocal.numeroGrupo,
+        this.estadoLocal.anio,
+        this.estadoLocal.periodo
+      )
+      .subscribe(
+        data => {
+          console.log(data);
+      
+        },
+        error => {
+          console.log(error);
+          this.actualizarArchivos()
+        });
+    }
+  })
 }
 
 actualizarArchivos(){
   //Solicitar la lista de archivos por medio del servicio
   this.documentos.getArchivos(
-    this.infoGrupo.codigoCurso,
-    this.infoGrupo.numeroGrupo,
-    this.infoGrupo.anio,
-    this.infoGrupo.periodo,
+    this.estadoLocal.codigoCurso,
+    this.estadoLocal.numeroGrupo,
+    this.estadoLocal.anio,
+    this.estadoLocal.periodo,
     this.nombreCarpeta
   ).subscribe( data => {
     //limpiar la lista de archivos
@@ -141,11 +160,11 @@ actualizarArchivos(){
 
 
 gotoVisor(archivo: Archivo){
-  this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Documentos', this.nombreCarpeta, archivo.nombre]);
+  this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Documentos', this.nombreCarpeta, archivo.nombre]);
 }
 
 gotoDocumentos(){
-    this.router.navigate(['/ProfesorGrupo', this.infoGrupo.numeroCedula, this.infoGrupo.nombreGrupo, 'Documentos']);
+    this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Documentos']);
 }
 
 }
