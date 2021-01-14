@@ -42,7 +42,6 @@ export class EvaluacionesService {
 
   //Crear una nueva evaluacion Grupal
   crearNuevaEvaluacionGrupal(cuerpo:any){
-    console.log(cuerpo);
     return this.http.post<string>('https://xtecdigitalsql.azurewebsites.net/api/grupo/evaluacion/subgrupos', cuerpo);
   }
 
@@ -73,9 +72,9 @@ export class EvaluacionesService {
       }});
   }
 
-  //Solicita las evaluaciones relacionadas a un rubro
-  getSubGrupo(codigoCurso: string, nombreRubro: string, nombreEvaluacion: string, numeroGrupo: number, anio: string, periodo: string, carnet: string){
-    return this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/grupo/rubro/evaluacion/miSubgrupo?', {
+  //Solicita el entregable correspondiente a una evaluación
+  getArchivoEntregable(codigoCurso: string, nombreRubro: string, nombreEvaluacion: string, numeroGrupo: number, anio: string, periodo: string, carnet: string, id: number){
+    return this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/grupo/rubro/evaluacion/entregable/archivo?', {
       params: {
         curso: codigoCurso,
         rubro: nombreRubro,
@@ -83,7 +82,26 @@ export class EvaluacionesService {
         grupo: numeroGrupo.toString(),
         anio: anio,
         periodo: periodo,
-        carnet: carnet
+        carnet: carnet,
+        id: id.toString()
+      }});
+  }
+
+  calificarEntregable(cuerpo:any){
+    return this.http.post<string>('https://xtecdigitalsql.azurewebsites.net/api/grupo/evaluacion/entregable/calificar', cuerpo);
+  }
+
+  //Publica las notas de los entregables calificados
+  publicarNotas(codigoCurso: string, nombreRubro: string, nombreEvaluacion: string, numeroGrupo: number, anio: string, periodo: string, nombreProfesor: string){
+    return this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/grupo/evaluacion/publicarNotas?', {
+      params: {
+        curso: codigoCurso,
+        rubro: nombreRubro,
+        nombre: nombreEvaluacion,
+        grupo: numeroGrupo.toString(),
+        anio: anio,
+        periodo: periodo,
+        profesor: nombreProfesor
       }});
   }
 }

@@ -2,13 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { Evaluacion } from '../ModelosProfesor/evaluacion';
 import { EvaluacionesService } from 'src/app/Vistas/Profesor/ServiciosProfesor/evaluaciones.service';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { Estudiante } from '../ModelosProfesor/estudiante';
 import { ES } from '../ModelosProfesor/es';
 import { EMS } from '../ModelosProfesor/ems';
-import { ToastrService } from 'ngx-toastr';
 import { Estado } from 'src/app/modelos/estado';
-
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-agregar-evaluacion-profesor',
@@ -45,7 +43,7 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
   estadoLocal: Estado;
 
 
-  constructor(private toastr: ToastrService, private evaluacionesService: EvaluacionesService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private evaluacionesService: EvaluacionesService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     //Se carga la información de local storage
@@ -101,17 +99,32 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
          console.log(error);
          if(this.evaluacion.participacion == 'Grupal'){
            this.agregarEvaluacion2();
-           this.Success();
+           Swal.fire({
+            icon: 'success',
+            title: 'Se ha agregado una nueva evaluación',
+            showConfirmButton: false,
+            timer: 2000
+          })
            this.cerrar();
          }
          else{
-           this.Success();
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha agregado una nueva evaluación',
+            showConfirmButton: false,
+            timer: 2000
+          })
            this.cerrar();
          }
        });
     }
     else{
-      this.error();
+      Swal.fire({
+        icon: 'error',
+        title: 'Faltan campos por llenar',
+        showConfirmButton: false,
+        timer: 2000
+      })
       
     }
   }
@@ -194,23 +207,5 @@ export class AgregarEvaluacionProfesorComponent implements OnInit {
     this.listaEstudiantes = this.estadoLocal.estudiantes;
     this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Evaluaciones', this.nombreRubro, this.porcentajeRubro]);
   }
-
-  error() {
-    this.toastr.error('No se puede agregar la nueva evaluación', 'Agregar Nueva Evaluación', 
-    {
-      timeOut: 2000,
-      tapToDismiss: false
-    });
-  }
-
-  Success() {
-    this.toastr.success('Evaluación agregada exitosamente', 'Agregar Nueva Evaluación', 
-    {
-      timeOut: 2000,
-      tapToDismiss: false
-    });
-  }
-
-  
 
 }

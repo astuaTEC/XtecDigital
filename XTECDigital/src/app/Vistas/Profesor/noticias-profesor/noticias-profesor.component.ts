@@ -34,11 +34,11 @@ export class NoticiasProfesorComponent implements OnInit {
   }
 
   nuevaNoticia(){
-    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'NuevaNoticia', 'Crear']);
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaNoticia', 'Crear']);
   }
 
   editarNoticia(noticia: Noticia){
-    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'NuevaNoticia', noticia.id]);
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaNoticia', noticia.id]);
   }
 
   actualizarNoticias(){
@@ -92,6 +92,12 @@ export class NoticiasProfesorComponent implements OnInit {
           error => {
             console.log(error);
             //Una vez eliminado el rubro, se resetean todos los porcentajes
+            Swal.fire({
+              icon: 'success',
+              title: 'Noticia eliminada',
+              showConfirmButton: false,
+              timer: 2000
+            })
             this.actualizarNoticias(); 
           });
 

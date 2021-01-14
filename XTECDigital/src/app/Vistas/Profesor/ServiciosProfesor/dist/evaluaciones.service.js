@@ -41,7 +41,6 @@ var EvaluacionesService = /** @class */ (function () {
     };
     //Crear una nueva evaluacion Grupal
     EvaluacionesService.prototype.crearNuevaEvaluacionGrupal = function (cuerpo) {
-        console.log(cuerpo);
         return this.http.post('https://xtecdigitalsql.azurewebsites.net/api/grupo/evaluacion/subgrupos', cuerpo);
     };
     //Elimina una evaluacion en específico
@@ -70,9 +69,9 @@ var EvaluacionesService = /** @class */ (function () {
             }
         });
     };
-    //Solicita las evaluaciones relacionadas a un rubro
-    EvaluacionesService.prototype.getSubGrupo = function (codigoCurso, nombreRubro, nombreEvaluacion, numeroGrupo, anio, periodo, carnet) {
-        return this.http.get('https://xtecdigitalsql.azurewebsites.net/api/grupo/rubro/evaluacion/miSubgrupo?', {
+    //Solicita el entregable correspondiente a una evaluación
+    EvaluacionesService.prototype.getArchivoEntregable = function (codigoCurso, nombreRubro, nombreEvaluacion, numeroGrupo, anio, periodo, carnet, id) {
+        return this.http.get('https://xtecdigitalsql.azurewebsites.net/api/grupo/rubro/evaluacion/entregable/archivo?', {
             params: {
                 curso: codigoCurso,
                 rubro: nombreRubro,
@@ -80,7 +79,25 @@ var EvaluacionesService = /** @class */ (function () {
                 grupo: numeroGrupo.toString(),
                 anio: anio,
                 periodo: periodo,
-                carnet: carnet
+                carnet: carnet,
+                id: id.toString()
+            }
+        });
+    };
+    EvaluacionesService.prototype.calificarEntregable = function (cuerpo) {
+        return this.http.post('https://xtecdigitalsql.azurewebsites.net/api/grupo/evaluacion/entregable/calificar', cuerpo);
+    };
+    //Publica las notas de los entregables calificados
+    EvaluacionesService.prototype.publicarNotas = function (codigoCurso, nombreRubro, nombreEvaluacion, numeroGrupo, anio, periodo, nombreProfesor) {
+        return this.http.get('https://xtecdigitalsql.azurewebsites.net/api/grupo/evaluacion/publicarNotas?', {
+            params: {
+                curso: codigoCurso,
+                rubro: nombreRubro,
+                nombre: nombreEvaluacion,
+                grupo: numeroGrupo.toString(),
+                anio: anio,
+                periodo: periodo,
+                profesor: nombreProfesor
             }
         });
     };

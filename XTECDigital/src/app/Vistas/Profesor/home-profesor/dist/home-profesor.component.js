@@ -37,6 +37,7 @@ var HomeProfesorComponent = /** @class */ (function () {
         var cedula = "'" + cedulaProfesor + "'";
         this.profesorInfoService.misCursos(cedula)
             .subscribe(function (data) {
+            console.log(data);
             //primero se deben crear los periodos
             for (var i = 0; i < data.length; i++) {
                 var nuevoPeriodo = new anio_contenedor_1.AnioContenedor(data[i].anio, data[i].periodo, []);

@@ -53,6 +53,12 @@ var ArchivosProfesorComponent = /** @class */ (function () {
                 console.log(data);
             }, function (error) {
                 console.log(error);
+                sweetalert2_1["default"].fire({
+                    icon: 'success',
+                    title: 'Se ha agregado un nuevo archivo',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
                 _this.actualizarArchivos();
                 //cerrar el apartado de nuevo archivo
                 _this.activarSeleccionarArchivo();
@@ -90,6 +96,12 @@ var ArchivosProfesorComponent = /** @class */ (function () {
                     console.log(data);
                 }, function (error) {
                     console.log(error);
+                    sweetalert2_1["default"].fire({
+                        icon: 'success',
+                        title: 'Se ha eliminado un archivo',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     _this.actualizarArchivos();
                 });
             }

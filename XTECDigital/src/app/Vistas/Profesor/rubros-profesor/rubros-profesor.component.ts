@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rubro } from 'src/app/Vistas/Profesor/ModelosProfesor/rubro';
-import { InfoGrupoService } from 'src/app/Vistas/Profesor/ServiciosProfesor/info-grupo.service';
 import { RubrosService } from 'src/app/Vistas/Profesor/ServiciosProfesor/rubros.service';
-import { ToastrService } from 'ngx-toastr';
 import { Estado } from 'src/app/modelos/estado';
 import Swal from 'sweetalert2'
 
@@ -38,7 +36,7 @@ export class RubrosProfesorComponent implements OnInit {
   //Estado local de la aplicación 
   estadoLocal: Estado;
 
-  constructor(private toastr: ToastrService, private rubrosService: RubrosService) { }
+  constructor(private rubrosService: RubrosService) { }
 
   ngOnInit(): void {
     //Cargar la información del estado actual
@@ -89,7 +87,12 @@ export class RubrosProfesorComponent implements OnInit {
         error => {
           console.log(error);
           this.actualizarRubros()
-          this.Success('Nuevo rubro agregado con éxito', 'Agregar Rubros');
+          Swal.fire({
+            icon: 'success',
+            title: 'Nuevo rubro agregado',
+            showConfirmButton: false,
+            timer: 2000
+          })
           this.nuevoRubro = ''; 
           this.nuevoRubroActivado = false;
           if(error.status === 400){
@@ -145,7 +148,6 @@ export class RubrosProfesorComponent implements OnInit {
           console.log(error);
           //Una vez eliminado el rubro, se resetean todos los porcentajes
           this.actualizarRubros();
-          this.advertencia();
           this.verificarSumaPorcentajes();
       });
       }
@@ -182,36 +184,24 @@ export class RubrosProfesorComponent implements OnInit {
           }
         });
         //enviar mensaje de éxito
-        this.Success('Rubros editados exitosamente', 'Editar Rubros');
+        Swal.fire({
+          icon: 'success',
+          title: 'Guardar rubros',
+          text: 'Se han editado los rubros exitosamente',
+          showConfirmButton: false,
+          timer: 2000
+        })
       }
       else{
-        this.error();
+        Swal.fire({
+          icon: 'error',
+          title: 'Guardar rubros',
+          text: 'La suma de los porcentajes debe ser igual a 100',
+          showConfirmButton: false,
+          timer: 2000
+        })
       }
  
-  }
-
-  error() {
-    this.toastr.error('La suma de los porcentajes debe ser 100%', 'Editar Rubros', 
-    {
-      timeOut: 2000,
-      tapToDismiss: false
-    });
-  }
-
-  Success(mensaje:string, titulo: string) {
-    this.toastr.success(mensaje, titulo, 
-    {
-      timeOut: 2000,
-      tapToDismiss: false
-    });
-  }
-
-  advertencia(){
-    this.toastr.warning('Rubro eliminado. Recuerda editar los porcentajes', 'Eliminar Rubro',
-    {
-      timeOut: 5000,
-      tapToDismiss: false
-    });
   }
 
 }

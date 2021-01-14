@@ -48,7 +48,7 @@ var routes = [
             { path: 'Evaluaciones', component: evaluaciones_profesor_component_1.EvaluacionesProfesorComponent },
             { path: 'Evaluaciones/:nombreRubro/:porcentajeRubro', component: ver_evaluaciones_component_1.VerEvaluacionesComponent },
             { path: 'NuevaEvaluacion/:nombreRubro/:porcentajeRubro', component: agregar_evaluacion_profesor_component_1.AgregarEvaluacionProfesorComponent },
-            { path: 'Entregables/:nombreEvaluacion/:nombreRubro', component: entregables_profesor_component_1.EntregablesProfesorComponent },
+            { path: 'Entregables/:nombreEvaluacion/:nombreRubro/:porcentajeRubro', component: entregables_profesor_component_1.EntregablesProfesorComponent },
             { path: 'NuevaNoticia/:Opcion', component: crear_noticia_profesor_component_1.CrearNoticiaProfesorComponent },
             { path: 'Noticias', component: noticias_profesor_component_1.NoticiasProfesorComponent },
         ]

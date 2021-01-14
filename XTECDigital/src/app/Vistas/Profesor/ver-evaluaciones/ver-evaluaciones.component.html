@@ -18,11 +18,11 @@
             <div class="card bg-light ">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-10 align-self-center text-start">
+                        <div class="col-7 align-self-center text-start">
                             <h3><strong>{{evaluacion.nombre}}</strong></h3>
                         </div>
-                        <div class="col-1 align-self-center text-center">
-                          <input type="image" src="https://img.icons8.com/fluent/48/000000/check-all.png" (click)="calificarEntregables(evaluacion)"/>
+                        <div class="col-4 align-self-center text-center">
+                          <button type="button" class="btn btn-success" (click)="calificarEntregables(evaluacion)">Entregables</button>
                       </div>
                         <div class="col-1 align-self-center text-center">
                             <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarEvaluacion(evaluacion.nombre)"/>

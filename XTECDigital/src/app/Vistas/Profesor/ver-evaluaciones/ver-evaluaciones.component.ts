@@ -47,11 +47,15 @@ export class VerEvaluacionesComponent implements OnInit {
 
   nuevaEvaluacion(){
     //Calcular el porcentaje restante que le queda al rubro
-    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaEvaluacion', this.nombreRubro, this.porcentajeRubro ]);
+    let porcentajeRestante: number = this.porcentajeRubro;
+    for(let evaluacion of this.listaEvaluaciones){
+      porcentajeRestante -= evaluacion.porcentaje;
+    }
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaEvaluacion', this.nombreRubro, porcentajeRestante]);
   }
 
   calificarEntregables(evaluacion: Evaluacion){
-    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Entregables', evaluacion.nombre, this.nombreRubro ]);
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Entregables', evaluacion.nombre, this.nombreRubro, this.porcentajeRubro ]);
   }
 
   actualizarEvaluaciones(){
@@ -110,6 +114,12 @@ export class VerEvaluacionesComponent implements OnInit {
           },
           error => {
           console.log(error);
+          Swal.fire({
+            icon: 'success',
+            title: 'Evaluación eliminada',
+            showConfirmButton: false,
+            timer: 2000
+          })
           this.actualizarEvaluaciones();
           });
           }

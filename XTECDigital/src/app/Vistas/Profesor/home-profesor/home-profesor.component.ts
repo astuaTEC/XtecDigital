@@ -44,6 +44,7 @@ export class HomeProfesorComponent implements OnInit {
     let cedula = "'" + cedulaProfesor + "'";
     this.profesorInfoService.misCursos(cedula)
     .subscribe(data => {
+      console.log(data);
       //primero se deben crear los periodos
       for(let i = 0; i < data.length; i++){
         let nuevoPeriodo = new AnioContenedor(data[i].anio, data[i].periodo, []);

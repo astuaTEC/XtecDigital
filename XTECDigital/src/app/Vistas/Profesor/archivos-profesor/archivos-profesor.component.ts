@@ -77,6 +77,12 @@ agregarNuevoArchivo(files: FileList) {
       },
       error => {
         console.log(error);
+        Swal.fire({
+          icon: 'success',
+          title: 'Se ha agregado un nuevo archivo',
+          showConfirmButton: false,
+          timer: 2000
+        })
         this.actualizarArchivos()
         //cerrar el apartado de nuevo archivo
         this.activarSeleccionarArchivo();
@@ -90,10 +96,6 @@ agregarNuevoArchivo(files: FileList) {
   reader.onerror = (error) => {
     console.log('Error: ', error);
   };
-
-
-
-
 }
 
 activarSeleccionarArchivo(){
@@ -132,6 +134,12 @@ eliminarArchivo(archivo: Archivo){
         },
         error => {
           console.log(error);
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha eliminado un archivo',
+            showConfirmButton: false,
+            timer: 2000
+          })
           this.actualizarArchivos()
         });
     }

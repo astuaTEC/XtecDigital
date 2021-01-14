@@ -78,7 +78,7 @@ export class DocumentosProfesorComponent implements OnInit {
   }
 
   agregarNuevaCarpeta(){
-    if(this.nuevaCarpeta != ''){
+    if(this.nuevaCarpeta != '' && !this.carpetaRepetida(this.nuevaCarpeta)){
       this.documentos.crearNuevaCarpeta(
         this.nuevaCarpeta,
         this.estadoLocal.numeroGrupo,
@@ -103,6 +103,29 @@ export class DocumentosProfesorComponent implements OnInit {
       this.activarNC();
       this.nuevaCarpeta = '';
     }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Agregar carpeta',
+        text: 'Ya existe una carpeta con el mismo nombre',
+        showConfirmButton: false,
+        timer: 2000
+      })
+      this.nuevaCarpeta = '';
+      this.activarNC();
+    }
+  }
+
+  carpetaRepetida(nuevaCarpeta: string): boolean{
+    let repetida: boolean = false;
+    //Se recorren las carpetas para validar si existe alguna con el mismo nombre
+    for(let carpeta of this.listaCarpetas){
+      if(nuevaCarpeta == carpeta.nombre){
+        repetida = true;
+        break;
+      }
+    }
+    return repetida;
   }
 
   actualizarCarpetas(){

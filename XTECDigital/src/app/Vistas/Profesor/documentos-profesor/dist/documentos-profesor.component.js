@@ -60,7 +60,7 @@ var DocumentosProfesorComponent = /** @class */ (function () {
     };
     DocumentosProfesorComponent.prototype.agregarNuevaCarpeta = function () {
         var _this = this;
-        if (this.nuevaCarpeta != '') {
+        if (this.nuevaCarpeta != '' && !this.carpetaRepetida(this.nuevaCarpeta)) {
             this.documentos.crearNuevaCarpeta(this.nuevaCarpeta, this.estadoLocal.numeroGrupo, this.estadoLocal.codigoCurso, this.estadoLocal.periodo, this.estadoLocal.anio, this.estadoLocal.numeroCedula).subscribe(function (data) {
                 console.log(data);
                 _this.nuevaCarpeta = '';
@@ -74,6 +74,29 @@ var DocumentosProfesorComponent = /** @class */ (function () {
             this.activarNC();
             this.nuevaCarpeta = '';
         }
+        else {
+            sweetalert2_1["default"].fire({
+                icon: 'error',
+                title: 'Agregar carpeta',
+                text: 'Ya existe una carpeta con el mismo nombre',
+                showConfirmButton: false,
+                timer: 2000
+            });
+            this.nuevaCarpeta = '';
+            this.activarNC();
+        }
+    };
+    DocumentosProfesorComponent.prototype.carpetaRepetida = function (nuevaCarpeta) {
+        var repetida = false;
+        //Se recorren las carpetas para validar si existe alguna con el mismo nombre
+        for (var _i = 0, _a = this.listaCarpetas; _i < _a.length; _i++) {
+            var carpeta = _a[_i];
+            if (nuevaCarpeta == carpeta.nombre) {
+                repetida = true;
+                break;
+            }
+        }
+        return repetida;
     };
     DocumentosProfesorComponent.prototype.actualizarCarpetas = function () {
         var _this = this;

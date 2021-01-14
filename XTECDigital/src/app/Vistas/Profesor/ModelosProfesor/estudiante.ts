@@ -4,6 +4,6 @@ export class Estudiante {
         public primerApellido: string,
         public segundoApellido: string,
         public carnet: string,
-        public grupo: number 
+        public grupo: number
     ){}
 }

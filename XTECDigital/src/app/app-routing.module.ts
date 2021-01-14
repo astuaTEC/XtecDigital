@@ -44,7 +44,7 @@ const routes: Routes = [
       {path: 'Evaluaciones', component: EvaluacionesProfesorComponent},
       {path: 'Evaluaciones/:nombreRubro/:porcentajeRubro', component: VerEvaluacionesComponent},
       {path: 'NuevaEvaluacion/:nombreRubro/:porcentajeRubro', component: AgregarEvaluacionProfesorComponent},
-      {path: 'Entregables/:nombreEvaluacion/:nombreRubro', component: EntregablesProfesorComponent},
+      {path: 'Entregables/:nombreEvaluacion/:nombreRubro/:porcentajeRubro', component: EntregablesProfesorComponent},
       {path: 'NuevaNoticia/:Opcion', component: CrearNoticiaProfesorComponent},
       {path: 'Noticias', component: NoticiasProfesorComponent},
      ]},

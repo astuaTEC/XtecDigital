@@ -11,9 +11,9 @@ var core_1 = require("@angular/core");
 var evaluacion_1 = require("../ModelosProfesor/evaluacion");
 var es_1 = require("../ModelosProfesor/es");
 var ems_1 = require("../ModelosProfesor/ems");
+var sweetalert2_1 = require("sweetalert2");
 var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
-    function AgregarEvaluacionProfesorComponent(toastr, evaluacionesService, route, router) {
-        this.toastr = toastr;
+    function AgregarEvaluacionProfesorComponent(evaluacionesService, route, router) {
         this.evaluacionesService = evaluacionesService;
         this.route = route;
         this.router = router;
@@ -80,17 +80,32 @@ var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
                 console.log(error);
                 if (_this.evaluacion.participacion == 'Grupal') {
                     _this.agregarEvaluacion2();
-                    _this.Success();
+                    sweetalert2_1["default"].fire({
+                        icon: 'success',
+                        title: 'Se ha agregado una nueva evaluación',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     _this.cerrar();
                 }
                 else {
-                    _this.Success();
+                    sweetalert2_1["default"].fire({
+                        icon: 'success',
+                        title: 'Se ha agregado una nueva evaluación',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     _this.cerrar();
                 }
             });
         }
         else {
-            this.error();
+            sweetalert2_1["default"].fire({
+                icon: 'error',
+                title: 'Faltan campos por llenar',
+                showConfirmButton: false,
+                timer: 2000
+            });
         }
     };
     AgregarEvaluacionProfesorComponent.prototype.agregarEvaluacion2 = function () {
@@ -152,18 +167,6 @@ var AgregarEvaluacionProfesorComponent = /** @class */ (function () {
     AgregarEvaluacionProfesorComponent.prototype.cerrar = function () {
         this.listaEstudiantes = this.estadoLocal.estudiantes;
         this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Evaluaciones', this.nombreRubro, this.porcentajeRubro]);
-    };
-    AgregarEvaluacionProfesorComponent.prototype.error = function () {
-        this.toastr.error('No se puede agregar la nueva evaluación', 'Agregar Nueva Evaluación', {
-            timeOut: 2000,
-            tapToDismiss: false
-        });
-    };
-    AgregarEvaluacionProfesorComponent.prototype.Success = function () {
-        this.toastr.success('Evaluación agregada exitosamente', 'Agregar Nueva Evaluación', {
-            timeOut: 2000,
-            tapToDismiss: false
-        });
     };
     AgregarEvaluacionProfesorComponent = __decorate([
         core_1.Component({

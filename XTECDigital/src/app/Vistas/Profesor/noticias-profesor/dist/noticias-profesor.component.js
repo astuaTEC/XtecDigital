@@ -25,10 +25,10 @@ var NoticiasProfesorComponent = /** @class */ (function () {
         this.actualizarNoticias();
     };
     NoticiasProfesorComponent.prototype.nuevaNoticia = function () {
-        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'NuevaNoticia', 'Crear']);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaNoticia', 'Crear']);
     };
     NoticiasProfesorComponent.prototype.editarNoticia = function (noticia) {
-        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'NuevaNoticia', noticia.id]);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaNoticia', noticia.id]);
     };
     NoticiasProfesorComponent.prototype.actualizarNoticias = function () {
         var _this = this;
@@ -60,6 +60,12 @@ var NoticiasProfesorComponent = /** @class */ (function () {
                 }, function (error) {
                     console.log(error);
                     //Una vez eliminado el rubro, se resetean todos los porcentajes
+                    sweetalert2_1["default"].fire({
+                        icon: 'success',
+                        title: 'Noticia eliminada',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     _this.actualizarNoticias();
                 });
             }

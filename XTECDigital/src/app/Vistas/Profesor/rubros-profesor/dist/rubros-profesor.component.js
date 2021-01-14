@@ -12,8 +12,7 @@ var rubro_1 = require("src/app/Vistas/Profesor/ModelosProfesor/rubro");
 var sweetalert2_1 = require("sweetalert2");
 ;
 var RubrosProfesorComponent = /** @class */ (function () {
-    function RubrosProfesorComponent(toastr, rubrosService) {
-        this.toastr = toastr;
+    function RubrosProfesorComponent(rubrosService) {
         this.rubrosService = rubrosService;
         //La lista de rubros
         this.listaRubros = [];
@@ -59,7 +58,12 @@ var RubrosProfesorComponent = /** @class */ (function () {
             }, function (error) {
                 console.log(error);
                 _this.actualizarRubros();
-                _this.Success('Nuevo rubro agregado con éxito', 'Agregar Rubros');
+                sweetalert2_1["default"].fire({
+                    icon: 'success',
+                    title: 'Nuevo rubro agregado',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
                 _this.nuevoRubro = '';
                 _this.nuevoRubroActivado = false;
                 if (error.status === 400) {
@@ -106,7 +110,6 @@ var RubrosProfesorComponent = /** @class */ (function () {
                     console.log(error);
                     //Una vez eliminado el rubro, se resetean todos los porcentajes
                     _this.actualizarRubros();
-                    _this.advertencia();
                     _this.verificarSumaPorcentajes();
                 });
             }
@@ -139,29 +142,23 @@ var RubrosProfesorComponent = /** @class */ (function () {
                 }
             });
             //enviar mensaje de éxito
-            this.Success('Rubros editados exitosamente', 'Editar Rubros');
+            sweetalert2_1["default"].fire({
+                icon: 'success',
+                title: 'Guardar rubros',
+                text: 'Se han editado los rubros exitosamente',
+                showConfirmButton: false,
+                timer: 2000
+            });
         }
         else {
-            this.error();
+            sweetalert2_1["default"].fire({
+                icon: 'error',
+                title: 'Guardar rubros',
+                text: 'La suma de los porcentajes debe ser igual a 100',
+                showConfirmButton: false,
+                timer: 2000
+            });
         }
-    };
-    RubrosProfesorComponent.prototype.error = function () {
-        this.toastr.error('La suma de los porcentajes debe ser 100%', 'Editar Rubros', {
-            timeOut: 2000,
-            tapToDismiss: false
-        });
-    };
-    RubrosProfesorComponent.prototype.Success = function (mensaje, titulo) {
-        this.toastr.success(mensaje, titulo, {
-            timeOut: 2000,
-            tapToDismiss: false
-        });
-    };
-    RubrosProfesorComponent.prototype.advertencia = function () {
-        this.toastr.warning('Rubro eliminado. Recuerda editar los porcentajes', 'Eliminar Rubro', {
-            timeOut: 5000,
-            tapToDismiss: false
-        });
     };
     RubrosProfesorComponent = __decorate([
         core_1.Component({

@@ -3,7 +3,8 @@ import { Router, ActivatedRoute, ParamMap} from '@angular/router';
 import { NoticiasService } from 'src/app/Vistas/Profesor/ServiciosProfesor/noticias.service';
 import { Noticia } from '../ModelosProfesor/noticia';
 import { Estado } from 'src/app/modelos/estado';
- 
+import Swal from 'sweetalert2'
+
 
 @Component({
   selector: 'app-crear-noticia-profesor',
@@ -39,41 +40,58 @@ export class CrearNoticiaProfesorComponent implements OnInit {
   }
 
   cerrar(){
-    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'Noticias']);
+    this.router.navigate(['/ProfesorGrupo',this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Noticias']);
   }
 
   nuevaNoticia(){
-    //Construyendo la fecha en que se está subiendo
-    var date = new Date();
-    var fecha = date.getFullYear() +'-'+(date.getMonth()+1) + '-'+date.getDate();
-    var hora = date.getHours() +':' + date.getMinutes() + ':' + date.getSeconds();
-    this.noticia.fechaPublicacion = fecha + ' ' + hora;
+    //Se debe validar que todos los campos estén llenos
+    if(this.noticia.titulo != '' && this.noticia.mensaje != ''){
+      //Construyendo la fecha en que se está subiendo
+      var date = new Date();
+      var fecha = date.getFullYear() +'-'+(date.getMonth()+1) + '-'+date.getDate();
+      var hora = date.getHours() +':' + date.getMinutes() + ':' + date.getSeconds();
+      this.noticia.fechaPublicacion = fecha + ' ' + hora;
 
-    //Transfiriendo el nombre del profesor que está agregando la noticia
-    this.noticia.autor = this.estadoLocal.nombreProfesor;
-    
-    //Se realiza la petición mediante el servicio de Noticias
-    this.noticiasService.crearNuevaNoticia(
-      this.estadoLocal.numeroGrupo,
-      this.estadoLocal.codigoCurso,
-      this.estadoLocal.periodo,
-      this.estadoLocal.anio,
-      this.noticia.fechaPublicacion,
-      this.noticia.titulo,
-      this.noticia.mensaje,
-      this.noticia.autor
-    ).subscribe(
-      data => {
-        console.log(data);
-    
-      },
-      error => {
-        console.log(error);
-        this.cerrar();
-        if(error.status === 400){
-       
-        }
-      });
+      //Transfiriendo el nombre del profesor que está agregando la noticia
+      this.noticia.autor = this.estadoLocal.nombreProfesor;
+      
+      //Se realiza la petición mediante el servicio de Noticias
+      this.noticiasService.crearNuevaNoticia(
+        this.estadoLocal.numeroGrupo,
+        this.estadoLocal.codigoCurso,
+        this.estadoLocal.periodo,
+        this.estadoLocal.anio,
+        this.noticia.fechaPublicacion,
+        this.noticia.titulo,
+        this.noticia.mensaje,
+        this.noticia.autor
+      ).subscribe(
+        data => {
+          console.log(data);
+      
+        },
+        error => {
+          console.log(error);
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha creado una nueva noticia',
+            showConfirmButton: false,
+            timer: 2000
+          })
+          this.cerrar();
+          if(error.status === 400){
+        
+          }
+        });
+    }
+    else{
+      Swal.fire({
+        icon: 'error',
+        title: 'Faltan campos por llenar',
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
   }
 
   editarNoticia(){

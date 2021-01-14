@@ -9,6 +9,7 @@ exports.__esModule = true;
 exports.CrearNoticiaProfesorComponent = void 0;
 var core_1 = require("@angular/core");
 var noticia_1 = require("../ModelosProfesor/noticia");
+var sweetalert2_1 = require("sweetalert2");
 var CrearNoticiaProfesorComponent = /** @class */ (function () {
     function CrearNoticiaProfesorComponent(route, router, noticiasService) {
         this.route = route;
@@ -33,26 +34,43 @@ var CrearNoticiaProfesorComponent = /** @class */ (function () {
         }
     };
     CrearNoticiaProfesorComponent.prototype.cerrar = function () {
-        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreGrupo, 'Noticias']);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Noticias']);
     };
     CrearNoticiaProfesorComponent.prototype.nuevaNoticia = function () {
         var _this = this;
-        //Construyendo la fecha en que se está subiendo
-        var date = new Date();
-        var fecha = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-        var hora = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-        this.noticia.fechaPublicacion = fecha + ' ' + hora;
-        //Transfiriendo el nombre del profesor que está agregando la noticia
-        this.noticia.autor = this.estadoLocal.nombreProfesor;
-        //Se realiza la petición mediante el servicio de Noticias
-        this.noticiasService.crearNuevaNoticia(this.estadoLocal.numeroGrupo, this.estadoLocal.codigoCurso, this.estadoLocal.periodo, this.estadoLocal.anio, this.noticia.fechaPublicacion, this.noticia.titulo, this.noticia.mensaje, this.noticia.autor).subscribe(function (data) {
-            console.log(data);
-        }, function (error) {
-            console.log(error);
-            _this.cerrar();
-            if (error.status === 400) {
-            }
-        });
+        //Se debe validar que todos los campos estén llenos
+        if (this.noticia.titulo != '' && this.noticia.mensaje != '') {
+            //Construyendo la fecha en que se está subiendo
+            var date = new Date();
+            var fecha = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            var hora = date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+            this.noticia.fechaPublicacion = fecha + ' ' + hora;
+            //Transfiriendo el nombre del profesor que está agregando la noticia
+            this.noticia.autor = this.estadoLocal.nombreProfesor;
+            //Se realiza la petición mediante el servicio de Noticias
+            this.noticiasService.crearNuevaNoticia(this.estadoLocal.numeroGrupo, this.estadoLocal.codigoCurso, this.estadoLocal.periodo, this.estadoLocal.anio, this.noticia.fechaPublicacion, this.noticia.titulo, this.noticia.mensaje, this.noticia.autor).subscribe(function (data) {
+                console.log(data);
+            }, function (error) {
+                console.log(error);
+                sweetalert2_1["default"].fire({
+                    icon: 'success',
+                    title: 'Se ha creado una nueva noticia',
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                _this.cerrar();
+                if (error.status === 400) {
+                }
+            });
+        }
+        else {
+            sweetalert2_1["default"].fire({
+                icon: 'error',
+                title: 'Faltan campos por llenar',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        }
     };
     CrearNoticiaProfesorComponent.prototype.editarNoticia = function () {
         var _this = this;

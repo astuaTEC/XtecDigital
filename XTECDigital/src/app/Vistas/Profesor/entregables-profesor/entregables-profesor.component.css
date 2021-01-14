@@ -19,7 +19,7 @@
     color: white;
     padding-top: 30px;
     padding-bottom: 10px;
-    border: 2px solid rgb(238, 255, 0);
+    border: 2px solid black;
     border-radius: 10px; 
 }
 
@@ -33,9 +33,13 @@
     padding-bottom: 10px;
 }
 
-.calificacion{
+.calificacion-area{
     padding-top: 20px;
     padding-bottom: 10px;
+}
+.calificacion{
+    color: yellow;
+    font-size: 20px;
 }
 
 textarea {
@@ -45,4 +49,17 @@ textarea {
 .input{
     border-radius: 20px; 
     text-align: center;
+}
+
+.boton-ver{
+    border-radius: 15px;  
+}
+
+.boton-calificar{
+    padding-top: 20px;
+    padding-bottom: 40px; 
+}
+
+.archivo{
+    padding-top: 20px;
 }

@@ -39,10 +39,15 @@ var VerEvaluacionesComponent = /** @class */ (function () {
     };
     VerEvaluacionesComponent.prototype.nuevaEvaluacion = function () {
         //Calcular el porcentaje restante que le queda al rubro
-        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaEvaluacion', this.nombreRubro, this.porcentajeRubro]);
+        var porcentajeRestante = this.porcentajeRubro;
+        for (var _i = 0, _a = this.listaEvaluaciones; _i < _a.length; _i++) {
+            var evaluacion = _a[_i];
+            porcentajeRestante -= evaluacion.porcentaje;
+        }
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'NuevaEvaluacion', this.nombreRubro, porcentajeRestante]);
     };
     VerEvaluacionesComponent.prototype.calificarEntregables = function (evaluacion) {
-        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Entregables', evaluacion.nombre, this.nombreRubro]);
+        this.router.navigate(['/ProfesorGrupo', this.estadoLocal.numeroCedula, this.estadoLocal.nombreProfesor, this.estadoLocal.nombreGrupo, 'Entregables', evaluacion.nombre, this.nombreRubro, this.porcentajeRubro]);
     };
     VerEvaluacionesComponent.prototype.actualizarEvaluaciones = function () {
         var _this = this;
@@ -77,6 +82,12 @@ var VerEvaluacionesComponent = /** @class */ (function () {
                     console.log(data);
                 }, function (error) {
                     console.log(error);
+                    sweetalert2_1["default"].fire({
+                        icon: 'success',
+                        title: 'Evaluación eliminada',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
                     _this.actualizarEvaluaciones();
                 });
             }

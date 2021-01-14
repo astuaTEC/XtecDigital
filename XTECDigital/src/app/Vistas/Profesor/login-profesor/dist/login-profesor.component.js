@@ -9,12 +9,12 @@ exports.__esModule = true;
 exports.LoginProfesorComponent = void 0;
 var core_1 = require("@angular/core");
 var usuario_profesor_1 = require("src/app/Vistas/Profesor/ModelosProfesor/usuario-profesor");
+var sweetalert2_1 = require("sweetalert2");
 var LoginProfesorComponent = /** @class */ (function () {
-    function LoginProfesorComponent(route, router, profesorInfoService, toastr) {
+    function LoginProfesorComponent(route, router, profesorInfoService) {
         this.route = route;
         this.router = router;
         this.profesorInfoService = profesorInfoService;
-        this.toastr = toastr;
         //Información de usuario del profesor
         this.usuarioProfesor = new usuario_profesor_1.UsuarioProfesor('', '');
     }
@@ -25,7 +25,8 @@ var LoginProfesorComponent = /** @class */ (function () {
         this.profesorInfoService.iniciarSesion(this.usuarioProfesor)
             .subscribe(function (data) {
             console.log(data);
-            _this.Success();
+            //Se guarda el mail del profesor en local storage
+            localStorage.setItem('mailProfesor', data['email']);
             //Se configuran los datos del profesor que inicia sesión
             _this.router.navigate(['/ProfesorHome', _this.usuarioProfesor.usuario, data['primerNombre'] + ' ' + data['primerApellido'] + ' ' + data['segundoApellido']]);
             _this.usuarioProfesor = new usuario_profesor_1.UsuarioProfesor('', '');
@@ -33,20 +34,13 @@ var LoginProfesorComponent = /** @class */ (function () {
             console.log(error);
             if (error.status === 400) {
                 _this.usuarioProfesor = new usuario_profesor_1.UsuarioProfesor('', '');
-                _this.error();
+                sweetalert2_1["default"].fire({
+                    icon: 'error',
+                    title: 'El usuario o la contraseña son incorrectos',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
-        });
-    };
-    LoginProfesorComponent.prototype.error = function () {
-        this.toastr.error('usuario o contraseña inválidos', 'Inicio de sesión', {
-            timeOut: 2000,
-            tapToDismiss: false
-        });
-    };
-    LoginProfesorComponent.prototype.Success = function () {
-        this.toastr.success('Inicio de sesión exitoso', 'Inicio de sesión', {
-            timeOut: 2000,
-            tapToDismiss: false
         });
     };
     LoginProfesorComponent = __decorate([

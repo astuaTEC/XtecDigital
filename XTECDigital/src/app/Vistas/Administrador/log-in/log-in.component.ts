@@ -16,7 +16,6 @@ constructor( private router: Router,private _logInService: AdminService) { }
 
   ngOnInit(): void {
   }
-
 ingresar(usuario, contrasena): void{
 this.user.usuario = usuario;
 this.user.password = contrasena;
