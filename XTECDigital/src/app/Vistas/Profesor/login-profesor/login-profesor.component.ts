@@ -45,4 +45,8 @@ export class LoginProfesorComponent implements OnInit {
         }
       }); 
   }
+  gotoAdministrador(){
+    this.router.navigate(['/AdministradorLogin']);
+
+  }
 }

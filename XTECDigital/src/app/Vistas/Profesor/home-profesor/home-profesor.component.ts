@@ -100,7 +100,7 @@ export class HomeProfesorComponent implements OnInit {
     let listaEstudiantes = [];
     this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getReporteEstudiantes?', {
       params: {
-        curso: grupo.codigoCurso,
+        curso: '"' + grupo.codigoCurso + '"',
         grupo: grupo.numeroGrupo.toString(),
         anio: periodo.anio,
         periodo: periodo.periodo

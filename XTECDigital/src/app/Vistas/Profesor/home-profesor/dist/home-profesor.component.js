@@ -90,7 +90,7 @@ var HomeProfesorComponent = /** @class */ (function () {
         var listaEstudiantes = [];
         this.http.get('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getReporteEstudiantes?', {
             params: {
-                curso: grupo.codigoCurso,
+                curso: '"' + grupo.codigoCurso + '"',
                 grupo: grupo.numeroGrupo.toString(),
                 anio: periodo.anio,
                 periodo: periodo.periodo

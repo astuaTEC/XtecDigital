@@ -68,6 +68,7 @@ export class GrupoProfesorComponent implements OnInit {
  }
 
   reporteEstudiantes(){
+    console.log("pasa");
     //Creando la lista de estudiantes
     let listaEstudiantes = [];
     this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getReporteEstudiantes?', {

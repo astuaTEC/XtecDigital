@@ -18,6 +18,9 @@ var LogInComponent = /** @class */ (function () {
     }
     LogInComponent.prototype.ngOnInit = function () {
     };
+    LogInComponent.prototype.gotoProfesor = function () {
+        this.router.navigate(['/ProfesorLogin']);
+    };
     LogInComponent.prototype.ingresar = function (usuario, contrasena) {
         var _this = this;
         this.user.usuario = usuario;

@@ -13,7 +13,7 @@ export class ReportesService {
   getNotasEstudiantes(codigoCurso: string,  numeroGrupo: number, anio: string, periodo: string){
     return this.http.get<any[]>('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getNotas?', {
       params: {
-        curso: codigoCurso,
+        curso: '"' +codigoCurso + '"',
         grupo: numeroGrupo.toString(),
         anio: anio,
         periodo: periodo

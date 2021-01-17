@@ -53,6 +53,7 @@ var GrupoProfesorComponent = /** @class */ (function () {
     };
     GrupoProfesorComponent.prototype.reporteEstudiantes = function () {
         var _this = this;
+        console.log("pasa");
         //Creando la lista de estudiantes
         var listaEstudiantes = [];
         this.http.get('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getReporteEstudiantes?', {

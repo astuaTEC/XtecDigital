@@ -43,6 +43,9 @@ var LoginProfesorComponent = /** @class */ (function () {
             }
         });
     };
+    LoginProfesorComponent.prototype.gotoAdministrador = function () {
+        this.router.navigate(['/AdministradorLogin']);
+    };
     LoginProfesorComponent = __decorate([
         core_1.Component({
             selector: 'app-login-profesor',

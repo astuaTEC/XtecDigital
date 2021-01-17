@@ -20,7 +20,7 @@
       
             <button [disabled]="f.invalid"  type="button"  mat-button type="submit" class="btn btn-primary" (click)="ingresar(usuario.value,contrasena.value)"><i class="fas fa-sign-in-alt"></i>  Ingresar</button>
             <div class="row justify-content-center">
-              <a class="nav-link" href="/ProfesorLogin">Profesores</a>            
+              <a class="nav-link" (click)="gotoProfesor()">Profesores</a>            
             </div>
         </form>
       

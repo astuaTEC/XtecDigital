@@ -23,7 +23,7 @@ import { CursosComponent } from './Vistas/Administrador/cursos/cursos.component'
 const routes: Routes = [
   //RUTA INICIAL
   {
-    path: '', redirectTo: 'ProfesorLogin',
+    path: '', redirectTo: 'AdministradorLogin',
      pathMatch: 'full'
   },
    {path: 'ProfesorLogin',

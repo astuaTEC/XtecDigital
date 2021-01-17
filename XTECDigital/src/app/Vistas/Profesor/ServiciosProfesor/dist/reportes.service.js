@@ -16,7 +16,7 @@ var ReportesService = /** @class */ (function () {
     ReportesService.prototype.getNotasEstudiantes = function (codigoCurso, numeroGrupo, anio, periodo) {
         return this.http.get('https://xtecdigitalsql.azurewebsites.net/api/profesor/curso/getNotas?', {
             params: {
-                curso: codigoCurso,
+                curso: '"' + codigoCurso + '"',
                 grupo: numeroGrupo.toString(),
                 anio: anio,
                 periodo: periodo

@@ -17,7 +17,7 @@
                     <button [disabled]="loginForm.form.invalid" type="submit" class="btn btn-primary btn-block" (click)="gotoHome()">Entrar</button>
                 </div>
                 <div class="row justify-content-center">
-                    <a class="nav-link" href="/AdministradorLogin">Administrador</a>            
+                    <a class="nav-link" (click)="gotoAdministrador()">Administrador</a>            
                 </div>
             </form>
         </div>

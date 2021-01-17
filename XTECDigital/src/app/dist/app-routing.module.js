@@ -27,7 +27,7 @@ var administrador_component_1 = require("./Vistas/Administrador/administrador.co
 var routes = [
     //RUTA INICIAL
     {
-        path: '', redirectTo: 'ProfesorLogin',
+        path: '', redirectTo: 'AdministradorLogin',
         pathMatch: 'full'
     },
     { path: 'ProfesorLogin',
