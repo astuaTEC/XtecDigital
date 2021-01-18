@@ -132,6 +132,27 @@ namespace SQLServerApi.Controllers
         }
 
         /// <summary>
+        /// Petición para publicar las notas asociadas a un entregable
+        /// </summary>
+        /// <param name="curso">El curso asociado</param>
+        /// <param name="rubro">El rubro asociado</param>
+        /// <param name="nombre">El nombre de la evaluación</param>
+        /// <param name="grupo">El número de grupo asociado</param>
+        /// <param name="anio">El anio asociado</param>
+        /// <param name="periodo">El periodo asociado</param>
+        /// <param name="profesor">El profesor que publica las notas</param>
+        /// <returns>Un ok en caso de éxito</returns>
+        [HttpGet]
+        [Route("api/grupo/evaluacion/publicarNotas")]
+        public IActionResult PublicarNotas([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
+            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string profesor)
+        {
+            _repo.publicarNotas(curso, rubro, nombre, grupo, anio, periodo, profesor);
+
+            return Ok("Notas publicadas correctamente");
+        }
+
+        /// <summary>
         /// Petición para crear una evaluación
         /// </summary>
         /// <param name="evaluacion">La evaluación a crear</param>
@@ -184,27 +205,6 @@ namespace SQLServerApi.Controllers
         {
             _repo.CalificarEntregable(entregable);
             return Ok("Entregable calificado correctamente");
-        }
-
-        /// <summary>
-        /// Petición para publicar las notas asociadas a un entregable
-        /// </summary>
-        /// <param name="curso">El curso asociado</param>
-        /// <param name="rubro">El rubro asociado</param>
-        /// <param name="nombre">El nombre de la evaluación</param>
-        /// <param name="grupo">El número de grupo asociado</param>
-        /// <param name="anio">El anio asociado</param>
-        /// <param name="periodo">El periodo asociado</param>
-        /// <param name="profesor">El profesor que publica las notas</param>
-        /// <returns>Un ok en caso de éxito</returns>
-        [HttpPost]
-        [Route("api/grupo/evaluacion/publicarNotas")]
-        public IActionResult PublicarNotas([FromQuery] string curso, [FromQuery] string rubro, [FromQuery] string nombre,
-            [FromQuery] int grupo, [FromQuery] string anio, [FromQuery] string periodo, [FromQuery] string profesor)
-        {
-            _repo.publicarNotas(curso, rubro, nombre, grupo, anio, periodo, profesor);
-
-            return Ok("Notas publicadas correctamente");
         }
 
         /// <summary>

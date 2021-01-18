@@ -15,11 +15,11 @@ VALUES ('V', '2020');
 
 -- CURSO
 INSERT INTO CURSO (Codigo, Creditos, Carrera, Nombre, Habilitado)
-VALUES ('MA-0101', 4, 'Matemática', 'Matemática General', 1),
-	   ('MA-0102', 4, 'Matemática', 'Cálculo Diferencial e Integral', 1),
-	   ('MA-0103', 4, 'Matemática', 'Cálculo y Algebra Lineal', 1),
-	   ('MA-2105', 4, 'Matemática', 'Ecuaciones diferenciales', 1),
-	   ('MA-2104', 4, 'Matemática', 'Cálculo superior', 1),
+VALUES ('MA0101', 4, 'Matemática', 'Matemática General', 1),
+	   ('MA0102', 4, 'Matemática', 'Cálculo Diferencial e Integral', 1),
+	   ('MA0103', 4, 'Matemática', 'Cálculo y Algebra Lineal', 1),
+	   ('MA2105', 4, 'Matemática', 'Ecuaciones diferenciales', 1),
+	   ('MA2104', 4, 'Matemática', 'Cálculo superior', 1),
 	   ('CE3101', 4, 'Ing. Computadores', 'Bases de Datos', 1),
 	   ('CE3104', 4, 'Ing. Computadores', 'Lenguajes compiladores e interpretes', 1),
 	   ('CE4101', 4, 'Ing. Computadores', 'Especificacion y Diseno de Software', 1);
