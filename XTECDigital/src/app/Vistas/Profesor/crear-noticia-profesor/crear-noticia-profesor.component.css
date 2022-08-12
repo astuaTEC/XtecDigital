@@ -1,0 +1,32 @@
+.principal{
+    padding-top: 90px;
+    padding-bottom: 20px;
+}
+
+.cabecera{
+    color: white;
+    font-size: 25px;
+}
+
+.titulo{
+    color: white;
+    padding-top: 40px;
+}
+
+.mensaje{
+    color: white;
+    padding-top: 40px;
+}
+
+.boton{
+    padding-top: 40px;
+}
+
+.input{
+    text-align: center;
+    border-radius: 20px;
+}
+
+textarea {
+    resize: none;
+}

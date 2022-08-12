@@ -1,0 +1,52 @@
+
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="nav-brand titulo">
+        {{nombreGrupo}}
+    </div>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoDocumentos()">Documentos</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoRubros()">Rubros</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoEvaluaciones()">Evaluaciones</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoNoticias()">Noticias</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="reporteNotas()">Notas</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="reporteEstudiantes()">Estudiantes</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="gotoHome()">Mis cursos</button>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div class="nav-link">
+                <button type="button" class="btn btn-secondary" (click)="cerrarSesion()">Cerrar sesión</button>
+            </div>
+        </li>
+      </ul>
+    </div>
+  </nav>
+<router-outlet></router-outlet>

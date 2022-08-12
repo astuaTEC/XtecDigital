@@ -1,0 +1,28 @@
+.textoFinal{
+    text-align: right;
+}
+
+.carpeta{
+    border: 1px solid rgb(0, 0, 0);
+    color: #ffffff;
+    font-size: 18px;
+}
+
+.grupo{
+    padding-top: 60px;
+
+}
+.carpeta:hover {
+    background: #b8860b;
+}
+
+.nuevaCarpeta{
+    padding-top: 20px;  
+    padding-bottom: 20px;
+    
+}
+
+.input{
+    text-align: center;
+    border-radius: 20px;
+}

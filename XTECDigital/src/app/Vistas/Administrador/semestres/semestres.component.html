@@ -1,0 +1,151 @@
+
+
+<div *ngIf="!formVisibility3">
+	<div class="text-center cont" *ngIf="!formVisibility">
+ <button type="button" class="btn button1 btn-primary text-center"   (click)="formVisibility =true" >
+	Inicializar semestre de forma manual
+</button>
+</div>
+
+<div class="text-center cont" *ngIf="!formVisibility">
+<p class="text-white"> Cargar archivo para inicializar semestre: </p>
+<form 
+              (ngSubmit)="submit()"
+              #f="ngForm">
+<input type="file" class="inputred text-black" (change)="onFileChange($event)" id="file" #file multiple="false"  required />
+<button type="button" class="btn but btn-primary"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Inicializar semestre
+	</button>
+</form>
+</div>
+<div class="cont2">
+<div class="wrapper" *ngIf="formVisibility"  >
+	<div>
+		<h2 class="name text-white">Información del semestre</h2>
+		
+
+<div class="column text-black">
+	<p class="column text-white"><br>Cursos: </p>
+	<div class="container">
+ 
+	<div class="row"  >
+		<mat-accordion *ngFor="let curso of cursos" class="text-center acc">
+   <mat-expansion-panel   (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{curso.codigo}} - {{curso.nombre}}
+      </mat-panel-title>
+  </mat-expansion-panel-header>
+ <form 
+              (ngSubmit)="submit()"
+              #f="ngForm">
+		<p class="text-black">
+			Profesor 1:
+<input (keyup)="onKey($event.target.value)"  class="inputred" >
+			<select #profe1 class="inputred"  ngModel  name="profe1" required>
+					<option  [value]="">None</option>
+					<option *ngFor="let profe of selectedStates" [value]="profe.cedula">{{profe.cedula}}</option>
+			</select></p>
+
+
+
+		<p class="text-black">
+			Profesor 2: <input (keyup)="onKey2($event.target.value)"  class="inputred" >
+			<select #profe2 class="inputred"  ngModel  name="profe2" >
+					<option  [value]="">None</option>
+					<option *ngFor="let profe of selectedStates2" [value]="profe.cedula">{{profe.cedula}}</option>
+			</select>
+</p>
+
+
+		<p class="text-black">
+			Número de grupo: <input type="number" #grupo class="inputred"  name="grupo"  ngModel  required /></p>
+
+	<button type="button" class="btn but btn-primary"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+   (click)="openDialog(profe1.value,profe2.value,grupo.value,curso)"
+                  >
+	Crear grupo
+	</button>
+
+
+
+</form>
+   
+    
+    <button type="button"  *ngIf="!curso.habilitado"(click)="habilitar(curso)" class="btn butt btn-primary">Habilitar</button>
+</mat-expansion-panel>
+</mat-accordion>
+</div> 
+</div>
+					
+			
+</div>
+
+<form 
+              (ngSubmit)="inicio(anio.value,vis.value)"
+              #f="ngForm">
+		<p class="text-white">
+			Año: 
+			<select #anio class="inputred"  ngModel  name="anio" required>
+					<option *ngFor="let anio of anios" [value]='anio' > {{anio}}</option>
+			</select>
+		</p>
+		<div class="column text-white">
+	Periodo:  
+					<div><input #vis type="radio" id="vis" name="vis" (change)="per('1')" value="1"  required /> Primer Semestre</div>
+					<div><input #vis type="radio" id="vis"  name="vis" (change)="per('2')" value="2" required /> Segundo Semestre</div>
+					<div><input #vis type="radio" id="vis"  name="vis" (change)="per('V')"value="V" required /> Verano</div>
+			
+</div>
+		
+
+	<button type="button" class="btn but btn-primary" (click)="formVisibility = false">
+	Cancelar
+	</button>
+	<button type="button" class="btn but btn-primary"
+	 mat-button
+	  type="submit"
+   [disabled]="f.invalid"
+                  >
+	Inicializar Semestre
+	</button>
+
+
+
+</form>
+
+
+</div>
+	</div>
+</div>
+</div>
+
+
+
+<div *ngIf="formVisibility3" class="text-white" >
+	Estudiantes: 
+	<div class="left">
+	<p class= "bus"> <img class="img" src="assets/buscar.png"><input type="text" name="test"  ngModel [(ngModel)]="test"> </p>
+</div>
+	<div class="row">
+ <p  class="text-white" *ngFor="let carnet of carnets| filter:test" ><input type="checkbox" (change)="onCheckboxChangegroup(carnet.carnet,$event)" ngModel  name="carnet" [value]='carnet.carnet' class="inputred"  required /> {{carnet.carnet}}</p>
+</div>
+	
+	<div class="text-center">
+    <button type="button"  (click)="addEstudiantes()" class="btn btn-primary text-center">Agregar estudiantes</button>
+    <button type="button"  (click)="formVisibility3 = false" class="btn butt btn-primary">Cancelar</button>
+</div>
+
+</div>
+<div class="text-white">
+
+
+</div>

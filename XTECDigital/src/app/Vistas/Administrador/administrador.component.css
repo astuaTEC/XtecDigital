@@ -1,0 +1,31 @@
+.mat-tab-label {
+    width: 50% !important;
+    padding: 5px;
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+    width: 50% !important;
+    padding: 5px;
+    background-color: white;
+
+    color: black;
+    font-weight: 700;
+}
+
+/* Styles for the ink bar */
+.mat-ink-bar {
+    background-color: blue;
+    height: 15px
+}
+.mat-tab-group{
+    background-size: cover;
+    margin-top: -5px;
+    min-height: 100vh;
+    width: 100%;
+
+}

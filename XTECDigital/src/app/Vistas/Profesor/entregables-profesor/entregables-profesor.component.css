@@ -1,0 +1,65 @@
+.entregables{
+    padding-top: 60px;
+}
+
+.cabecera1{
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 25px;
+
+}
+
+.titulo{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.cuerpoEntregable{
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 10px;
+    border: 2px solid black;
+    border-radius: 10px; 
+}
+
+.observaciones{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.retroalimentación{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.calificacion-area{
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.calificacion{
+    color: yellow;
+    font-size: 20px;
+}
+
+textarea {
+    resize: none;
+  }
+
+.input{
+    border-radius: 20px; 
+    text-align: center;
+}
+
+.boton-ver{
+    border-radius: 15px;  
+}
+
+.boton-calificar{
+    padding-top: 20px;
+    padding-bottom: 40px; 
+}
+
+.archivo{
+    padding-top: 20px;
+}

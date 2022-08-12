@@ -1,0 +1,64 @@
+<div class="container-fluid principal">
+    <div class="row titulo">
+        <div class="col-2 align-self-center text-start">
+            <h2><strong>{{nombreRubro}}</strong></h2>
+        </div>
+        <div class="col-8 align-self-center text-center">
+            <h2><strong>{{porcentajeRubro}} %</strong></h2>
+        </div>
+        <div class="col-1 align-self-center text-center">
+            <input type="image" src="https://img.icons8.com/color/48/000000/new-by-copy.png" (click)="nuevaEvaluacion()"/>
+        </div>
+        <div class="col-1 align-self-center text-center">
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/close-window.png"  (click)="cerrar()"/>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 align-self-center carta" *ngFor="let evaluacion of listaEvaluaciones">
+            <div class="card bg-light ">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-7 align-self-center text-start">
+                            <h3><strong>{{evaluacion.nombre}}</strong></h3>
+                        </div>
+                        <div class="col-4 align-self-center text-center">
+                          <button type="button" class="btn btn-success" (click)="calificarEntregables(evaluacion)">Entregables</button>
+                      </div>
+                        <div class="col-1 align-self-center text-center">
+                            <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarEvaluacion(evaluacion.nombre)"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                      <div class="col-12 align-self-center text-center">
+                        <h4><strong>valor</strong></h4>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 align-self-center text-center">
+                      <h5 class="card-title">{{evaluacion.porcentaje}} %</h5>
+                    </div>
+                  </div>
+                  <div class="row cFechaHora">
+                    <div class="col-12 align-self-center text-center">
+                      <h4><strong>Fecha y hora máxima de entrega</strong></h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 align-self-center text-center">
+                      <h5 class="card-title">{{evaluacion.fechaHoraEntrega}}</h5>
+                    </div>
+                  </div>
+                  <div class="row cParticipacion">
+                    <div class="col-12 align-self-center text-center">
+                        <h5 class="card-title">{{evaluacion.participacion}}</h5>
+                    </div>
+                  </div>
+                  
+
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

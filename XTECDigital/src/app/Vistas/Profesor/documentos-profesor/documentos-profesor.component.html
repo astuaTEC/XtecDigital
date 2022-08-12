@@ -1,0 +1,32 @@
+<div class="container-fluid grupo">
+    <form #loginForm="ngForm" novalidate>
+    <div class="row nuevaCarpeta">
+        <div class="col-1 align-self-center" >
+            <input type="image" src="https://img.icons8.com/color/48/000000/add-folder.png" (click)="activarNC()"/>
+        </div>
+        <div class="col-2 align-self-center" *ngIf="nuevaCarpetaActivado">
+            <input type="text" class="form-control input" name="nueva" id="nombreNuevaCarpeta"  placeholder="Nombre de la carpeta" [(ngModel)]="nuevaCarpeta">
+        </div>
+        <div class="col-1 align-self-center"  *ngIf="nuevaCarpetaActivado">
+            <button type="button" class="btn btn-success input" (click)="agregarNuevaCarpeta()">agregar</button>
+        </div>
+    </div>
+</form>
+    <div class="row">
+        <div class="col-12">
+            <div class="list-group">
+                <div class="row carpeta" *ngFor="let carpeta of listaCarpetas">
+                    <div class="col-1 align-self-center" (click)="gotoArchivos(carpeta.nombre)">
+                        <img src="https://img.icons8.com/color/48/000000/opened-folder.png"/>
+                    </div>
+                    <div class="col-10 align-self-center" (click)="gotoArchivos(carpeta.nombre)">
+                     {{carpeta.nombre}}
+                    </div>
+                    <div class="col-1 align-self-center textoFinal" *ngIf="!carpeta.protegida" >
+                        <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarCarpeta(carpeta)"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
