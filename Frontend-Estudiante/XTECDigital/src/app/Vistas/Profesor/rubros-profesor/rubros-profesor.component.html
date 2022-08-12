@@ -1,0 +1,51 @@
+<div class="container-fluid rubrosContenedor">
+    <form #controlesForm="ngForm" novalidate>
+    <div class="row controles">
+        <div class="col-1 align-self-center" >
+            <input type="image" src="https://img.icons8.com/ios-filled/50/000000/add-property.png" (click)="activarNuevoRubro()"/>
+        </div>
+        <div class="col-2 align-self-center" *ngIf="nuevoRubroActivado">
+            <input type="text" class="form-control input" name="nueva" id="nombreNuevaCarpeta"  placeholder="Nuevo Rubro" [(ngModel)]="nuevoRubro">
+        </div>
+        <div class="col-7 align-self-center" *ngIf="nuevoRubroActivado">
+            <button type="button" class="btn btn-success input" (click)="agregarNuevoRubro()">agregar</button>
+        </div>
+        <div class="col-2 align-self-center" *ngIf="!sumaCorrecta">
+            <img src="https://img.icons8.com/plasticine/50/000000/error.png"/>
+        </div>
+    </div>
+    </form>
+    <form #rubrosForm="ngForm" novalidate>
+    <div class="row justify-content-center tarjetaContenedor" *ngFor="let rubro of listaRubros">
+        <div class="col-6">
+        <div class="card  tarjeta">
+            <div class="card-header cabecera">
+                <div class="row">
+                    <div class="col-11 align-self-center">
+                        {{rubro.nombre}}
+                    </div>
+                    <div class="col-1 align-self-center" >
+                        <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png" (click)="eliminarRubro(rubro)"/>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body cuerpo text-center">
+                <h1>{{rubro.porcentaje}} %</h1>
+            </div>
+            <div class="card-footer pie text-center">
+                <div class="row justify-content-center">
+                    <div class="col-12" (click)="verificarSumaPorcentajes()">
+                        <input class="form-control" type="range" [id]="rubro.nombre" [name]="rubro.nombre" min="0" max="100" [(ngModel)]="rubro.porcentaje">
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </form>
+    <div class="row justify-content-center botonGuardar" *ngIf="listaRubros.length > 0">
+        <div class="col-6">
+            <button type="button" class="btn btn-success btn-block input">guardar</button>
+        </div>
+    </div>
+</div>

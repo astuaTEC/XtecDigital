@@ -1,0 +1,80 @@
+<div class="container-fluid principal">
+    <div class="row titulo">
+        <div class="col-2 align-self-center text-start">
+            <h2><strong>Quices</strong></h2>
+        </div>
+        <div class="col-8 align-self-center text-start">
+            <h2><strong>30 %</strong></h2>
+        </div>
+        <div class="col-1 align-self-center text-center">
+            <input type="image" src="https://img.icons8.com/color/48/000000/new-by-copy.png" (click)="nuevaEvaluacion()"/>
+        </div>
+        <div class="col-1 align-self-center text-center">
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/close-window.png"  (click)="cerrar()"/>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-10 align-self-center carta" *ngFor="let e of [1,2,3,4]">
+            <div class="card bg-light ">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-10 align-self-center text-start">
+                            <h3><strong>Quiz 1</strong></h3>
+                        </div>
+                        <div class="col-1 align-self-center text-center">
+                          <input type="image" src="https://img.icons8.com/fluent/48/000000/check-all.png" (click)="calificarEntregables()"/>
+                      </div>
+                        <div class="col-1 align-self-center text-center">
+                            <input type="image" src="https://img.icons8.com/material-two-tone/24/000000/trash.png"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                      <div class="col-12 align-self-center text-center">
+                        <h5 class="card-title">Valor</h5>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 align-self-center text-center">
+                      <h5 class="card-title">15 %</h5>
+                    </div>
+                  </div>
+                  <div class="row cFechaHora">
+                    <div class="col-6 align-self-center text-center">
+                      <h5 class="card-title">Fecha de entrega máxima</h5>
+                    </div>
+                    <div class="col-6 align-self-center text-center">
+                        <h5 class="card-title">Hora de entrega máxima</h5>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6 align-self-center text-center">
+                       20-12-2020
+                    </div>
+                    <div class="col-6 align-self-center text-center">
+                        19:00
+                     </div>
+                  </div>
+                  <div class="row cDocumento">
+                    <div class="col-12 align-self-center text-center">
+                        <h5 class="card-title">Documento de especificación</h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 align-self-center text-center">
+                        <input type="image" src="https://img.icons8.com/color/48/000000/pdf-2.png"/>
+                    </div>
+                  </div>
+                  <div class="row cParticipacion">
+                    <div class="col-12 align-self-center text-center">
+                        <h5 class="card-title">Individual</h5>
+                    </div>
+                  </div>
+                  
+
+                </div>
+              </div>
+        </div>
+    </div>
+</div>

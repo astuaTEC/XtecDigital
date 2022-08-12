@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="row back" >
+        <input type="image" src="https://img.icons8.com/fluent/48/000000/close-window.png" (click)="gotoInicioSesion()"/>
+    </div>
+  </nav>
+<div class="container-fluid principal">
+    <div class="jumbotron textoCentrado">
+        <div class="container">
+          <h1 class="display-4">XTECDigital para profesores</h1>
+          <p class="lead">Visualiza tus cursos, organiza tus carpetas, asigna evaluaciones y envía noticias a tus grupos</p>
+        </div>
+    </div> 
+    <div class="row cursosTitulo">
+        <div class="col-12">
+            <h2>Cursos</h2>
+        </div>
+    </div>
+    <div class="row periodo" *ngFor="let periodo of [1,2,3,4,5,6,7,8]">
+        <div class="col-12">
+            <h3>Semestre 2 2020</h3>
+            <div class="list-group">
+                <a href="/ProfesorGrupo/Documentos" class="list-group-item list-group-item-action listaCursos">Bases de datos grupo 1</a>
+                <a href="/ProfesorGrupo/Documentos" class="list-group-item list-group-item-action listaCursos">Circuitos Eléctricos grupo 2</a>
+                <a href="/ProfesorGrupo/Documentos" class="list-group-item list-group-item-action listaCursos">Cálculo diferencial e integral grupo 8</a>
+                <a href="/ProfesorGrupo/Documentos" class="list-group-item list-group-item-action listaCursos">Señales y sistemas grupo 6</a>
+                <a href="/ProfesorGrupo/Documentos" class="list-group-item list-group-item-action listaCursos">Proyecto final de graduación grupo 1</a>
+            </div>
+        </div>
+    </div> 
+</div>

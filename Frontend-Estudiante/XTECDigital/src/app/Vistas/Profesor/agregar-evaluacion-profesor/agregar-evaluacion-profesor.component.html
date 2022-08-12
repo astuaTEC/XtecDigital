@@ -1,0 +1,100 @@
+<div class="container-fluid nuevaEvaluacionContenedor">
+    <div class="row cabeceraTitulo">
+        <div class="col-11 align-self-center text-start">
+            Agregar nueva evaluacion
+        </div>
+        <div class="col-1 align-self-center text-center" >
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/close-window.png" (click)="cerrar()"/>
+        </div>
+    </div>
+    <div class="row justify-content-center nombreRubro">
+        <div class="col-6 align-self-center text-center">
+            <strong><h4>Rubro: {{nombreRubro}}</h4></strong> 
+        </div>
+    </div>
+        <div class="row justify-content-center nombreEvaluacion">
+            <div class="col-6 align-self-center text-center">
+                <input type="text" class="form-control input" id="nombreEvaluacion" placeholder="Nombre de la evaluacion" name="nombreEvaluacion" [(ngModel)]="evaluacion.nombre">
+            </div>
+        </div>
+        <div class="row porcentaje">
+            <div class="col-6 align-self-center text-center">
+                {{evaluacion.porcentaje}} %
+            </div>
+            <div class="col-6 align-self-center text-center">
+                <input class="form-control" type="range" id="porcentaje" name="porcentaje" min="0" [max]="porcentajeRubro" [(ngModel)]="evaluacion.porcentaje">
+            </div>
+        </div>
+        <div class="row cabeceraFechaHora">
+            <div class="col-6 align-self-center text-center">
+                <strong><h4>Fecha máxima de entrega</h4></strong> 
+            </div>
+            <div class="col-6 align-self-center text-center">
+                <strong><h4>Hora máxima de entrega</h4></strong> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6 align-self-center text-center">
+                <input class="form-control input" type="date" id="fecha" name="fecha" [(ngModel)]="evaluacion.fechaEntrega">
+            </div>
+            <div class="col-6 align-self-center text-center">
+                <input class="form-control input" type="time" id="hora" name="hora" [(ngModel)]="evaluacion.horaEntrega">
+            </div>
+        </div>
+        <div class="row especificacion">
+            <div class="col-6 align-self-center text-center">
+                <input type="file" id="file"  (change)="agregarNuevoArchivo($event.target.files)">
+            </div>
+        </div>
+        <form>
+            <div class="row participacion">
+                <div class="col-6 text-center">
+                    <input type="radio" id="individual1" name="participacion" value="individual" [(ngModel)]="evaluacion.participacion">
+                    <label for="individual"> Individual</label>
+                </div>
+                <div class="col-6 text-center">
+                    <input type="radio" id="grupal1" name="participacion" value="grupal" [(ngModel)]="evaluacion.participacion">
+                    <label for="grupal"> En grupos</label>
+                </div>
+            </div>
+        </form>
+
+        
+        <div class="container-fluid cuerpoParticipacion" *ngIf="evaluacion.participacion == 'grupal'">
+            <table class="table table-dark text-center">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Carné</th>
+                    <th>Grupo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let estudiante of evaluacion.grupos">
+                    <td>{{estudiante.nombre}}</td>
+                    <td>{{estudiante.primerApellido}}</td>
+                    <td>{{estudiante.segundoApellido}}</td>
+                    <td>{{estudiante.carnet}}</td>
+                    <td>
+                        <div class="row justify-content-center">
+                            <div class="col-4 align-self-center">
+                                <input type="number" placeholder="número" class="form-control input" [id]="estudiante.nombre" [name]="estudiante.nombre" [(ngModel)]="estudiante.grupo">
+                            </div>
+                        </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+
+
+
+
+        <div class="row boton justify-content-center">
+            <div class="col-4 align-self-center text-center">
+                <button type="button" class="btn btn-success btn-lg btn-block input" (click)="agregarEvaluacion()">Agregar</button>            </div>
+        </div>
+</div>
+

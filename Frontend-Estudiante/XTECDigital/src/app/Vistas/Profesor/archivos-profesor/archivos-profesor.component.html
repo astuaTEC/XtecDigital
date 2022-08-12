@@ -1,0 +1,49 @@
+<div class="container-fluid archivos">
+    <div class="row nuevoArchivo">
+        <div class="col-1 align-self-center" >
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/back.png" (click)="gotoDocumentos()"/>
+        </div>
+        <div class="col-1 align-self-center" >
+            <input type="image" src="https://img.icons8.com/fluent/48/000000/add-file.png" (click)="activarSeleccionarArchivo()"/>      
+        </div>
+        <div class="col-10 align-self-center" *ngIf="seleccionarArchivo">
+            <div class="form-group inputFont">
+                <input type="file" id="file" accept="application/pdf" (change)="agregarNuevoArchivo($event.target.files)">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="row cabecera">
+                <div class="col-5">
+                    Nombre
+                </div>
+                <div class="col-4">
+                    Fecha de modificación
+                </div>
+                <div class="col-3">
+                    Tamaño
+                </div>
+            </div>
+            <div class="list-group">
+                <div class="row archivo" *ngFor="let archivo of [1,2,3,4,5,6,7,8]" (click)="gotoVisor()">
+                    <div class="col-1 align-self-center">
+                        <img src="https://img.icons8.com/color/48/000000/pdf-2.png"/>                    </div>
+                    <div class="col-4 align-self-center">
+                        Documento.pdf
+                    </div>
+                    <div class="col-4 align-self-center">
+                        20-12-2020
+                    </div>
+                    <div class="col-2 align-self-center">
+                        99 KB
+                    </div>
+                    <div class="col-1 align-self-center textoFinal" >
+                        <input type="image" src="https://img.icons8.com/ultraviolet/40/000000/trash.png" (click)="eliminarArchivo(archivo)"/>      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
